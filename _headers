@@ -1,0 +1,18 @@
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(self), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()
+  Content-Security-Policy: frame-ancestors 'self'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests
+
+/*/staff
+  X-Robots-Tag: noindex, nofollow
+/*/staff/*
+  X-Robots-Tag: noindex, nofollow
+/*/brief
+  X-Robots-Tag: noindex, nofollow
+/*/first-day
+  X-Robots-Tag: noindex, nofollow
+/seo-checklist.md
+  X-Robots-Tag: noindex, nofollow

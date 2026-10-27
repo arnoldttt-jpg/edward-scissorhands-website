@@ -26,6 +26,7 @@ Issues found so far — recheck all of these at the very end, before/after launc
 - [ ] Deploy the full hosting folder to **ed-scissorhands-concept** (Deploys tab, not the Projects drop box). Then delete test sites dapper-cupcake-382401 and vocal-rabanadas-569813.
 
 ## Verify on the live site
+- [ ] **At launch: re-enable the netlify.app → main domain redirect** — remove the # from line 4 of hosting/_redirects (paused 28 Oct 2026 so the site can be previewed at ed-scissorhands-concept.netlify.app). *Failed if:* after launch, ed-scissorhands-concept.netlify.app still loads instead of redirecting.
 - [ ] **Real 404s** (Oct 2026) — _redirects now lists every page; unknown addresses get hosting/404.html with a true 404 status instead of the home page. Open /st-kilda/servicez and /blah: 404 page shows; open all sitemap pages: they still load. *Failed if:* any real page shows the 404, or Search Console reports "Soft 404". If a new page is added to the site, add it to _redirects too.
 - [ ] **www / netlify.app → main domain** (301s added to _redirects, Oct 2026). In Netlify → Domain management, add www as alias and turn on HTTPS (Let's Encrypt). *Failed if:* http://www… or ed-scissorhands-concept.netlify.app doesn't land on https://edwardscissorhandsbarber.com.au.
 - [ ] **Per-page meta descriptions + og:title/og:url** (added Oct 2026). Check 3 pages in URL Inspection → View crawled page. *Failed if:* Search Console "Duplicate meta descriptions" or Google shows the home description for /st-kilda/services.
@@ -46,6 +47,12 @@ Issues found so far — recheck all of these at the very end, before/after launc
 - [ ] **index.html is 7.7 MB** (images bundled inside it). Likely to fail the LCP target on mobile. *Failed if:* PageSpeed mobile LCP > 2.5s — fix by serving images from /images instead of bundling them.
 - [ ] Site is still one file that builds pages in the browser. Pre-built pages per shop and suburb would index faster and more reliably.
 
+## Security (audit 23 Oct 2026)
+- [ ] **Staff Hub is not private.** The PIN and all Hub pages ship inside the public index.html — anyone can read them via View Source. Keep anything confidential (pay rates, staff phone numbers, home addresses) off the Hub, or move it behind real login (Netlify password protection on Pro, or Cloudflare Access free ≤50 users). *Failed if:* searching View Source on the live site for a confidential phrase finds it.
+- [ ] **_headers added** (HSTS, nosniff, frame protection, referrer + permissions policy, server-side noindex on staff/brief/first-day). Upload with the hosting folder. *Failed if:* securityheaders.com < A, or the map/Instagram/geolocation stop working.
+- [ ] PIN now locks for 60s after 5 wrong tries; feedback fields length-capped; Instagram feed links restricted to https/instagram.com. Re-export index.html so they go live.
+- [ ] Netlify account: turn on 2-factor login; same for the domain registrar and Google Business Profile. *Failed if:* any of these accounts can log in with password alone.
+
 ## Parked
 - Open-text Q&A (approved copy) saved in archive/QandA section -Oct 2026-.html — re-add only if asked.
 - Acknowledgement of Country removed from footer at your request.
@@ -55,3 +62,18 @@ Issues found so far — recheck all of these at the very end, before/after launc
 ## Rendering check (12 Oct 2026)
 - [ ] **hosting/index.html is out of date** — exported before the fade pages and First Day guide were added. Re-export before upload. *Failed if:* /st-kilda/fade-haircut shows the home page or 404 on the live site.
 - [ ] **Bing Webmaster Tools** — import from Search Console and submit the sitemap (Bing feeds ChatGPT search and Copilot). *Failed if:* Bing shows 0 indexed pages after 4 weeks.
+
+## Final review advice (raise when user asks for tips)
+- [ ] **Products page blur reveal** — prodReveal uses filter: blur(8px) on cards; may stutter on low-end phones. Suggest dropping blur on mobile only. *Failed if:* PageSpeed mobile shows long animation frames / INP > 200ms on /st-kilda/products.
+
+## Journal (added 24 Oct 2026)
+- [ ] **3 St Kilda articles live** at /st-kilda/blog/… (skin fade vs zero fade, thirty years on Carlisle St, how often to get a haircut). Added to _redirects + sitemap. Re-export index.html. *Failed if:* an article URL shows the home page or 404, or Search Console says "Duplicate without user-selected canonical".
+- [x] Thirty years article facts confirmed (1991, kids-now-parents line, Fresha 2024–26). Byline set to "By the Edward Scissorhands team".
+- [ ] **3 South Melbourne articles live** at /south-melbourne/blog/…, in _redirects + sitemap. 2015 confirmed; client-pattern claims removed. *Failed if:* an article URL 404s or shows the home page.
+- [ ] **South Melbourne moving to bookings (Nov 2026), walk-ins subject to availability.** Journal article + CTA already updated. Check every "walk in" / "walk-ins welcome" mention for SM (hero strip, suburb pages, journal CTA, schema) once the change happens. *Failed if:* the site still promises SM walk-ins after the switch.
+
+## Reminders (do later)
+- [ ] **24 Mar 2027 — "Types of employment" section** (Staff Hub → Employment & pay, section 02) is hidden, not deleted. Turn back on in Tweaks → Staff Hub → "Show 'Types of employment'". Decide: restore, update or delete.
+- [ ] **Make remaining text directly editable** — FAQ answers (home + FAQ page), fade haircut page, products page brand blurbs, brief page. (Services page, Staff Hub policy pages and First Day guide already done.) These are currently generated from data in the code, so they can't be edited by clicking; convert them to plain page text. *Failed if:* clicking the text in edit mode doesn't let you type.
+
+- [ ] Fade page "Which fade suits your head shape?" section (added 26 Oct 2026, both shops, differently worded; links to/from the face-shape article). Failure check after 6–8 weeks: Search Console shows no new impressions for queries like "fade for round face" / "fade for flat head", or near-zero clicks from the fade page to the face-shape article → rework or trim.

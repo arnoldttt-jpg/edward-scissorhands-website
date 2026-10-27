@@ -1,6 +1,7 @@
 https://www.edwardscissorhandsbarber.com.au/*  https://edwardscissorhandsbarber.com.au/:splat  301!
 http://www.edwardscissorhandsbarber.com.au/*   https://edwardscissorhandsbarber.com.au/:splat  301!
-https://ed-scissorhands-concept.netlify.app/*  https://edwardscissorhandsbarber.com.au/:splat  301!
+# PAUSED until domain is connected — remove the # at launch:
+# https://ed-scissorhands-concept.netlify.app/*  https://edwardscissorhandsbarber.com.au/:splat  301!
 /:a/images/*        /images/:splat  200
 /:a/:b/images/*     /images/:splat  200
 /:a/:b/:c/images/*  /images/:splat  200
@@ -14,6 +15,10 @@ https://ed-scissorhands-concept.netlify.app/*  https://edwardscissorhandsbarber.
 /st-kilda/faq                      /index.html  200
 /st-kilda/gallery                  /index.html  200
 /st-kilda/blog                     /index.html  200
+/st-kilda/blog/skin-fade-vs-zero-fade               /index.html  200
+/st-kilda/blog/thirty-years-on-carlisle-street      /index.html  200
+/st-kilda/blog/how-often-should-you-get-a-haircut   /index.html  200
+/st-kilda/blog/walk-ins-vs-bookings-barber-shop     /index.html  200
 /st-kilda/contact                  /index.html  200
 /st-kilda/careers                  /index.html  200
 /st-kilda/products                 /index.html  200
@@ -24,6 +29,10 @@ https://ed-scissorhands-concept.netlify.app/*  https://edwardscissorhandsbarber.
 /south-melbourne/faq               /index.html  200
 /south-melbourne/gallery           /index.html  200
 /south-melbourne/blog              /index.html  200
+/south-melbourne/blog/walk-ins-vs-bookings-barber-shop         /index.html  200
+/south-melbourne/blog/clarendon-centre-barber-south-melbourne  /index.html  200
+/south-melbourne/blog/keep-your-fade-sharp-between-visits      /index.html  200
+/south-melbourne/blog/haircut-for-your-face-shape              /index.html  200
 /south-melbourne/contact           /index.html  200
 /south-melbourne/careers           /index.html  200
 /south-melbourne/products          /index.html  200
