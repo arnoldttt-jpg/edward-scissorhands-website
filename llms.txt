@@ -1,6 +1,6 @@
 # Edward Scissorhands Barber Shop
 
-> Melbourne barber shop established in 1991, with two shops: St Kilda (190 Carlisle St) and South Melbourne (Clarendon Centre, 261 Clarendon St). Men's and boys' haircuts, fades, scissor cuts, beard trims and hot-towel shaves. Open 7 days. Walk-ins welcome; bookings are seen first.
+> Melbourne barber shop established in 1991, with two shops: St Kilda (190 Carlisle St) and South Melbourne (Clarendon Centre, Shop 11, 261 Clarendon St). Men's and boys' haircuts, fades, scissor cuts, beard trims and hot-towel shaves. Open 7 days. Walk-ins welcome; bookings are seen first.
 
 Website: https://edwardscissorhandsbarber.com.au/
 Email: info@scissorhands.com.au
@@ -26,7 +26,7 @@ Email: info@scissorhands.com.au
 
 ## South Melbourne shop
 - Business: Barber Brothers Pty Ltd T/A Edward Scissorhands, ABN 33 708 458 049
-- Address: Clarendon Centre, 261 Clarendon St, South Melbourne VIC 3205 (opposite Coles)
+- Address: Clarendon Centre, Shop 11, 261 Clarendon St, South Melbourne VIC 3205 (opposite Coles)
 - Phone: (03) 9690 1604
 - Hours: Mon–Fri 9am–7pm, Sat–Sun 9am–5pm
 - Serves: South Melbourne, Albert Park, Middle Park, Port Melbourne, Southbank
