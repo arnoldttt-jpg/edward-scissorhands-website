@@ -1980,6 +1980,10 @@ img.iadj-on{cursor:grab;touch-action:none;outline:1px dashed rgba(216,178,74,.75
  .top .mark span{display:none}
 }
 @media (max-width:420px){.top .mark b{font-size:13px;letter-spacing:.14em}.top .book-top{padding:0 13px;font-size:12px}}
+
+/* animated titles: the grain fill lives on each word, so the word's fade + blur actually shows (no snap) */
+h2.s.rv-h,.phead h1.rv-h,.close h2.rv-h{background:none!important;-webkit-text-fill-color:currentColor}
+h2.s.rv-h .wd,.phead h1.rv-h .wd{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .26 0 0 0 0 .23 0 0 0 0 .18 0 0 0 .8 -.08'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/120px 120px repeat,linear-gradient(180deg,#f4f1ea 0%,#f2f0eb 45%,rgba(242,240,235,.45) 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent;padding-bottom:.05em}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
