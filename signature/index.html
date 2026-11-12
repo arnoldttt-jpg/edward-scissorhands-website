@@ -1654,6 +1654,25 @@ html.pg-zoom #main,html.pg-zoom .top{animation:pgZoom 1s cubic-bezier(.16,1,.3,1
  .k-grin .k-gc{font-size:11px;letter-spacing:.04em;color:rgba(242,240,235,.55);justify-self:start}
 }
 
+/* phones: street address sits in the photo, under the suburb name */
+@media (max-width:860px){
+ .k-name{top:calc(45.45cqw - 58px)!important}
+ .k-where{position:absolute!important;left:16px;right:16px;top:calc(45.45cqw - 19px);z-index:2;margin:0!important;font-size:13px!important;letter-spacing:.02em;color:rgba(242,240,235,.88)!important;filter:drop-shadow(0 1px 6px rgba(0,0,0,.7));pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .k-where .k-rc{display:none}
+ .k-body{min-height:0}
+}
+@media (max-width:860px){
+ .k-body{display:flex!important;flex-wrap:wrap;align-items:center;gap:10px!important}
+ .k-acts{order:1!important;flex:0 1 auto!important;margin-top:0!important}
+ .k-gr{order:2!important;margin-left:auto!important}
+}
+@media (max-width:860px){
+ .k-gr{position:absolute!important;right:22px;top:calc(45.45cqw - 38px);z-index:2;margin:0!important;filter:drop-shadow(0 1px 8px rgba(0,0,0,.75))}
+ .k-grin .k-gc{color:rgba(242,240,235,.8)}
+ .k-acts{flex:1 1 100%!important}
+}
+@media (max-width:860px){ .k-gr{top:22px!important;right:22px} }
+
 
 /* feature photo: slow crossfade between the shop's in-chair shots */
 .split figure.rot{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:var(--r)}
