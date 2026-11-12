@@ -2183,6 +2183,32 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 .cr-op a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(216,178,74,.5);color:var(--gold);transition:background .6s ease,border-color .6s ease,color .6s ease}
 .cr-op a svg{width:17px;height:17px}
 .cr-op a:hover,.cr-op a:focus-visible{background:rgba(216,178,74,.14);border-color:rgba(243,215,126,.9);color:#f3d77e;transition-duration:.25s}
+
+/* careers form: contact row, photo picker, thanks panel */
+.cr-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:480px){.cr-2{grid-template-columns:1fr}}
+.cr-hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
+.cr-bad{border-color:rgba(230,120,100,.8)!important;box-shadow:0 0 0 3px rgba(230,120,100,.15)!important}
+.cr-ph-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cr-add,.cr-thumb{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden}
+.cr-add{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px dashed rgba(216,178,74,.45);color:var(--gold);cursor:pointer;transition:background .3s,border-color .3s}
+.cr-add:hover{background:rgba(216,178,74,.08);border-color:rgba(243,215,126,.8)}
+.cr-add input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.cr-add svg{width:22px;height:22px}.cr-add b{font-family:var(--cond);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.cr-add[hidden]{display:none}
+.cr-thumb{padding:0;border:1px solid rgba(255,255,255,.14);background:none;cursor:pointer}
+.cr-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.cr-thumb i{position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.7);color:#fff;font-style:normal;font-size:15px;line-height:22px;text-align:center}
+#crMsg a{color:var(--gold)}
+.cr-send .pill[disabled]{opacity:.7;cursor:wait}
+.cr-done{padding:clamp(28px,4vw,48px);border:1px solid rgba(216,178,74,.35);border-radius:var(--r);background:linear-gradient(160deg,rgba(216,178,74,.08),rgba(0,0,0,.25) 60%);text-align:center}
+.cr-tick{width:56px;height:56px;margin:0 auto 18px;border-radius:50%;border:1px solid rgba(216,178,74,.6);display:flex;align-items:center;justify-content:center;color:var(--gold)}
+.cr-tick svg{width:26px;height:26px}
+.cr-done h3{font-family:var(--head);font-weight:400;font-size:clamp(28px,3vw,40px);text-transform:uppercase;margin:0 0 10px;color:var(--white)}
+.cr-done p{margin:0 auto;color:var(--grey);max-width:40ch}
+
+/* reviews chair on phones: a touch smaller */
+@media (max-width:820px){.rev-chair{width:36vw!important;max-width:170px}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2545,30 +2571,56 @@ ${CR_SHOW_SYS ? crSys("crSys", "Less admin, more cutting.", "The shops run on pr
 
 <section class="sec wrap cr-apply" id="cr-apply" aria-labelledby="crApply">
   <div class="cr-ah"><h2 class="s" id="crApply">Apply in a minute.</h2>
-    <p class="sub">Fill this in and your email app opens with it ready to go. Attach a few photos of your work before you send.</p>
+    <p class="sub">A few details and some photos of your work. It goes straight to the owner.</p>
     <div class="cr-talk"><h3>Rather talk first?</h3><p>Call, WhatsApp or text the owner for a chat.</p>${crOwner()}</div></div>
   <form class="cr-form" id="crForm" novalidate>
-    <label class="cr-f"><span>Your name</span><input name="nm" autocomplete="name" placeholder="First and last name"></label>
+    <label class="cr-f"><span>Your name</span><input name="nm" autocomplete="name" placeholder="First and last name" required></label>
+    <div class="cr-2"><label class="cr-f"><span>Mobile</span><input name="ph" type="tel" autocomplete="tel" inputmode="tel" placeholder="04xx xxx xxx"></label>
+    <label class="cr-f"><span>Email</span><input name="em" type="email" autocomplete="email" placeholder="you@example.com"></label></div>
     <div class="cr-f"><span>Shop</span>${crSeg("sh", ["St Kilda","South Melbourne","Either"], S.name)}</div>
     <div class="cr-f"><span>Hours</span>${crSeg("hr", ["Full-time","Part-time","Casual"], "Full-time")}</div>
     <div class="cr-f"><span>Experience</span>${crSeg("ex", ["Under 2 years","2–5 years","5–10 years","10+ years"], "")}</div>
-    <label class="cr-f"><span>Instagram or photos of your work</span><input name="ig" placeholder="@yourhandle or a link"></label>
+    <label class="cr-f"><span>Instagram or a link to your work</span><input name="ig" placeholder="@yourhandle or a link"></label>
+    <div class="cr-f"><span>Photos of your work <em>up to 4</em></span>
+      <div class="cr-ph-grid" id="crPhotos"><label class="cr-add"><input type="file" accept="image/*" multiple id="crFiles"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><b>Add photos</b></label></div></div>
     <label class="cr-f"><span>A bit about you <em>optional</em></span><textarea name="ab" rows="3" placeholder="Where you've cut before, what you love doing, when you could start"></textarea></label>
-    <div class="cr-send"><button type="submit" class="pill fill">Open email</button><p>Nothing is sent until you press send in your email app.</p></div>
+    <input class="cr-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="cr-send"><button type="submit" class="pill fill">Send application</button><p id="crMsg" role="status">Goes straight to the owner.</p></div>
   </form>
+  <div class="cr-done" id="crDone" hidden><div class="cr-tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3>Thanks, we've got it.</h3><p>Your application is with the owner. If it's a fit, we'll be in touch by phone or email.</p></div>
 </section>` + vClose(S,D,"careers"); }
 document.addEventListener("click", e => { const a = e.target.closest("[data-cr-shop],[data-cr-jump]"); if (!a) return; e.preventDefault();
   const f = document.getElementById("crForm"); if (!f) return;
   if (a.dataset.crShop) { const r = f.querySelector(`input[name="sh"][value="${a.dataset.crShop}"]`); if (r) r.checked = true; }
   document.getElementById("cr-apply").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   setTimeout(() => f.querySelector('input[name="nm"]').focus({ preventScroll: true }), reduce ? 0 : 650); });
-document.addEventListener("submit", e => { if (e.target.id !== "crForm") return; e.preventDefault(); const f = e.target, v = n => (f.querySelector(`[name="${n}"]:checked`) || f.querySelector(`[name="${n}"]`) || {}).value || "";
-  const nm = v("nm").trim(), sh = v("sh"), hr = v("hr"), ex = f.querySelector('[name="ex"]:checked') ? v("ex") : "", ig = v("ig").trim(), ab = v("ab").trim();
-  const subj = `Barber application — ${hr}${sh && sh !== "Either" ? " — " + sh : ""}${nm ? " — " + nm : ""}`;
-  const body = [`Hi Edward Scissorhands team,`, ``, `I'd like to apply for a ${hr.toLowerCase()} chair${sh === "Either" ? " at either shop" : sh ? " at " + sh : ""}.`, ``,
-    nm && `Name: ${nm}`, ex && `Experience: ${ex}`, ig && `My work: ${ig}`, ab && ``, ab, ``, `I've attached a few photos of my work.`, ``, `Thanks,`, nm || ""].filter(x => x !== false && x !== undefined && x !== null).join("\n");
-  const a = document.createElement("a"); a.href = `mailto:${CR_MAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`; document.body.appendChild(a); a.click(); a.remove();
-  const b = f.querySelector('button[type="submit"]'); b.textContent = "Email opened"; setTimeout(() => b.textContent = "Open email", 2400); });
+const SITE_SUBMIT = "https://hwelzuskhputvtkvciuh.supabase.co/functions/v1/site-submit";
+async function siteSubmit(payload){ const r = await fetch(SITE_SUBMIT, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...payload, source: location.host + location.pathname + location.hash }) });
+  let j = {}; try { j = await r.json(); } catch(_) {} if (!r.ok || !j.ok) { const e = new Error(j.error || "Network problem"); e.user = !!j.error && r.status < 500; throw e; } return j; }
+/* careers photos: shrink on the phone before upload so sending stays quick */
+let crFiles = [];
+function crShrink(file){ return new Promise((res, rej) => { const url = URL.createObjectURL(file), im = new Image();
+  im.onload = () => { const m = 1600, k = Math.min(1, m / Math.max(im.naturalWidth, im.naturalHeight)), c = document.createElement("canvas"); c.width = Math.round(im.naturalWidth * k); c.height = Math.round(im.naturalHeight * k);
+    c.getContext("2d").drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(url); res(c.toDataURL("image/jpeg", .82)); };
+  im.onerror = () => { URL.revokeObjectURL(url); rej(new Error("That photo couldn't be read. Try a JPG or PNG.")); }; im.src = url; }); }
+function crPaint(){ const g = document.getElementById("crPhotos"); if (!g) return; g.querySelectorAll(".cr-thumb").forEach(n => n.remove()); const add = g.querySelector(".cr-add");
+  crFiles.forEach((d, i) => { const t = document.createElement("button"); t.type = "button"; t.className = "cr-thumb"; t.setAttribute("aria-label", "Remove photo " + (i + 1)); t.innerHTML = `<img src="${d}" alt=""><i aria-hidden="true">×</i>`; t.onclick = () => { crFiles.splice(i, 1); crPaint(); }; g.insertBefore(t, add); });
+  add.hidden = crFiles.length >= 4; }
+document.addEventListener("change", async e => { if (e.target.id !== "crFiles") return; const msg = document.getElementById("crMsg");
+  for (const f of [...e.target.files].slice(0, 4 - crFiles.length)) { try { crFiles.push(await crShrink(f)); } catch(err) { msg.textContent = err.message; } }
+  e.target.value = ""; crPaint(); });
+document.addEventListener("submit", async e => { if (e.target.id !== "crForm") return; e.preventDefault(); const f = e.target, msg = document.getElementById("crMsg"), btn = f.querySelector('button[type="submit"]');
+  const v = n => ((f.querySelector(`[name="${n}"]:checked`) || f.querySelector(`[name="${n}"]:not([type=radio])`) || {}).value || "").trim();
+  const nm = v("nm"), ph = v("ph"), em = v("em");
+  f.querySelectorAll(".cr-bad").forEach(x => x.classList.remove("cr-bad"));
+  if (!nm) { f.querySelector('[name="nm"]').classList.add("cr-bad"); f.querySelector('[name="nm"]').focus(); msg.textContent = "Add your name so we know who's applying."; return; }
+  if (!ph && !em) { f.querySelector('[name="ph"]').classList.add("cr-bad"); f.querySelector('[name="ph"]').focus(); msg.textContent = "Add a mobile or email so we can reach you."; return; }
+  btn.disabled = true; btn.textContent = "Sending…"; msg.textContent = crFiles.length ? "Uploading your photos…" : "";
+  try { await siteSubmit({ kind: "application", name: nm, phone: ph, email: em, shop: v("sh"), hours: v("hr"), experience: v("ex"), work_link: v("ig"), about: v("ab"), website: v("website"),
+      photos: crFiles.map(d => ({ type: "image/jpeg", data: d.split(",")[1] })) });
+    f.hidden = true; const d = document.getElementById("crDone"); d.hidden = false; d.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }); crFiles = [];
+  } catch(err) { btn.disabled = false; btn.textContent = "Send application";
+    msg.innerHTML = err.user ? esc(err.message) : `That didn't go through. Try again, or <a href="mailto:${CR_MAIL}?subject=${encodeURIComponent("Barber application — " + nm)}">email us instead</a>.`; } });
 
 /* careers kit: tools drift in when the section arrives */
 function wireCrKit(){ const k = document.querySelector(".cr-kit"); if (!k || k.dataset.w) return; k.dataset.w = 1; if (reduce || !("IntersectionObserver" in window)) { k.classList.add("in"); return; }
@@ -3262,9 +3314,16 @@ $$("#rvm .rvm-stars button").forEach(b => {
     const good = rvN >= 4; $("#rvGood").hidden = !good; $("#rvLow").hidden = good;
     $("#rvT").textContent = good ? (rvN === 5 ? "Thanks! We'd love to hear from you on Google." : "Thanks for the feedback! We'd love to hear from you on Google.") : "Thanks for letting us know."; }; });
 $("#rvm .rvm-stars").onmouseleave = () => paintStars(rvN);
-$("#fbSend").onclick = () => { const body = `${rvN ? `Rating: ${rvN}/5\n` : ""}Shop: ${SHOPS[shop].name}\n\n${$("#fbText").value}\n\nName: ${$("#fbName").value}\nContact: ${$("#fbContact").value}`;
-  { const h = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Feedback from the website · " + SHOPS[shop].name) + "&body=" + encodeURIComponent(body); let w = null; try { w = window.open(h, "_blank"); } catch(_) {} if (!w) { const x = document.createElement("a"); x.href = h; x.target = "_top"; document.body.appendChild(x); x.click(); x.remove(); } }
-  $("#rvT").textContent = "Thank you."; $("#rvLow").hidden = true; };
+$("#fbSend").onclick = async () => { const btn = $("#fbSend"), text = $("#fbText").value.trim();
+  if (!text) { $("#fbText").focus(); $("#fbText").classList.add("cr-bad"); return; } $("#fbText").classList.remove("cr-bad");
+  const body = `${rvN ? `Rating: ${rvN}/5\n` : ""}Shop: ${SHOPS[shop].name}\n\n${text}\n\nName: ${$("#fbName").value}\nContact: ${$("#fbContact").value}`;
+  btn.disabled = true; btn.textContent = "Sending…";
+  try { await siteSubmit({ kind: "feedback", shop: SHOPS[shop].name, rating: rvN || null, message: text, name: $("#fbName").value, contact: $("#fbContact").value });
+    $("#rvT").textContent = "Thank you. Your message is with the owner."; $("#rvLow").hidden = true;
+  } catch(_) { /* no connection: fall back to the visitor's email app so the message isn't lost */
+    const h = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Feedback from the website · " + SHOPS[shop].name) + "&body=" + encodeURIComponent(body); let w = null; try { w = window.open(h, "_blank"); } catch(_) {} if (!w) { const x = document.createElement("a"); x.href = h; x.target = "_top"; document.body.appendChild(x); x.click(); x.remove(); }
+    $("#rvT").textContent = "Thank you."; $("#rvLow").hidden = true; }
+  btn.disabled = false; btn.textContent = "Send feedback"; };
 
 
 /* Manager feedback: opens the feedback form straight away (no rating step), with a call option */
