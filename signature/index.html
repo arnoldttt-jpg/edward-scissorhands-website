@@ -3312,6 +3312,8 @@ function gateExit(g, picked, done){
     const d = { left: cx, right: W - cx, top: cy, bottom: H - cy };
     let edge = Object.keys(d).reduce((a, b) => d[a] <= d[b] ? a : b);
     if (el.classList.contains("k-card") && W > 860) edge = cx < W / 2 ? "left" : "right";
+    /* phones: the top half lifts away, the lower half drops away, and the razor hand exits to the right */
+    if (W <= 860) edge = el.classList.contains("k-armwrap") ? "right" : (cy < H / 2 ? "top" : "bottom");
     const pad = 60, tx = edge === "left" ? -(r.right + pad) : edge === "right" ? (W - r.left + pad) : 0, ty = edge === "top" ? -(r.bottom + pad) : edge === "bottom" ? (H - r.top + pad) : 0;
     const delay = el === picked ? 110 : el.classList.contains("k-card") ? 0 : 40;
     el.style.animation = "none"; el.style.opacity = getComputedStyle(el).opacity;
