@@ -1640,6 +1640,11 @@ html.pg-zoom #main,html.pg-zoom .top{animation:pgZoom 1s cubic-bezier(.16,1,.3,1
  .k-card .k-body{padding-inline:6px}
 }
 
+/* phones: razor hand at the bottom of the chooser */
+@media (max-width:860px){
+ .k-armwrap.k-arm-bottom{display:block!important;width:min(300px,70vw)!important;max-width:none!important;margin:26px calc(-1 * var(--pad)) 0 auto!important}
+}
+
 
 /* feature photo: slow crossfade between the shop's in-chair shots */
 .split figure.rot{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:var(--r)}
@@ -3284,7 +3289,12 @@ function wireGate2(g){
   g.addEventListener("keydown", e => { if (e.key === "Escape") location.hash = "#" + shop; });
 }
 let gateOpen = false, gateOpenTitle = "";
-function openGate(){ const g = $("#gate"); if (!g) return; const v = location.hash === "#choose-1" ? "1" : "2"; if (!gateOpen || g.dataset.v !== v) { g.dataset.v = v; g.className = "v" + v; g.scrollTop = 0; if (v === "1") { g.innerHTML = gateHTML(); wireGate(g); } else { g.innerHTML = gateHTML2(); wireGate2(g); } }
+/* chooser on phones: the razor hand moves from under the title to the bottom, between the shops and the opening hours */
+function gateArmPlace(){ const g = document.getElementById("gate"); if (!g) return; const a = g.querySelector(".k-armwrap"), head = g.querySelector(".k-head"), wrap = g.querySelector(".k-wrap"); if (!a || !head || !wrap) return;
+  if (innerWidth <= 860) { if (a.parentElement !== wrap) { wrap.insertBefore(a, wrap.querySelector(".k-foot")); a.classList.add("k-arm-bottom"); } }
+  else if (a.parentElement !== head) { head.appendChild(a); a.classList.remove("k-arm-bottom"); } }
+addEventListener("resize", gateArmPlace);
+function openGate(){ const g = $("#gate"); if (!g) return; const v = location.hash === "#choose-1" ? "1" : "2"; if (!gateOpen || g.dataset.v !== v) { g.dataset.v = v; g.className = "v" + v; g.scrollTop = 0; if (v === "1") { g.innerHTML = gateHTML(); wireGate(g); } else { g.innerHTML = gateHTML2(); wireGate2(g); gateArmPlace(); } }
   gateOpen = true; g.hidden = false; g.classList.remove("going","leave"); document.documentElement.classList.add("gate-on"); document.documentElement.classList.toggle("gate-v2", g.dataset.v === "2"); if (typeof closeSheet === "function") try { closeSheet(); } catch(e) {}
   if (!gateOpenTitle) gateOpenTitle = document.title; document.title = "Edward Scissorhands Barber Shop · St Kilda & South Melbourne"; setTimeout(() => { const a = g.querySelector(".g-side"); a && a.focus({ preventScroll:true }); }, 60); }
 function closeGate(){ const g = $("#gate"); if (!g || !gateOpen) return; gateOpen = false; document.documentElement.classList.remove("gate-v2"); if (gateOpenTitle) { document.title = gateOpenTitle; gateOpenTitle = ""; } g.classList.add("leave"); document.documentElement.classList.remove("gate-on");
