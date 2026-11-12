@@ -2120,6 +2120,19 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 }
 @media (max-width:480px){.cr-seg span{padding:0 13px;font-size:14px;min-height:40px}.cr-ob{padding:0 14px 0 12px}}
 @media (prefers-reduced-motion:reduce){.cr-tag i{animation:none}}
+
+.cr-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.8vw,22px);margin-top:clamp(32px,4vw,52px)}
+.cr-t{border:1px solid var(--rule);border-radius:var(--r);padding:clamp(20px,2.4vw,28px);background:rgba(255,255,255,.025);display:flex;flex-direction:column;gap:10px}
+.cr-lg{height:30px;display:flex;align-items:center;gap:10px;margin-bottom:8px;color:var(--white)}
+.cr-lg img{height:100%;width:auto;max-width:150px;object-fit:contain}
+.cr-lg img.orb{height:40px;margin:-5px 0}
+.cr-lg img[alt="Xero Me"]{height:46px;margin:-8px 0}
+.cr-lg svg{width:26px;height:26px;color:var(--gold)}
+.cr-lg b{font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.12em;text-transform:uppercase}
+.cr-t h3{font-family:var(--head);font-weight:400;font-size:clamp(22px,1.9vw,27px);text-transform:uppercase;margin:0;color:var(--white);letter-spacing:.01em}
+.cr-t p{margin:0;color:var(--grey);font-size:15.5px}
+@media (max-width:900px){.cr-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.cr-tiles{grid-template-columns:1fr}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2427,6 +2440,19 @@ function vCareers(S,D){ const other = shop === "st-kilda" ? "south-melbourne" : 
   </ul>
 </section>
 
+<section class="sec wrap cr-sys" aria-labelledby="crSys">
+  <h2 class="s" id="crSys">Less admin, more cutting.</h2>
+  <p class="sub">The shops run on proper systems, so your time goes into the chair, not the front desk.</p>
+  <div class="cr-tiles">
+    <div class="cr-t"><div class="cr-lg"><img src="images/fresha-logo.webp" alt="Fresha" loading="lazy"></div><h3>Clients book ahead</h3><p>An appointment-run shop. Bookings, walk-ins and payments all sit on the shop iPad.</p></div>
+    <div class="cr-t"><div class="cr-lg"><img class="orb" src="images/fresha-ai-orb.webp" alt="" loading="lazy"><b>AI Concierge</b></div><h3>Fewer interruptions</h3><p>Fresha's AI assistant handles enquiries, bookings and changes, so you're not stopping mid-cut to answer the phone.</p></div>
+    <div class="cr-t"><div class="cr-lg"><img src="images/deputy-logo.svg" alt="Deputy" loading="lazy"></div><h3>Rosters by Thursday</h3><p>Shifts, hours and time-off requests in one app, with a heads-up by email, SMS and notification.</p></div>
+    <div class="cr-t"><div class="cr-lg"><img src="images/xero-me-logo.webp" alt="Xero Me" loading="lazy"></div><h3>Weekly payslips</h3><p>Check every payslip and your pay history any time in Xero Me.</p></div>
+    <div class="cr-t"><div class="cr-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b>Your dashboard</b></div><h3>Your numbers, your page</h3><p>A personal dashboard built for each barber: pay, tips, performance and updates in one place.</p></div>
+    <div class="cr-t"><div class="cr-lg"><img src="images/whatsapp-logo.webp" alt="" loading="lazy"><b>WhatsApp</b></div><h3>One team chat</h3><p>Shop groups and updates from management, so you're always in the loop.</p></div>
+  </div>
+</section>
+
 <figure class="cr-band"><img src="images/barber-shop-floor-edward-scissorhands.webp" alt="The shop floor at Edward Scissorhands, St Kilda" loading="lazy" decoding="async"><figcaption class="wrap">Your next station, maybe. The St Kilda floor.</figcaption></figure>
 
 <section class="sec wrap cr-look" aria-labelledby="crLook">
@@ -2436,7 +2462,7 @@ function vCareers(S,D){ const other = shop === "st-kilda" ? "south-melbourne" : 
       <li>Great communication and genuine care for every client</li>
       <li>Reliable, punctual and proud of a clean, tidy station</li>
     </ul></div>
-  <aside class="cr-app"><img src="images/icon-clippers.webp" alt="" loading="lazy"><h3>Apprentices welcome.</h3><p>Still learning? If you've got real drive and you're putting in the hours, reach out too. You'll learn next to barbers who've done it for years.</p></aside>
+  <aside class="cr-app"><img src="images/icon-clippers.webp" alt="" loading="lazy"><h3>We supply the kit.</h3><p>Bring your scissors, combs and straight razor. Clippers, trimmers, dryers, foil shavers, blades, capes, towels and products from Uppercut, Brosh &amp; Muk are on us. So is the coffee.</p></aside>
 </section>
 
 <section class="sec wrap" aria-labelledby="crShops">
