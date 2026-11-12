@@ -3306,19 +3306,28 @@ function gateHTML2(){ const hrs = gateHours(); const arrow = '<svg viewBox="0 0 
 /* leaving the chooser: every piece slides off toward its nearest edge, then the shop page zooms in */
 function gateExit(g, picked, done){
   if (g.classList.contains("going")) return; g.classList.add("going","sliding");
-  const W = innerWidth, H = innerHeight, items = [...g.querySelectorAll(".k-rate,.k-mid,.k-armwrap,.k-card,.k-foot")];
-  items.forEach(el => { const r = el.getBoundingClientRect(); if (r.bottom < 0 || r.top > H) { el.style.opacity = "0"; return; }
-    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    const d = { left: cx, right: W - cx, top: cy, bottom: H - cy };
-    let edge = Object.keys(d).reduce((a, b) => d[a] <= d[b] ? a : b);
-    if (el.classList.contains("k-card") && W > 860) edge = cx < W / 2 ? "left" : "right";
-    /* phones: the top half lifts away, the lower half drops away, and the razor hand exits to the right */
-    if (W <= 860) edge = el.classList.contains("k-armwrap") ? "right" : (cy < H / 2 ? "top" : "bottom");
-    const pad = 60, tx = edge === "left" ? -(r.right + pad) : edge === "right" ? (W - r.left + pad) : 0, ty = edge === "top" ? -(r.bottom + pad) : edge === "bottom" ? (H - r.top + pad) : 0;
-    const delay = el === picked ? 110 : el.classList.contains("k-card") ? 0 : 40;
-    el.style.animation = "none"; el.style.opacity = getComputedStyle(el).opacity;
-    el.animate([{ transform: "translate(0,0)", opacity: 1, filter: "blur(0)" }, { transform: `translate(${tx}px,${ty}px)`, opacity: .35, filter: "blur(2px)" }],
-      { duration: 780, delay, easing: "cubic-bezier(.7,0,.2,1)", fill: "forwards" }); });
+  const W = innerWidth, H = innerHeight, phone = W <= 860, items = [...g.querySelectorAll(".k-rate,.k-mid,.k-armwrap,.k-card,.k-foot")];
+  const pad = 60, rects = new Map(items.map(el => [el, el.getBoundingClientRect()]));
+  const vis = items.filter(el => { const r = rects.get(el); if (r.bottom < 0 || r.top > H) { el.style.opacity = "0"; return false; } return true; });
+  /* phones: everything above the middle lifts away together, everything below drops away together, so nothing slides over anything else */
+  const isArm = el => el.classList.contains("k-armwrap"), mid = el => { const r = rects.get(el); return r.top + r.height / 2; };
+  const up = vis.filter(el => phone && !isArm(el) && mid(el) < H / 2), down = vis.filter(el => phone && !isArm(el) && mid(el) >= H / 2);
+  const upTy = up.length ? -(Math.max(...up.map(el => rects.get(el).bottom)) + pad) : 0, downTy = down.length ? (H - Math.min(...down.map(el => rects.get(el).top)) + pad) : 0;
+  vis.forEach(el => { const r = rects.get(el); let tx = 0, ty = 0, dur = 780, delay = 0;
+    if (phone) {
+      if (isArm(el)) { tx = W - r.left + pad; dur = 560; }
+      else if (up.includes(el)) { ty = upTy; delay = 20; }
+      else { ty = downTy; delay = 20; }
+    } else {
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2, d = { left: cx, right: W - cx, top: cy, bottom: H - cy };
+      let edge = Object.keys(d).reduce((x, y) => d[x] <= d[y] ? x : y);
+      if (el.classList.contains("k-card")) edge = cx < W / 2 ? "left" : "right";
+      tx = edge === "left" ? -(r.right + pad) : edge === "right" ? (W - r.left + pad) : 0; ty = edge === "top" ? -(r.bottom + pad) : edge === "bottom" ? (H - r.top + pad) : 0;
+      delay = el === picked ? 110 : el.classList.contains("k-card") ? 0 : 40; }
+    const o = getComputedStyle(el).opacity; el.style.animation = "none"; el.style.opacity = o; el.style.willChange = "transform, opacity";
+    /* transform + opacity only, so the move runs on the compositor and stays smooth while the shop page builds underneath */
+    el.animate([{ transform: "translate3d(0,0,0)", opacity: +o || 1 }, { transform: `translate3d(${tx}px,${ty}px,0)`, opacity: .2 }],
+      { duration: dur, delay, easing: "cubic-bezier(.65,0,.25,1)", fill: "forwards" }); });
   setTimeout(() => { document.documentElement.classList.add("pg-zoom"); done(); setTimeout(() => document.documentElement.classList.remove("pg-zoom"), 1100); }, 860);
 }
 function wireGate2(g){
@@ -3327,7 +3336,9 @@ function wireGate2(g){
   g.querySelectorAll("[data-gtel]").forEach(b => { const go = e => { e.preventDefault(); e.stopPropagation(); location.href = b.dataset.gtel; };
     b.addEventListener("click", go); b.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") go(e); }); });
   g.querySelectorAll(".k-card").forEach(a => a.addEventListener("click", e => { e.preventDefault(); const k = a.dataset.gate;
-    if (reduce) { first = true; render(k, "home"); location.hash = "#" + k; return; } document.documentElement.classList.add("gate-swap"); first = true; render(k, "home"); setTimeout(() => document.documentElement.classList.remove("gate-swap"), 60); gateExit(g, a, () => { location.hash = "#" + k; }); }));
+    if (reduce) { first = true; render(k, "home"); location.hash = "#" + k; return; } gateExit(g, a, () => { location.hash = "#" + k; });
+    /* build the chosen shop page only once the slide is under way, so the tap never stalls the first frame */
+    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => { document.documentElement.classList.add("gate-swap"); first = true; render(k, "home"); setTimeout(() => document.documentElement.classList.remove("gate-swap"), 60); }, 60))); }));
   g.addEventListener("keydown", e => { if (e.key === "Escape") location.hash = "#" + shop; });
 }
 let gateOpen = false, gateOpenTitle = "";
