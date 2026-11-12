@@ -2137,6 +2137,27 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 .cr-ico{display:block;width:64px;height:64px;color:#cfa94a;margin-bottom:18px;filter:drop-shadow(0 0 10px rgba(216,178,74,.18))}
 .cr-app .cr-ico{width:52px;height:52px;margin-bottom:14px}
 @media (max-width:900px){.cr-w .cr-ico{width:52px;height:52px;margin:0;grid-row:span 2;justify-self:center}}
+
+/* careers: kit section, adapted from the First day guide */
+.cr-look1{grid-template-columns:1fr}.cr-look1 .cr-list{max-width:860px}
+.cr-kitg{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(14px,2vw,24px);margin-top:clamp(34px,4.5vw,56px);align-items:stretch}
+.cr-kp{display:grid;grid-template-columns:minmax(0,140px) minmax(0,1fr);gap:clamp(16px,2.4vw,30px);align-items:start;border:1px solid var(--rule);border-radius:var(--r);padding:clamp(22px,3vw,36px);background:rgba(0,0,0,.28)}
+.cr-supply{border-color:rgba(216,178,74,.24);background:linear-gradient(160deg,rgba(216,178,74,.06),rgba(0,0,0,.28) 55%)}
+.cr-tools{display:flex;flex-direction:column;align-items:center;gap:clamp(18px,2.4vw,28px);padding-top:6px}
+.cr-tool{display:block;opacity:0;transform:translate3d(-46px,-14px,0) rotate(-9deg);transition:opacity .9s ease calc(var(--i) * 120ms),transform 1.3s cubic-bezier(.16,1,.3,1) calc(var(--i) * 120ms)}
+.cr-kit.in .cr-tool{opacity:1;transform:none}
+.cr-tool img{display:block;width:auto;max-width:100%;animation:crFloat 6.4s ease-in-out var(--fd,0s) infinite}
+.cr-bring .cr-tool img[src*="shears"]{filter:brightness(0) invert(1)}
+@keyframes crFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-1.5deg)}}
+.cr-kp h3{margin:0;font-family:var(--head);font-weight:400;font-size:clamp(30px,3vw,44px);line-height:.95;letter-spacing:.01em;text-transform:uppercase;color:var(--white)}
+.cr-supply h3{color:var(--gold)}
+.cr-dl{list-style:none;margin:10px 0 0;padding:0}
+.cr-dl li{display:flex;gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:clamp(15px,1.2vw,17px);line-height:1.5;color:#cfcfcf}
+.cr-dl li::before{content:"";flex:none;width:6px;height:6px;transform:translateY(-2px) rotate(45deg);background:var(--gold)}
+.cr-kn{margin:14px 0 0;color:var(--grey);font-size:14.5px}
+@media (max-width:900px){.cr-kitg{grid-template-columns:1fr}}
+@media (max-width:480px){.cr-kp{grid-template-columns:86px minmax(0,1fr);gap:14px}.cr-tool img{max-height:74px}}
+@media (prefers-reduced-motion:reduce){.cr-tool{opacity:1;transform:none;transition:none}.cr-tool img{animation:none}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2461,14 +2482,29 @@ function vCareers(S,D){ const other = shop === "st-kilda" ? "south-melbourne" : 
 
 <figure class="cr-band"><img src="images/barber-shop-floor-edward-scissorhands.webp" alt="The shop floor at Edward Scissorhands, St Kilda" loading="lazy" decoding="async"><figcaption class="wrap">Your next station, maybe. The St Kilda floor.</figcaption></figure>
 
-<section class="sec wrap cr-look" aria-labelledby="crLook">
+<section class="sec wrap cr-look cr-look1" aria-labelledby="crLook">
   <div><h2 class="s" id="crLook">What we look for.</h2>
     <ul class="cr-list">
       <li>Qualified barbers confident with fades, scissor cuts and beard work</li>
       <li>Great communication and genuine care for every client</li>
       <li>Reliable, punctual and proud of a clean, tidy station</li>
     </ul></div>
-  <aside class="cr-app"><img src="images/icon-clippers.webp" alt="" loading="lazy"><h3>We supply the kit.</h3><p>Bring your scissors, combs and straight razor. Clippers, trimmers, dryers, foil shavers, blades, capes, towels and products from Uppercut, Brosh &amp; Muk are all on us. Coffee, drinks and snacks too.</p></aside>
+
+</section>
+
+
+<section class="sec wrap cr-kit" aria-labelledby="crKit">
+  <h2 class="s" id="crKit">Bring your scissors. We'll handle the rest.</h2>
+  <div class="cr-kitg">
+    <div class="cr-kp cr-bring">
+      <div class="cr-tools">${[["shears-line.png","Scissors",96],["icon-comb.webp","Comb",58],["icon-straight-razor.webp","Straight razor",62]].map((t,i) => `<span class="cr-tool" style="--i:${i}"><img src="images/${t[0]}" alt="${t[1]}" style="height:${t[2]}px;--fd:${(-i*2.1).toFixed(1)}s" decoding="async"></span>`).join("")}</div>
+      <div><h3>You bring</h3><ul class="cr-dl"><li>Scissors</li><li>Combs</li><li>Straight razor</li></ul><p class="cr-kn">Your own cutting kit, clean, sharp and in a case.</p></div>
+    </div>
+    <div class="cr-kp cr-supply">
+      <div class="cr-tools">${[["icon-clippers.webp","Hair clippers",104],["icon-hairdryer.webp","Hairdryer",92],["icon-spray-bottle.webp","Spray bottle",98]].map((t,i) => `<span class="cr-tool" style="--i:${i + 3}"><img src="images/${t[0]}" alt="${t[1]}" style="height:${t[2]}px;--fd:${(-i*2.1).toFixed(1)}s" decoding="async"></span>`).join("")}</div>
+      <div><h3>We supply</h3><ul class="cr-dl">${["Clippers, trimmers &amp; guards","Hairdryers &amp; spray bottles","Foil shavers","Disposable razor blades","Capes, neck strips &amp; towels","Hair products (Uppercut, Brosh &amp; Muk)","Coffee, drinks &amp; snacks"].map(x => `<li>${x}</li>`).join("")}</ul></div>
+    </div>
+  </div>
 </section>
 
 <section class="sec wrap" aria-labelledby="crShops">
@@ -2503,6 +2539,11 @@ document.addEventListener("submit", e => { if (e.target.id !== "crForm") return;
     nm && `Name: ${nm}`, ex && `Experience: ${ex}`, ig && `My work: ${ig}`, ab && ``, ab, ``, `I've attached a few photos of my work.`, ``, `Thanks,`, nm || ""].filter(x => x !== false && x !== undefined && x !== null).join("\n");
   const a = document.createElement("a"); a.href = `mailto:${CR_MAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`; document.body.appendChild(a); a.click(); a.remove();
   const b = f.querySelector('button[type="submit"]'); b.textContent = "Email opened"; setTimeout(() => b.textContent = "Open email", 2400); });
+
+/* careers kit: tools drift in when the section arrives */
+function wireCrKit(){ const k = document.querySelector(".cr-kit"); if (!k || k.dataset.w) return; k.dataset.w = 1; if (reduce || !("IntersectionObserver" in window)) { k.classList.add("in"); return; }
+  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { k.classList.add("in"); io.disconnect(); } }, { threshold: .2 }); io.observe(k); }
+new MutationObserver(() => wireCrKit()).observe(document.documentElement, { childList: true, subtree: true });
 /* ---- extra pages carried over from the original site ---- */
 const P2S = () => P2[shop];
 const xh = h => h && h[0] === "#" ? h : h;   // internal hash links already shaped as #shop-page
