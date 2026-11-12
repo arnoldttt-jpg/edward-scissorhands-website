@@ -2012,6 +2012,13 @@ h2.s.rv-h .wd,.phead h1.rv-h .wd{background:url("data:image/svg+xml,%3Csvg xmlns
 .ohero .pill.fill{min-height:44px!important;height:44px;padding:0 24px!important;font-size:15.5px!important}
 .ohero .phb{width:44px!important;height:44px!important;min-height:44px!important}
 .ohero .phb svg{width:18px!important;height:18px!important}
+
+/* page/shop change: lighter, GPU-friendly enter */
+#main.pg-leave{filter:none!important;transform:translate3d(0,-4px,0)!important}
+html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!important}
+@keyframes pgIn2{from{opacity:0;transform:translate3d(0,8px,0)}to{opacity:1;transform:none}}
+/* off-screen sections skip layout/paint until they're near view (big win on phones) */
+#main > section:nth-of-type(n+3){content-visibility:auto;contain-intrinsic-size:auto 900px}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2764,9 +2771,15 @@ function veilLabel(p){ const a = document.querySelector(`.sheet nav a[data-go="$
 let veilBusy = false;
 function pageVeil(p, swap){ if (reduce) return swap(); const main = $("#main");
   try { closeSheet(); } catch(e) {}
-  main.classList.add("pg-leave");
-  setTimeout(() => { swap(); main.classList.remove("pg-leave"); document.documentElement.classList.remove("pg-enter"); void main.offsetWidth; document.documentElement.classList.add("pg-enter");
-    setTimeout(() => document.documentElement.classList.remove("pg-enter"), 1100); }, 200);
+  main.classList.add("pg-leave"); document.documentElement.classList.remove("pg-enter");
+  setTimeout(() => {
+    swap();   /* heavy rebuild happens while the page is invisible */
+    const img = main.querySelector(".ohero .ph img, .ohero img, .phead ~ * img");
+    const ready = img && img.decode ? Promise.race([img.decode().catch(() => {}), new Promise(r => setTimeout(r, 320))]) : Promise.resolve();
+    ready.then(() => requestAnimationFrame(() => requestAnimationFrame(() => {
+      main.classList.remove("pg-leave"); void main.offsetWidth; document.documentElement.classList.add("pg-enter");
+      setTimeout(() => document.documentElement.classList.remove("pg-enter"), 900); })));
+  }, 180);
 }
 
 /* show the menu button's focus ring only for real keyboard navigation */
