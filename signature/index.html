@@ -2047,6 +2047,79 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
  .close-job .close-acts{flex-wrap:nowrap!important;gap:8px!important}.close-job .close-acts .phb.big{width:46px;height:46px;min-width:46px}
  .close-job .close-acts .pill.ko{padding:0 20px!important;font-size:20px!important}
 }
+
+/* ===== careers ===== */
+.cr-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,5vw,80px);align-items:center}
+.cr-tag{display:inline-flex;align-items:center;gap:10px;margin:0 0 clamp(18px,2.4vw,28px);font-family:var(--cond);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.cr-tag i{width:8px;height:8px;border-radius:50%;background:#6fcf8e;box-shadow:0 0 0 0 rgba(111,207,142,.5);animation:crPulse 2.4s ease-out infinite}
+@keyframes crPulse{70%{box-shadow:0 0 0 9px rgba(111,207,142,0)}100%{box-shadow:0 0 0 0 rgba(111,207,142,0)}}
+.cr-hero h1{font-size:clamp(64px,8.6vw,150px)!important}
+.cr-sub2{margin-top:12px;font-size:16px!important;max-width:48ch}
+.cr-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.cr-hero-ph{margin:0;border-radius:var(--r);overflow:hidden;aspect-ratio:16/11;box-shadow:0 30px 60px -30px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,255,255,.06)}
+.cr-hero-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;filter:saturate(.85) contrast(1.04) brightness(.92)}
+.cr-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,3vw,48px);margin-top:clamp(36px,5vw,64px)}
+.cr-w img{height:74px;width:auto;opacity:.82;filter:sepia(.55) saturate(2.2) hue-rotate(-8deg) brightness(.92);margin-bottom:22px}
+.cr-w h3{font-family:var(--head);font-size:clamp(24px,2.2vw,32px);text-transform:uppercase;letter-spacing:.01em;margin:0 0 10px;color:var(--white)}
+.cr-w p{margin:0;color:var(--grey);max-width:34ch}
+.cr-proof{list-style:none;margin:clamp(48px,6vw,80px) 0 0;padding:clamp(22px,2.6vw,30px) 0 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.cr-proof li{display:flex;flex-direction:column;gap:6px}
+.cr-proof b{display:flex;align-items:center;gap:10px;font-family:var(--head);font-weight:400;font-size:clamp(26px,2.6vw,38px);color:var(--white);letter-spacing:.01em;line-height:1}
+.cr-proof b img{width:34px;height:34px;object-fit:contain}
+.cr-proof span{color:var(--grey);font-size:14px}
+.cr-band{margin:0;position:relative;height:clamp(300px,46vw,620px);overflow:hidden}
+.cr-band img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;filter:saturate(.8) brightness(.78)}
+.cr-band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--black) 0%,transparent 22%,transparent 62%,var(--black) 100%);pointer-events:none}
+.cr-band figcaption{position:absolute;left:0;right:0;bottom:clamp(18px,3vw,36px);z-index:1;color:var(--grey);font-size:14px}
+.cr-look{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(30px,5vw,80px);align-items:end}
+.cr-list{list-style:none;margin:clamp(28px,4vw,46px) 0 0;padding:0}
+.cr-list li{position:relative;padding:18px 0 18px 42px;border-bottom:1px solid var(--rule);font-size:clamp(18px,1.6vw,22px);color:var(--white)}
+.cr-list li::before{content:"";position:absolute;left:4px;top:24px;width:16px;height:9px;border-left:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(-45deg)}
+.cr-app{border:1px solid rgba(216,178,74,.28);border-radius:var(--r);padding:clamp(24px,3vw,34px);background:linear-gradient(160deg,rgba(216,178,74,.08),rgba(255,255,255,.02) 60%)}
+.cr-app img{height:56px;opacity:.8;filter:sepia(.55) saturate(2.2) hue-rotate(-8deg) brightness(.92);margin-bottom:16px}
+.cr-app h3{font-family:var(--head);font-size:28px;text-transform:uppercase;margin:0 0 10px;color:var(--white)}
+.cr-app p{margin:0;color:var(--grey)}
+.cr-shops{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,2.4vw,30px);margin-top:clamp(32px,4vw,50px)}
+.cr-shop{border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;background:rgba(255,255,255,.02);display:flex;flex-direction:column}
+.cr-ph{aspect-ratio:16/10;overflow:hidden}.cr-ph img{width:100%;height:100%;object-fit:cover;filter:saturate(.85) brightness(.9)}
+.cr-sb{padding:clamp(20px,2.4vw,28px);display:flex;flex-direction:column;gap:8px;flex:1}
+.cr-sb h3{font-family:var(--head);font-size:clamp(28px,2.6vw,38px);text-transform:uppercase;margin:0;color:var(--white)}
+.cr-sb p{margin:0;color:var(--white)}.cr-sb small{color:var(--grey);font-size:13.5px}
+.cr-sb .pill{align-self:flex-start;margin-top:auto;transform:translateY(8px)}
+.cr-apply{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(30px,5vw,80px);align-items:start;scroll-margin-top:calc(var(--toph,78px) + 10px)}
+.cr-talk{margin-top:clamp(30px,4vw,48px);padding-top:24px;border-top:1px solid var(--rule)}
+.cr-talk h3{font-family:var(--head);font-size:26px;text-transform:uppercase;margin:0 0 6px;color:var(--white)}.cr-talk p{margin:0 0 16px;color:var(--grey)}
+.cr-owner{display:flex;gap:10px;flex-wrap:wrap}
+.cr-ob{display:inline-flex;align-items:center;gap:9px;min-height:46px;padding:0 18px 0 14px;border-radius:999px;border:1px solid rgba(216,178,74,.45);color:var(--gold);text-decoration:none;font-family:var(--cond);font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;transition:background .5s ease,border-color .5s ease,color .5s ease}
+.cr-ob svg{width:18px;height:18px}
+.cr-ob:hover{background:rgba(216,178,74,.1);border-color:rgba(243,215,126,.8);color:#f3d77e;transition-duration:.25s}
+.cr-form{display:grid;gap:20px;padding:clamp(22px,3vw,36px);border:1px solid var(--rule);border-radius:var(--r);background:rgba(255,255,255,.025)}
+.cr-f{display:grid;gap:9px;min-width:0}
+.cr-f>span{font-family:var(--cond);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey)}
+.cr-f>span em{font-style:normal;font-weight:400;letter-spacing:.06em;text-transform:none;opacity:.7;margin-left:6px}
+.cr-f input:not([type=radio]),.cr-f textarea{width:100%;box-sizing:border-box;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.14);border-radius:14px;color:var(--white);font:inherit;font-size:16px;padding:13px 15px;transition:border-color .3s,box-shadow .3s}
+.cr-f textarea{resize:vertical;min-height:96px}
+.cr-f input:focus,.cr-f textarea:focus{outline:none;border-color:rgba(216,178,74,.7);box-shadow:0 0 0 3px rgba(216,178,74,.15)}
+.cr-f ::placeholder{color:rgba(163,160,154,.6)}
+.cr-seg{display:flex;flex-wrap:wrap;gap:8px}
+.cr-seg label{position:relative;cursor:pointer}
+.cr-seg input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.cr-seg span{display:inline-flex;align-items:center;min-height:42px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.16);color:var(--grey);font-size:15px;transition:background .3s,border-color .3s,color .3s}
+.cr-seg label:hover span{border-color:rgba(255,255,255,.35);color:var(--white)}
+.cr-seg input:checked+span{background:rgba(216,178,74,.14);border-color:rgba(216,178,74,.75);color:#f3d77e}
+.cr-seg input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+.cr-send{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:4px}.cr-send p{margin:0;color:var(--grey);font-size:13.5px}
+@media (max-width:900px){
+ .cr-hero,.cr-look,.cr-apply{grid-template-columns:1fr}
+ .cr-hero{padding-top:calc(var(--toph,78px) + 34px)!important}
+ .cr-hero-ph{aspect-ratio:16/11;order:-1}
+ .cr-3{grid-template-columns:1fr;gap:34px}
+ .cr-w{display:grid;grid-template-columns:64px 1fr;column-gap:18px;align-items:start}.cr-w img{height:54px;margin:4px 0 0;grid-row:span 2;justify-self:center}.cr-w h3{margin-bottom:6px}
+ .cr-proof{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:26px}
+ .cr-shops{grid-template-columns:1fr}
+}
+@media (max-width:480px){.cr-seg span{padding:0 13px;font-size:14px;min-height:40px}.cr-ob{padding:0 14px 0 12px}}
+@media (prefers-reduced-motion:reduce){.cr-tag i{animation:none}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2126,7 +2199,7 @@ const SHOPS = {
     feature:["images/inside-edward-scissorhands-barber-shop-st-kilda.webp","Inside Edward Scissorhands on Carlisle Street, St Kilda"],
     areas:["St Kilda","St Kilda East","St Kilda West","Balaclava","Elwood","Ripponlea","Windsor","Prahran","South Yarra","Elsternwick","Caulfield","Glen Huntly","Albert Park","Middle Park","Brighton"],
     walk:"Walk-ins are always welcome, 7 days a week, and we'll fit you in as soon as a chair's free. Booked appointments are prioritised, so we recommend booking online, especially on weekends or if you'd like a particular barber.",
-    shopLine:"Running late, checking the wait, or have a quick question about your visit? Call the shop and one of our barbers will answer."
+    shopLine:"Running late, checking the wait, or have a quick question? Call the shop and choose AI reception to book or reschedule any time, or the team to speak with a barber."
   }
 };
 const MORE_SVC = [
@@ -2319,6 +2392,85 @@ function vClose(S,D,mode){ const job = mode === "careers";
 </section>`; }
 
 
+
+/* ---------- careers ---------- */
+const CR_MAIL = "info@scissorhands.com.au", CR_TEL = "0403185329", CR_INT = "61403185329";
+const crSeg = (name, opts, on) => `<div class="cr-seg" role="radiogroup">${opts.map(o => `<label><input type="radio" name="${name}" value="${esc(o)}"${o === on ? " checked" : ""}><span>${esc(o)}</span></label>`).join("")}</div>`;
+const crOwner = () => `<div class="cr-owner"><a class="cr-ob" href="tel:${CR_TEL}" aria-label="Call the owner">${phoneBadge(SHOPS[shop]).match(/<svg[\s\S]*?<\/svg>/)[0]}<span>Call</span></a><a class="cr-ob" href="https://wa.me/${CR_INT}" target="_blank" rel="noopener" aria-label="WhatsApp the owner">${WA_SVG}<span>WhatsApp</span></a><a class="cr-ob" href="sms:+${CR_INT}" aria-label="Text the owner">${SMS_SVG}<span>Text</span></a></div>`;
+function vCareers(S,D){ const other = shop === "st-kilda" ? "south-melbourne" : "st-kilda";
+  const why = [["barber-chair-line-drawing.webp","A steady chair","Established shops with loyal regulars, walk-ins and online bookings, open 7 days."],
+               ["icon-straight-razor.webp","Grow your craft","Work alongside experienced barbers and sharpen your fades, scissor work, beards and razor shaves."],
+               ["icon-comb.webp","Good people","A friendly, respectful team where clients feel welcome, from first cuts to regulars of twenty years."]];
+  const shopCard = k => { const X = SHOPS[k]; return `<article class="cr-shop"><div class="cr-ph"><img src="${X.img}" alt="Edward Scissorhands, ${esc(X.name)}" loading="lazy" decoding="async"></div>
+    <div class="cr-sb"><h3>${esc(X.name)}.</h3><p>${esc(X.place)}</p><small>${esc(X.since)} · Open 7 days · ${esc(X.count)}</small>
+    <a class="pill" href="#cr-apply" data-cr-shop="${esc(X.name)}">Apply for ${k === "south-melbourne" ? "Sth Melb" : esc(X.name)}</a></div></article>`; };
+  return `
+<header class="phead wrap cr-hero">
+  <div class="cr-hl">
+    <p class="cr-tag"><i aria-hidden="true"></i>Now hiring at both shops</p>
+    <h1 id="h1">Barbers wanted.</h1>
+    <p class="sub">Full-time, part-time or a casual day or two. If you can cut, we want to hear from you.</p>
+    <p class="sub cr-sub2">Two busy shops in St Kilda and South Melbourne, cutting hair since 1991. Chairs to fill, clients waiting, and a team that looks after each other.</p>
+    <div class="cr-acts"><a class="pill fill" href="#cr-apply" data-cr-jump>Apply now</a><a class="pill" href="tel:${CR_TEL}">Call the owner</a></div>
+  </div>
+  <figure class="cr-hero-ph"><img src="images/barber-knuckle-tattoos-scissors.webp" alt="A barber's knuckle tattoos spelling BARBER, holding scissors" width="1600" height="900" decoding="async"></figure>
+</header>
+
+<section class="sec wrap cr-why" aria-labelledby="crWhy">
+  <h2 class="s" id="crWhy">Why barbers stay.</h2>
+  <div class="cr-3">${why.map(w => `<div class="cr-w"><img src="images/${w[0]}" alt="" loading="lazy" decoding="async"><h3>${w[1]}</h3><p>${w[2]}</p></div>`).join("")}</div>
+  <ul class="cr-proof" aria-label="The shops in numbers">
+    <li><b>1991</b><span>St Kilda opens on Carlisle Street</span></li>
+    <li><b>1,350+</b><span>Google reviews across both shops</span></li>
+    <li><b><img src="images/fresha-best-in-class-2026-gold.webp" alt="" width="40" height="40">Best in Class</b><span>Fresha, 2024, 2025 &amp; 2026</span></li>
+    <li><b><img src="images/local-business-awards-finalist-gold-medal.webp" alt="" width="40" height="40">Finalist</b><span>Local Business Awards 2026</span></li>
+  </ul>
+</section>
+
+<figure class="cr-band"><img src="images/barber-shop-floor-edward-scissorhands.webp" alt="The shop floor at Edward Scissorhands, St Kilda" loading="lazy" decoding="async"><figcaption class="wrap">Your next station, maybe. The St Kilda floor.</figcaption></figure>
+
+<section class="sec wrap cr-look" aria-labelledby="crLook">
+  <div><h2 class="s" id="crLook">What we look for.</h2>
+    <ul class="cr-list">
+      <li>Qualified barbers confident with fades, scissor cuts and beard work</li>
+      <li>Great communication and genuine care for every client</li>
+      <li>Reliable, punctual and proud of a clean, tidy station</li>
+    </ul></div>
+  <aside class="cr-app"><img src="images/icon-clippers.webp" alt="" loading="lazy"><h3>Apprentices welcome.</h3><p>Still learning? If you've got real drive and you're putting in the hours, reach out too. You'll learn next to barbers who've done it for years.</p></aside>
+</section>
+
+<section class="sec wrap" aria-labelledby="crShops">
+  <h2 class="s" id="crShops">Two shops, one team.</h2>
+  <p class="sub">Tell us which suits you best, or say either and we'll work it out together.</p>
+  <div class="cr-shops">${shopCard(shop)}${shopCard(other)}</div>
+</section>
+
+<section class="sec wrap cr-apply" id="cr-apply" aria-labelledby="crApply">
+  <div class="cr-ah"><h2 class="s" id="crApply">Apply in a minute.</h2>
+    <p class="sub">Fill this in and your email app opens with it ready to go. Attach a few photos of your work before you send.</p>
+    <div class="cr-talk"><h3>Rather talk first?</h3><p>Call, WhatsApp or text the owner for a chat.</p>${crOwner()}</div></div>
+  <form class="cr-form" id="crForm" novalidate>
+    <label class="cr-f"><span>Your name</span><input name="nm" autocomplete="name" placeholder="First and last name"></label>
+    <div class="cr-f"><span>Shop</span>${crSeg("sh", ["St Kilda","South Melbourne","Either"], S.name)}</div>
+    <div class="cr-f"><span>Hours</span>${crSeg("hr", ["Full-time","Part-time","Casual"], "Full-time")}</div>
+    <div class="cr-f"><span>Experience</span>${crSeg("ex", ["Apprentice","1–3 years","3–5 years","5+ years"], "")}</div>
+    <label class="cr-f"><span>Instagram or photos of your work</span><input name="ig" placeholder="@yourhandle or a link"></label>
+    <label class="cr-f"><span>A bit about you <em>optional</em></span><textarea name="ab" rows="3" placeholder="Where you've cut before, what you love doing, when you could start"></textarea></label>
+    <div class="cr-send"><button type="submit" class="pill fill">Open email</button><p>Nothing is sent until you press send in your email app.</p></div>
+  </form>
+</section>` + vClose(S,D,"careers"); }
+document.addEventListener("click", e => { const a = e.target.closest("[data-cr-shop],[data-cr-jump]"); if (!a) return; e.preventDefault();
+  const f = document.getElementById("crForm"); if (!f) return;
+  if (a.dataset.crShop) { const r = f.querySelector(`input[name="sh"][value="${a.dataset.crShop}"]`); if (r) r.checked = true; }
+  document.getElementById("cr-apply").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  setTimeout(() => f.querySelector('input[name="nm"]').focus({ preventScroll: true }), reduce ? 0 : 650); });
+document.addEventListener("submit", e => { if (e.target.id !== "crForm") return; e.preventDefault(); const f = e.target, v = n => (f.querySelector(`[name="${n}"]:checked`) || f.querySelector(`[name="${n}"]`) || {}).value || "";
+  const nm = v("nm").trim(), sh = v("sh"), hr = v("hr"), ex = f.querySelector('[name="ex"]:checked') ? v("ex") : "", ig = v("ig").trim(), ab = v("ab").trim();
+  const subj = `Barber application — ${hr}${sh && sh !== "Either" ? " — " + sh : ""}${nm ? " — " + nm : ""}`;
+  const body = [`Hi Edward Scissorhands team,`, ``, `I'd like to apply for a ${hr.toLowerCase()} chair${sh === "Either" ? " at either shop" : sh ? " at " + sh : ""}.`, ``,
+    nm && `Name: ${nm}`, ex && `Experience: ${ex}`, ig && `My work: ${ig}`, ab && ``, ab, ``, `I've attached a few photos of my work.`, ``, `Thanks,`, nm || ""].filter(x => x !== false && x !== undefined && x !== null).join("\n");
+  const a = document.createElement("a"); a.href = `mailto:${CR_MAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`; document.body.appendChild(a); a.click(); a.remove();
+  const b = f.querySelector('button[type="submit"]'); b.textContent = "Email opened"; setTimeout(() => b.textContent = "Open email", 2400); });
 /* ---- extra pages carried over from the original site ---- */
 const P2S = () => P2[shop];
 const xh = h => h && h[0] === "#" ? h : h;   // internal hash links already shaped as #shop-page
@@ -2537,7 +2689,7 @@ const VIEWS = {
   locations:(S,D) => vLocPage(S,D),
   faq:(S,D) => vFaqPage(S,D),
   blog:(S,D) => vJournal(S,D),
-  careers:(S,D) => vProse(P2S().careers, S, D, "careers"),
+  careers:(S,D) => vCareers(S,D),
   contact:(S,D) => phead("Contact us.", "Pick the right line for your enquiry. For bookings, it's quickest to book online.") + vVisit(S) + `
 <section class="sec wrap" aria-labelledby="kH"><h2 class="s" id="kH">Who to call.</h2>
   <div class="lines">
