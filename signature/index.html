@@ -2437,6 +2437,21 @@ const crSeg = (name, opts, on) => `<div class="cr-seg" role="radiogroup">${opts.
 const crOwner = () => `<div class="cr-owner"><a class="cr-ob" href="tel:${CR_TEL}" aria-label="Call the owner">${phoneBadge(SHOPS[shop]).match(/<svg[\s\S]*?<\/svg>/)[0]}<span>Call</span></a><a class="cr-ob" href="https://wa.me/${CR_INT}" target="_blank" rel="noopener" aria-label="WhatsApp the owner">${WA_SVG}<span>WhatsApp</span></a><a class="cr-ob" href="sms:+${CR_INT}" aria-label="Text the owner">${SMS_SVG}<span>Text</span></a></div>`;
 const CR_ICO = {"chair": "<rect x=\"18\" y=\"3.5\" width=\"12\" height=\"4.5\" rx=\"2\"/><path d=\"M22 8v2M26 8v2\"/><rect x=\"15.5\" y=\"10\" width=\"17\" height=\"14\" rx=\"3\"/><path d=\"M21 10.5v13M27 10.5v13\" opacity=\".55\"/><path d=\"M11 20.5h7.5M29.5 20.5H37\"/><path d=\"M12.5 20.5v5.5M35.5 20.5v5.5\"/><rect x=\"11\" y=\"24\" width=\"26\" height=\"5\" rx=\"2.2\"/><path d=\"M24 29v8\"/><path d=\"M16 33.5l3.5 3h9l3.5-3\"/><path d=\"M14 43.5c0-2 4.5-3.5 10-3.5s10 1.5 10 3.5H14z\"/>", "razor": "<path d=\"M26 20.2L8.6 13.8C5.9 12.9 3.6 14.7 3.8 17.5c.2 2.4 1.6 4 4.6 5.1L25.4 28.6\"/><path d=\"M7.4 20l17.4 6.1\" opacity=\".5\"/><path d=\"M26 20.2c2.3-.9 4.3.1 4.9 1.9\"/><circle cx=\"27.4\" cy=\"24.6\" r=\"1.2\"/><path d=\"M29.2 25.3l12.6 7.3c1.7 1 2.2 2.8 1.3 4-.9 1.2-2.6 1.4-4.3.4L25.8 29.4\"/><path d=\"M32.6 28.8l6.2 3.6\" opacity=\".5\"/>", "comb": "<g transform=\"rotate(-38 24 24)\"><rect x=\"4\" y=\"18\" width=\"40\" height=\"6\" rx=\"2\"/><path stroke-width=\"1.15\" d=\"M7 24v9M9.5 24v9M12 24v9M14.5 24v9M17 24v9M19.5 24v9M22 24v9M24.5 24v6.5M27 24v6.5M29.5 24v6.5M32 24v6.5M34.5 24v6.5M37 24v6.5M39.5 24v6.5M42 24v6.5\"/></g>", "shears": "<circle cx=\"12\" cy=\"35\" r=\"5\"/><circle cx=\"23\" cy=\"40\" r=\"5\"/><path d=\"M15.6 31.4L40 7.5\"/><path d=\"M19.7 35.6L41 14.5c.6-.6.4-1.5-.4-1.8L33 10\"/><path d=\"M15.6 31.4c1.3 1.3 2.7 2.7 4.1 4.2\" opacity=\".5\"/><circle cx=\"21.5\" cy=\"29.6\" r=\".9\"/>"};
 const crIco = k => `<svg class="cr-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${CR_ICO[k]}</svg>`;
+/* "Less admin, more cutting" tiles: switched off on the careers page (set CR_SHOW_SYS = true to bring it back); shown in the Staff Hub instead */
+const CR_SHOW_SYS = false;
+const crSys = (id, title, sub) => `<section class="sec wrap cr-sys" aria-labelledby="${id}">
+  <h2 class="s" id="${id}">${title}</h2>
+  <p class="sub">${sub}</p>
+  <div class="cr-tiles">
+    <div class="cr-t"><div class="cr-lg"><img src="images/fresha-logo.webp" alt="Fresha" loading="lazy"></div><h3>Clients book ahead</h3><p>An appointment-run shop. Bookings, walk-ins and payments all sit on the shop iPad.</p></div>
+    <div class="cr-t"><div class="cr-lg"><img class="orb" src="images/fresha-ai-orb.webp" alt="" loading="lazy"><b>AI Concierge</b></div><h3>Fewer interruptions</h3><p>Fresha's AI assistant handles enquiries, bookings and changes, so you're not stopping mid-cut to answer the phone.</p></div>
+    <div class="cr-t"><div class="cr-lg"><img src="images/deputy-logo.svg" alt="Deputy" loading="lazy"></div><h3>Know your week ahead</h3><p>Rosters are published well in advance, so you can plan your life around your shifts. Hours and time-off requests sit in the same app.</p></div>
+    <div class="cr-t"><div class="cr-lg"><img src="images/xero-me-logo.webp" alt="Xero Me" loading="lazy"></div><h3>Weekly payslips</h3><p>Check every payslip and your pay history any time in Xero Me.</p></div>
+    <div class="cr-t"><div class="cr-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b>Your dashboard</b></div><h3>Your numbers, your page</h3><p>A personal dashboard built for each barber: pay, tips, performance and updates in one place.</p></div>
+    <div class="cr-t"><div class="cr-lg"><img src="images/whatsapp-logo.webp" alt="" loading="lazy"><b>WhatsApp</b></div><h3>One team chat</h3><p>Shop groups and updates from management, so you're always in the loop.</p></div>
+  </div>
+</section>
+`;
 function vCareers(S,D){ const other = shop === "st-kilda" ? "south-melbourne" : "st-kilda";
   const why = [["barber-chair-line-v2.webp","A steady chair","Established shops with loyal regulars, walk-ins and online bookings, open 7 days."],
                ["icon-straight-razor.webp","Grow your craft","Work alongside experienced barbers and sharpen your fades, scissor work, beards and razor shaves."],
@@ -2481,18 +2496,7 @@ function vCareers(S,D){ const other = shop === "st-kilda" ? "south-melbourne" : 
   </div>
 </section>
 
-<section class="sec wrap cr-sys" aria-labelledby="crSys">
-  <h2 class="s" id="crSys">Less admin, more cutting.</h2>
-  <p class="sub">The shops run on proper systems, so your time goes into the chair, not the front desk.</p>
-  <div class="cr-tiles">
-    <div class="cr-t"><div class="cr-lg"><img src="images/fresha-logo.webp" alt="Fresha" loading="lazy"></div><h3>Clients book ahead</h3><p>An appointment-run shop. Bookings, walk-ins and payments all sit on the shop iPad.</p></div>
-    <div class="cr-t"><div class="cr-lg"><img class="orb" src="images/fresha-ai-orb.webp" alt="" loading="lazy"><b>AI Concierge</b></div><h3>Fewer interruptions</h3><p>Fresha's AI assistant handles enquiries, bookings and changes, so you're not stopping mid-cut to answer the phone.</p></div>
-    <div class="cr-t"><div class="cr-lg"><img src="images/deputy-logo.svg" alt="Deputy" loading="lazy"></div><h3>Know your week ahead</h3><p>Rosters are published well in advance, so you can plan your life around your shifts. Hours and time-off requests sit in the same app.</p></div>
-    <div class="cr-t"><div class="cr-lg"><img src="images/xero-me-logo.webp" alt="Xero Me" loading="lazy"></div><h3>Weekly payslips</h3><p>Check every payslip and your pay history any time in Xero Me.</p></div>
-    <div class="cr-t"><div class="cr-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b>Your dashboard</b></div><h3>Your numbers, your page</h3><p>A personal dashboard built for each barber: pay, tips, performance and updates in one place.</p></div>
-    <div class="cr-t"><div class="cr-lg"><img src="images/whatsapp-logo.webp" alt="" loading="lazy"><b>WhatsApp</b></div><h3>One team chat</h3><p>Shop groups and updates from management, so you're always in the loop.</p></div>
-  </div>
-</section>
+${CR_SHOW_SYS ? crSys("crSys", "Less admin, more cutting.", "The shops run on proper systems, so your time goes into the chair, not the front desk.") : ""}
 
 <figure class="cr-band"><img src="images/barber-shop-floor-edward-scissorhands.webp" alt="The shop floor at Edward Scissorhands, St Kilda" loading="lazy" decoding="async"><figcaption class="wrap">Your next station, maybe. The St Kilda floor.</figcaption></figure>
 
@@ -2678,6 +2682,7 @@ function vStaff(pg, S, D){
   <div class="st-lists" id="stLists">${clLists(shop)}</div></section>
 <section class="sec wrap" aria-labelledby="cpH"><h2 class="s" id="cpH">Conditions & policies.</h2>
   <div class="st-docs">${H.docs.map(d => `<a class="st-doc" data-go="staff~${d.slug}" href="#"><h3>${esc(d.t.charAt(0) + d.t.slice(1).toLowerCase())}</h3><p>${esc(d.d)}</p><span class="st-arrow" aria-hidden="true">→</span></a>`).join("")}</div></section>
+${crSys("appsH", "Apps we run on.", "These keep the shops running. Get comfortable with them before your first shift.")}
 <section class="sec wrap" aria-labelledby="kcH"><h2 class="s" id="kcH">Key contacts.</h2>
   <div class="st-channel"><small class="x-meta">Main contact channel</small><h3>Use the WhatsApp group chat</h3><p>${esc(H.P[4] || "")}</p></div>
   <div class="st-contacts">${H.contacts.map(c => `<article class="st-ct"><h3>${esc(c.name)}</h3><small>${esc(c.role)}</small><div class="st-ct-acts">${[["tel","Call"],["sms","Text"],["wa","WhatsApp"],["mail","Email"]].filter(([k]) => c[k]).map(([k,l]) => `<a class="st-ct-${k}" href="${esc(c[k])}"${k === "wa" ? ' target="_blank" rel="noopener"' : ""} aria-label="${l} ${esc(c.name)}">${CTI[k]}<span>${l}</span></a>`).join("")}</div></article>`).join("")}</div></section>
