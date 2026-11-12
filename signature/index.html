@@ -2172,6 +2172,10 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 .cr-proof li{flex:0 1 auto;max-width:240px}
 .cr-proof b{min-height:40px}
 @media (max-width:900px){.cr-proof{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));row-gap:26px}.cr-proof li{max-width:none}}
+
+/* proof row: top divider runs full width, matching the section line below it */
+.cr-proof{position:relative;border-top:0!important}
+.cr-proof::before{content:"";position:absolute;top:0;left:calc(50% - 50vw);width:100vw;height:1px;background:var(--rule);pointer-events:none}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
