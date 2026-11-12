@@ -1984,6 +1984,16 @@ img.iadj-on{cursor:grab;touch-action:none;outline:1px dashed rgba(216,178,74,.75
 /* animated titles: the grain fill lives on each word, so the word's fade + blur actually shows (no snap) */
 h2.s.rv-h,.phead h1.rv-h,.close h2.rv-h{background:none!important;-webkit-text-fill-color:currentColor}
 h2.s.rv-h .wd,.phead h1.rv-h .wd{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .26 0 0 0 0 .23 0 0 0 0 .18 0 0 0 .8 -.08'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/120px 120px repeat,linear-gradient(180deg,#f4f1ea 0%,#f2f0eb 45%,rgba(242,240,235,.45) 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent;padding-bottom:.05em}
+
+/* header Book now: thin gold outline with a glint that travels around the border */
+@property --ba{syntax:"<angle>";inherits:false;initial-value:0deg}
+.top .book-top{overflow:visible}
+.top .book-top::after{content:"";position:absolute;inset:-1.5px;border-radius:inherit;padding:1.5px;pointer-events:none;z-index:2;
+ background:conic-gradient(from var(--ba),rgba(176,138,50,.75) 0deg,rgba(216,178,74,.85) 40deg,#fff3c9 62deg,#f2d27a 74deg,rgba(216,178,74,.85) 96deg,rgba(176,138,50,.75) 140deg,rgba(150,116,40,.7) 360deg);
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+ animation:bookRing 4.5s linear infinite;filter:drop-shadow(0 0 3px rgba(240,205,120,.35))}
+@keyframes bookRing{to{--ba:360deg}}
+@media (prefers-reduced-motion:reduce){.top .book-top::after{animation:none}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
