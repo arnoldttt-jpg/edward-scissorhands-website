@@ -2176,6 +2176,13 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 /* proof row: top divider runs full width, matching the section line below it */
 .cr-proof{position:relative;border-top:0!important}
 .cr-proof::before{content:"";position:absolute;top:0;left:calc(50% - 50vw);width:100vw;height:1px;background:var(--rule);pointer-events:none}
+
+/* hero: one pill holding the owner's call and text buttons */
+.cr-op{display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:4px 5px 4px 22px;border:1px solid rgba(242,240,235,.35);border-radius:999px}
+.cr-op span{font-family:var(--cond);font-weight:700;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--white);margin-right:8px;white-space:nowrap}
+.cr-op a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid rgba(216,178,74,.5);color:var(--gold);transition:background .6s ease,border-color .6s ease,color .6s ease}
+.cr-op a svg{width:17px;height:17px}
+.cr-op a:hover,.cr-op a:focus-visible{background:rgba(216,178,74,.14);border-color:rgba(243,215,126,.9);color:#f3d77e;transition-duration:.25s}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2484,7 +2491,7 @@ function vCareers(S,D){ const other = shop === "st-kilda" ? "south-melbourne" : 
     <h1 id="h1">Barbers wanted.</h1>
     <p class="sub">Full-time, part-time or a casual day or two. If you can cut, we want to hear from you.</p>
     <p class="sub cr-sub2">Two busy shops in St Kilda and South Melbourne, cutting hair since 1991. Chairs to fill, clients waiting, and a team that looks after each other.</p>
-    <div class="cr-acts"><a class="pill fill" href="#cr-apply" data-cr-jump>Apply now</a><a class="pill" href="tel:${CR_TEL}">Call the owner</a></div>
+    <div class="cr-acts"><a class="pill fill" href="#cr-apply" data-cr-jump>Apply now</a><div class="cr-op" role="group" aria-label="Contact the owner"><span>Talk to the owner</span><a href="tel:${CR_TEL}" aria-label="Call the owner" title="Call">${phoneBadge(SHOPS[shop]).match(/<svg[\s\S]*?<\/svg>/)[0]}</a><a href="sms:+${CR_INT}" aria-label="Text the owner" title="Text">${SMS_SVG}</a></div></div>
   </div>
   <figure class="cr-hero-ph"><img src="images/barber-knuckle-tattoos-scissors.webp" alt="A barber's knuckle tattoos spelling BARBER, holding scissors" width="1600" height="900" decoding="async"></figure>
 </header>
