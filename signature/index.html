@@ -2162,6 +2162,9 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 /* careers: the chair drawing reads a touch small next to the razor and comb */
 .cr-w img[src*="barber-chair-line-v2"]{transform:scale(1.16);transform-origin:left bottom}
 @media (max-width:900px){.cr-w img[src*="barber-chair-line-v2"]{transform-origin:center}}
+
+/* kit panel titles: both gold, with the site's title grain */
+.cr-kp h3{color:#d8b24a;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .26 0 0 0 0 .23 0 0 0 0 .18 0 0 0 .8 -.08'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/120px 120px repeat,linear-gradient(180deg,#f0d27e 0%,#d8b24a 50%,#a9852f 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding-bottom:.05em}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
