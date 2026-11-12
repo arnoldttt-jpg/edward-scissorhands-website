@@ -3330,10 +3330,11 @@ function gateExit(g, picked, done){
       if (el.classList.contains("k-card")) edge = cx < W / 2 ? "left" : "right";
       tx = edge === "left" ? -(r.right + pad) : edge === "right" ? (W - r.left + pad) : 0; ty = edge === "top" ? -(r.bottom + pad) : edge === "bottom" ? (H - r.top + pad) : 0;
       delay = el === picked ? 110 : el.classList.contains("k-card") ? 0 : 40; }
-    const o = getComputedStyle(el).opacity; el.style.animation = "none"; el.style.opacity = o; el.style.willChange = "transform, opacity";
+    /* freeze each piece exactly where it sits: dropping its entrance animation would otherwise snap it back to the entrance start (26px lower) for a frame */
+    const cs = getComputedStyle(el), o = cs.opacity, t0 = cs.transform === "none" ? "translate3d(0,0,0)" : cs.transform; el.style.transform = t0; el.style.opacity = o; el.style.animation = "none"; el.style.willChange = "transform, opacity";
     /* transform + opacity only, so the move runs on the compositor and stays smooth while the shop page builds underneath */
     el.animate([{ transform: "translate3d(0,0,0)", opacity: +o || 1 }, { transform: `translate3d(${tx}px,${ty}px,0)`, opacity: .2 }],
-      { duration: dur, delay, easing: "cubic-bezier(.65,0,.25,1)", fill: "forwards" }); });
+      { duration: dur, delay, easing: "cubic-bezier(.65,0,.25,1)", fill: "both" }); });
   setTimeout(() => { document.documentElement.classList.add("pg-zoom"); done(); setTimeout(() => document.documentElement.classList.remove("pg-zoom"), 1100); }, 860);
 }
 function wireGate2(g){
