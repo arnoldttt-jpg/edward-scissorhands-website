@@ -1614,6 +1614,18 @@ html.pg-zoom #main,html.pg-zoom .top{animation:pgZoom 1s cubic-bezier(.16,1,.3,1
 .k-foot{font-size:15px!important;letter-spacing:.2em!important;color:#9a968e!important;gap:12px 34px!important}@media (max-width:860px){.k-foot{font-size:13.5px!important}}
 #gate .k-name{text-shadow:none!important;filter:drop-shadow(0 2px 10px rgba(0,0,0,.55))}
 
+/* phones: flatter action buttons, and a quiet hairline-and-diamond divider between the two shops */
+@media (max-width:860px){
+ .k-enter.k-go{min-height:40px!important;padding:0 24px!important;font-size:13.5px}
+ .k-book{min-height:40px!important}
+ .k-tel{width:40px!important;height:40px!important}
+ .k-grid{row-gap:58px!important}
+ .k-card + .k-card::after{content:"";position:absolute;left:12%;right:12%;top:-30px;height:9px;pointer-events:none;
+  background:
+   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cpath d='M4.5 .6 8.4 4.5 4.5 8.4 .6 4.5Z' fill='none' stroke='%23d8b24a' stroke-opacity='.8'/%3E%3C/svg%3E") center/9px 9px no-repeat,
+   linear-gradient(90deg,transparent,rgba(242,240,235,.16) 30%,rgba(242,240,235,.16) calc(50% - 12px),transparent calc(50% - 12px),transparent calc(50% + 12px),rgba(242,240,235,.16) calc(50% + 12px),rgba(242,240,235,.16) 70%,transparent) center/100% 1px no-repeat}
+}
+
 
 /* feature photo: slow crossfade between the shop's in-chair shots */
 .split figure.rot{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:var(--r)}
