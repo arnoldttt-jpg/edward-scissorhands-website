@@ -2165,6 +2165,13 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 
 /* kit panel titles: both gold, with the site's title grain */
 .cr-kp h3{color:#d8b24a;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .26 0 0 0 0 .23 0 0 0 0 .18 0 0 0 .8 -.08'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/120px 120px repeat,linear-gradient(180deg,#f0d27e 0%,#d8b24a 50%,#a9852f 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;padding-bottom:.05em}
+
+/* proof row: same space above and below, between the two divider lines; spread edge to edge */
+.cr-why{padding-bottom:0!important}
+.cr-proof{display:flex!important;justify-content:space-between;gap:28px;padding-block:clamp(28px,3.2vw,44px)!important;margin-top:clamp(48px,6vw,80px)}
+.cr-proof li{flex:0 1 auto;max-width:240px}
+.cr-proof b{min-height:40px}
+@media (max-width:900px){.cr-proof{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));row-gap:26px}.cr-proof li{max-width:none}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
