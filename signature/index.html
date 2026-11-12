@@ -1964,6 +1964,22 @@ img.iadj-on{cursor:grab;touch-action:none;outline:1px dashed rgba(216,178,74,.75
 
 /* chooser shop names: lighter grain, solid white so they read cleanly (especially over the photos on phones) */
 #gate .k-name{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .28 0 0 0 0 .24 0 0 0 .3 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/140px 140px repeat,#f4f1ea!important;-webkit-background-clip:text!important;background-clip:text!important}
+
+/* phones & tablets: Book button in the header; shop switch shows just the current shop with a swap mark (tap to change) */
+.shops .swap{display:none}
+@media (max-width:1000px){
+ .top .book-top{display:inline-flex!important;align-items:center;white-space:nowrap;min-height:36px!important;height:36px;padding:0 15px!important;font-size:12px!important;letter-spacing:.14em}
+ .shops button{border:0!important;box-shadow:none!important}
+ .shops button+button::before,.shops button::before{display:none!important}
+ .top .right{gap:10px}
+ .shops{gap:0!important}
+ .shops button[aria-pressed="false"]{display:none!important}
+ .shops::before,.shops .sep,.shind{display:none!important}
+ .shops button[aria-pressed="true"]{display:inline-flex!important;align-items:center;gap:6px;color:#f2f0eb!important;background:none!important;padding:7px 2px!important}
+ .shops button[aria-pressed="true"] .swap{display:inline-block;width:12px;height:12px;color:var(--gold);flex:none}
+ .top .mark span{display:none}
+}
+@media (max-width:420px){.top .mark b{font-size:13px;letter-spacing:.14em}.top .book-top{padding:0 13px;font-size:12px}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -1972,8 +1988,8 @@ img.iadj-on{cursor:grab;touch-action:none;outline:1px dashed rgba(216,178,74,.75
   <nav class="nav" aria-label="Main"><a data-go="services" href="#">Services</a><a data-go="about" href="#">About</a><a data-go="contact" href="#">Contact</a></nav>
   <div class="right">
     <div class="shops" role="group" aria-label="Choose a shop">
-      <button type="button" data-shop="south-melbourne" aria-pressed="true"><span class="lg">South Melbourne</span><span class="sh" aria-hidden="true">Sth Melb</span></button>
-      <button type="button" data-shop="st-kilda" aria-pressed="false">St Kilda</button>
+      <button type="button" data-shop="south-melbourne" aria-pressed="true"><span class="lg">South Melbourne</span><span class="sh" aria-hidden="true">Sth Melb</span><svg class="swap" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5h9.5L10 3M13 10.5H3.5L6 13"/></svg></button>
+      <button type="button" data-shop="st-kilda" aria-pressed="false">St Kilda<svg class="swap" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5h9.5L10 3M13 10.5H3.5L6 13"/></svg></button>
     </div>
     <a class="pill fill book-top js-book" href="#" target="_blank" rel="noopener">Book now</a>
     <button type="button" class="menu-btn burger" id="menuBtn" aria-expanded="false" aria-controls="sheet" aria-label="Open menu"><i></i><i></i></button>
@@ -2781,6 +2797,10 @@ function openIadj(img){ const host = img; const key = iadjKey(img), A = iadjGet(
 function wireFocusPairs(){ if (reduce || !("IntersectionObserver" in window)) return; const ims = [...document.querySelectorAll("#main .two img")]; if (!ims.length) return;
   const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; io.unobserve(e.target); const i = ims.indexOf(e.target); setTimeout(() => rackFocus(e.target, 900), i % 2 ? 140 : 0); }), { threshold: .3 });
   ims.forEach(im => io.observe(im)); }
+
+/* on narrow screens the header shows only the current shop: tapping it switches to the other shop */
+document.addEventListener("click", e => { const b = e.target.closest(".shops button[aria-pressed='true']"); if (!b || innerWidth > 1000) return; e.preventDefault(); e.stopImmediatePropagation();
+  const other = [...document.querySelectorAll(".shops button")].find(x => x !== b); other && other.click(); }, true);
 /* keep "South Melbourne" together on one line wherever it appears */
 (function(){ const fix = root => { const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => /South Melbourne/.test(n.nodeValue) && !/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode && n.parentNode.nodeName) ? 1 : 3 });
     const ns = []; while (w.nextNode()) ns.push(w.currentNode); ns.forEach(n => n.nodeValue = n.nodeValue.replace(/South Melbourne/g, "South Melbourne")); };
