@@ -1998,7 +1998,7 @@ h2.s.rv-h .wd,.phead h1.rv-h .wd{background:url("data:image/svg+xml,%3Csvg xmlns
 
 /* a long review takes the room: the chair drawing steps back while it shows */
 .rev .rev-chair{transition:opacity .6s ease}
-.rev.qlong .rev-chair{opacity:0}
+@media (min-width:821px){.rev.qlong .rev-chair{opacity:0}}
 /* header Book now ring: a touch thicker, with brass in the metal */
 .top .book-top::after{inset:-2.2px;padding:2.2px;
  background:conic-gradient(from var(--ba),#8a6a2a 0deg,#b08a3e 30deg,#d8b24a 52deg,#fff0c2 66deg,#e6c46a 78deg,#b5873a 104deg,#7d5e26 150deg,#a07a36 220deg,#c9a24f 290deg,#8a6a2a 360deg);
