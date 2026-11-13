@@ -2384,6 +2384,8 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 .iadj-tg{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:2147483001;padding:10px 16px;border-radius:999px;border:1px solid rgba(216,178,74,.55);background:rgba(10,10,10,.75);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#f2f0eb;font:700 12px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
 .iadj-tg[aria-pressed="true"]{background:var(--gold);color:#0b0b0c}
 body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
+.pr{opacity:0}
+@media (prefers-reduced-motion:reduce){.pr{opacity:1}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2428,7 +2430,7 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
 <div class="aura" id="aura" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 <div class="grain" aria-hidden="true"></div>
 <main id="main"><header class="phead wrap long art"><a class="x-back" data-go="blog" href="/v2/south-melbourne/blog/">← Journal</a><small class="x-meta">Grooming · 4 min read</small><h1 id="h1" data-split="1"><span class="wd" style="--wi: 0;">Keeping</span> <span class="wd" style="--wi: 1;">a</span> <span class="wd" style="--wi: 2;">fade</span> <span class="wd" style="--wi: 3;">sharp</span> <span class="wd" style="--wi: 4;">between</span> <span class="wd" style="--wi: 5;">visits</span></h1><p class="sub">How long a fade stays sharp, week by week, how to look after it at home, whether to tidy your own neckline, and when to book back in.</p></header>
-<figure class="wrap x-hero"><img src="/v2/images/annie-barber-skin-fade-south-melbourne.webp" alt="" decoding="async"></figure>
+<figure class="wrap x-hero"><img src="/v2/images/annie-barber-skin-fade-south-melbourne.webp" alt="" decoding="async" class=""></figure>
 <section class="wrap x-prose"><p>A fade looks its best the day you walk out. A few simple habits keep it looking that way for longer, and tell you exactly when it's time to come back.</p><figure class="x-fig"><img src="/v2/images/annie-barber-skin-fade-south-melbourne.webp" alt="Annie cutting a fresh skin fade at Edward Scissorhands, South Melbourne" loading="lazy" decoding="async"></figure><h2 class="x-h2">How long does a fade stay sharp?</h2><p>Most fades look crisp for one to two weeks and start to lose their shape by week three. The shorter the bottom, the faster it shows. A skin fade softens sooner than a zero or a No. 1, because even a millimetre of regrowth stands out against bare skin.</p><p>Hair also grows at different speeds for different people, so two people with the same cut can need very different timing. As a rule, book a skin fade every two to three weeks and a longer fade every three to four. If you don't mind it softening a little, you can stretch that by a week — the tips below will help.</p><p class="x-cap">The life of a fadeHow sharp a typical skin or zero fade looks, week by week.</p><h2 class="x-h2">How do you look after a fade at home?</h2><ul class="x-ul"><li>Go easy on washing. A gentle shampoo two or three times a week keeps hair healthy without stripping it, so it sits flatter as it grows.</li><li>Use a matte product. Clays and pastes hide early regrowth. High-shine products show every gap in the blend.</li><li>Look after your scalp. Freshly faded skin can get dry and flaky, especially in winter. A light, unscented moisturiser helps.</li><li>Protect it from the sun. A skin fade exposes skin that rarely sees daylight. Use sunscreen or wear a cap on hot days.</li></ul><h2 class="x-h2">Should you tidy your own neckline?</h2><p>Carefully, and only below the fade. If you've got a trimmer at home, you can clean up stray hairs on the back of your neck, below the line your barber cut. Use a hand mirror, go slowly and stay well under the existing line.</p><p>What you shouldn't touch is the fade itself or the line-up around your forehead. Taking a trimmer to the blend almost always leaves a hard step that's difficult to fix, and pushing the hairline back is the quickest way to lose a good shape. If it's bothering you that much, it's usually time for a proper cut.</p><blockquote class="x-q"><p>“Tidy the neck if you must. Leave the blend to us.Advice from the chair</p></blockquote><h2 class="x-h2">When is it time to book back in?</h2><p>When the short and long sections have blurred into one block, when your ears are getting covered, or when your product stops holding the shape, your fade has done its job. The easiest way to stay ahead is to book your next visit before you leave the chair.</p><p>Want the full breakdown by cut? Read our guide to how often you should get a haircut.</p><div class="acts xacts"><a class="pill fill" href="https://www.fresha.com/book-now/cutthroat-barber-co-jrqcxngb/all-offer?id=2898768&amp;share=true&amp;pId=709141" target="_blank" rel="noopener">Book now</a><a class="pill" href="#south-melbourne-locations">Find the shop</a></div></section>
 <section class="close wrap" aria-labelledby="cH">
   <div class="cstage wait" id="cstage">
@@ -3108,7 +3110,6 @@ function reveals(){
       n.replaceWith(frag); });
   });
   mark("main h2.s, .phead h1", "rv-h");
-  mark(".split figure, .two", "rv-m");
   // shops: wait until both photos are decoded, then rise together with a slow settle inside the frame
   const locs = [...document.querySelectorAll(".locs .loc")];
   if (locs.length && locs[0].getBoundingClientRect().top > vh * .92) {
@@ -3208,7 +3209,23 @@ function wireTrophy(){ clearInterval(troT); troIo && troIo.disconnect(); troIo =
   els.forEach(el => troIo.observe(el));
   if (!rm) troT = setInterval(() => { if (!document.hidden) els.forEach(el => { if (vis.get(el) && document.body.contains(el)) el._shine(0); }); }, 14000); }
 
-function wire(S,D){ setTimeout(wireTrophy, 0); setTimeout(wireRot, 0); setTimeout(wirePhotoAdj, 0); setTimeout(wireImgAdj, 120); setTimeout(wireFocusPairs, 0);
+/* every photo: waits until the picture is actually loaded, then goes quickly and smoothly from blurred to sharp as it comes into view */
+const PR_SKIP = ".team, .locs, .ohero, .lg-anim, .fp-anim, .rev-chair, .tro, .logo-wrap, .neon, .k-armwrap, .fl, .x-auth, .face";
+function wirePhotoReveal(){ if (reduce || !("IntersectionObserver" in window) || !Element.prototype.animate) return;
+  const els = new Set();
+  document.querySelectorAll("#main img").forEach(im => { if (im.closest(PR_SKIP) || /logo|\.svg($|\?)/.test(im.getAttribute("src") || "") || im._pr) return;
+    const rot = im.closest("[data-rot]"); const el = rot || im; if (el._pr) return; if (!rot && im.offsetWidth < 56) return; els.add(el); });
+  if (!els.size) return;
+  const vh = innerHeight;
+  const go = el => { const im = el.tagName === "IMG" ? el : el.querySelector("img.on") || el.querySelector("img");
+    const ready = im.complete && im.naturalWidth ? Promise.resolve() : new Promise(r => { im.addEventListener("load", r, { once: true }); im.addEventListener("error", r, { once: true }); });
+    Promise.race([ready.then(() => im.decode ? im.decode().catch(() => {}) : 0), new Promise(r => setTimeout(r, 2500))]).then(() => requestAnimationFrame(() => {
+      el.classList.remove("pr"); const base = getComputedStyle(el).filter, f = base === "none" ? "" : base + " ";
+      el.animate([{ opacity: 0, filter: f + "blur(14px)", transform: "scale(1.035)" }, { opacity: 1, offset: .35 }, { opacity: 1, filter: f + "blur(0px)", transform: "scale(1)" }], { duration: 1000, easing: "cubic-bezier(.2,.75,.25,1)" }); })); };
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; io.unobserve(e.target); go(e.target); }), { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+  els.forEach(el => { el._pr = 1; const r = el.getBoundingClientRect(); if (r.top < vh && r.bottom > 0 && document.readyState === "complete" && false) return; el.classList.add("pr"); io.observe(el); }); }
+
+function wire(S,D){ setTimeout(wireTrophy, 0); setTimeout(wirePhotoReveal, 0); setTimeout(wireRot, 0); setTimeout(wirePhotoAdj, 0); setTimeout(wireImgAdj, 120); 
   clearInterval(koTimer); const ko = document.querySelector(".pill.ko");
   if (ko && !reduce) { let busy = false;
     const lines = [...ko.querySelectorAll(".ko-line")]; let cur = 0;
@@ -3294,7 +3311,7 @@ function featPool(S){ const k = Object.keys(SHOPS).find(x => SHOPS[x] === S); co
 /* blur-to-focus "rack focus" on a photo, keeping whatever tone filter it already has */
 function rackFocus(img, dur){ if (reduce || !img.animate) return; const base = getComputedStyle(img).filter, f = base === "none" ? "" : base + " ";
   img.animate([{ filter: f + "blur(16px)" }, { filter: f + "blur(0px)" }], { duration: dur || 1100, easing: "cubic-bezier(.22,.61,.36,1)" }); }
-function wireRot(){ document.querySelectorAll("[data-rot]").forEach(fig => { if (fig._rot) return; fig._rot = 1; const imgs = [...fig.querySelectorAll("img")]; if (imgs.length < 2 || reduce) { if (!reduce && imgs[0]) { const o = new IntersectionObserver(es => { if (es[0].isIntersecting) { o.disconnect(); rackFocus(imgs[0], 1000); } }, { threshold: .25 }); o.observe(fig); } return; }
+function wireRot(){ document.querySelectorAll("[data-rot]").forEach(fig => { if (fig._rot) return; fig._rot = 1; const imgs = [...fig.querySelectorAll("img")]; if (imgs.length < 2 || reduce) { return; }
   let i = 0, vis = false; const t = setInterval(() => { if (!document.body.contains(fig)) return clearInterval(t); if (!vis || document.hidden || fig.classList.contains("iadj-hold")) return;
     const cur = imgs[i]; i = (i + 1) % imgs.length; const nx = imgs[i]; nx.loading = "eager";
     const swap = () => { cur.classList.remove("on"); nx.classList.add("on"); cur.setAttribute("aria-hidden","true"); nx.removeAttribute("aria-hidden"); rackFocus(nx, 1300); };

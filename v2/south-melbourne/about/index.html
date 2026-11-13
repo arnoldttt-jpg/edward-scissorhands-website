@@ -2383,6 +2383,8 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 .iadj-tg{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:2147483001;padding:10px 16px;border-radius:999px;border:1px solid rgba(216,178,74,.55);background:rgba(10,10,10,.75);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#f2f0eb;font:700 12px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
 .iadj-tg[aria-pressed="true"]{background:var(--gold);color:#0b0b0c}
 body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
+.pr{opacity:0}
+@media (prefers-reduced-motion:reduce){.pr{opacity:1}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2432,7 +2434,7 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
   <div class="tro-refl" aria-hidden="true"><img draggable="false" src="/v2/images/local-business-awards-2026-finalist-trophy-sm.webp" alt="" decoding="async"></div>
   <figcaption>Local Business Awards 2026, finalist</figcaption></figure></header>
 <section class="sec wrap" aria-label="Our story"><div class="story"><div><p>For over a decade this shop has built a reputation of its own in South&nbsp;Melbourne — sharp haircuts, modern skin fades, scissor cuts and traditional barbering for the local community.</p><p>Since 2015 in the Clarendon Centre, we've learned that a good cut is half craft and half listening. We take the time to work out what actually suits your hair before the clippers come out — and we will tell you straight if something won't.</p><p>Come in, take a seat, relax and leave the rest to us.</p><div style="margin-top:22px"><a class="pill fill js-book rb" href="https://www.fresha.com/book-now/cutthroat-barber-co-jrqcxngb/all-offer?id=2898768&amp;share=true&amp;pId=709141" target="_blank" rel="noopener" aria-label="Make a booking"><span class="rb-roll" aria-hidden="true"><span class="rb-line" data-pos="center"><i class="rb-c" style="--li:0">M</i><i class="rb-c" style="--li:1">a</i><i class="rb-c" style="--li:2">k</i><i class="rb-c" style="--li:3">e</i><i class="rb-sp"></i><i class="rb-c" style="--li:5">a</i><i class="rb-sp"></i><i class="rb-c" style="--li:7">b</i><i class="rb-c" style="--li:8">o</i><i class="rb-c" style="--li:9">o</i><i class="rb-c" style="--li:10">k</i><i class="rb-c" style="--li:11">i</i><i class="rb-c" style="--li:12">n</i><i class="rb-c" style="--li:13">g</i></span><span class="rb-line" data-pos="below"><i class="rb-c" style="--li:0">B</i><i class="rb-c" style="--li:1">o</i><i class="rb-c" style="--li:2">o</i><i class="rb-c" style="--li:3">k</i><i class="rb-sp"></i><i class="rb-c" style="--li:5">y</i><i class="rb-c" style="--li:6">o</i><i class="rb-c" style="--li:7">u</i><i class="rb-c" style="--li:8">r</i><i class="rb-sp"></i><i class="rb-c" style="--li:10">l</i><i class="rb-c" style="--li:11">o</i><i class="rb-c" style="--li:12">o</i><i class="rb-c" style="--li:13">k</i></span></span></a></div></div>
-  <div class="two rv-m"><img src="/v2/images/fredy-barber-blow-dry-styling-south-melbourne.webp" alt="Fredy styling a client at Edward Scissorhands, South Melbourne" loading="lazy" decoding="async"><img src="/v2/images/tim-barber-clipper-over-comb-south-melbourne.webp" alt="Tim working clipper over comb at Edward Scissorhands, South Melbourne" loading="lazy" decoding="async"></div></div></section>
+  <div class="two"><img src="/v2/images/fredy-barber-blow-dry-styling-south-melbourne.webp" alt="Fredy styling a client at Edward Scissorhands, South Melbourne" loading="lazy" decoding="async"><img src="/v2/images/tim-barber-clipper-over-comb-south-melbourne.webp" alt="Tim working clipper over comb at Edward Scissorhands, South Melbourne" loading="lazy" decoding="async"></div></div></section>
 
 <section class="sec wrap" aria-labelledby="bH">
   <h2 class="s rv-h" id="bH" data-split="1"><span class="wd" style="--wi: 0;">Meet</span> <span class="wd" style="--wi: 1;">the</span> <span class="wd" style="--wi: 2;">barbers.</span></h2><p class="sub rv-c" style="--d: 0.08s;">A familiar face in every chair. Choose your barber when you book online, or take the first chair that's free.</p>
@@ -3117,7 +3119,6 @@ function reveals(){
       n.replaceWith(frag); });
   });
   mark("main h2.s, .phead h1", "rv-h");
-  mark(".split figure, .two", "rv-m");
   // shops: wait until both photos are decoded, then rise together with a slow settle inside the frame
   const locs = [...document.querySelectorAll(".locs .loc")];
   if (locs.length && locs[0].getBoundingClientRect().top > vh * .92) {
@@ -3217,7 +3218,23 @@ function wireTrophy(){ clearInterval(troT); troIo && troIo.disconnect(); troIo =
   els.forEach(el => troIo.observe(el));
   if (!rm) troT = setInterval(() => { if (!document.hidden) els.forEach(el => { if (vis.get(el) && document.body.contains(el)) el._shine(0); }); }, 14000); }
 
-function wire(S,D){ setTimeout(wireTrophy, 0); setTimeout(wireRot, 0); setTimeout(wirePhotoAdj, 0); setTimeout(wireImgAdj, 120); setTimeout(wireFocusPairs, 0);
+/* every photo: waits until the picture is actually loaded, then goes quickly and smoothly from blurred to sharp as it comes into view */
+const PR_SKIP = ".team, .locs, .ohero, .lg-anim, .fp-anim, .rev-chair, .tro, .logo-wrap, .neon, .k-armwrap, .fl, .x-auth, .face";
+function wirePhotoReveal(){ if (reduce || !("IntersectionObserver" in window) || !Element.prototype.animate) return;
+  const els = new Set();
+  document.querySelectorAll("#main img").forEach(im => { if (im.closest(PR_SKIP) || /logo|\.svg($|\?)/.test(im.getAttribute("src") || "") || im._pr) return;
+    const rot = im.closest("[data-rot]"); const el = rot || im; if (el._pr) return; if (!rot && im.offsetWidth < 56) return; els.add(el); });
+  if (!els.size) return;
+  const vh = innerHeight;
+  const go = el => { const im = el.tagName === "IMG" ? el : el.querySelector("img.on") || el.querySelector("img");
+    const ready = im.complete && im.naturalWidth ? Promise.resolve() : new Promise(r => { im.addEventListener("load", r, { once: true }); im.addEventListener("error", r, { once: true }); });
+    Promise.race([ready.then(() => im.decode ? im.decode().catch(() => {}) : 0), new Promise(r => setTimeout(r, 2500))]).then(() => requestAnimationFrame(() => {
+      el.classList.remove("pr"); const base = getComputedStyle(el).filter, f = base === "none" ? "" : base + " ";
+      el.animate([{ opacity: 0, filter: f + "blur(14px)", transform: "scale(1.035)" }, { opacity: 1, offset: .35 }, { opacity: 1, filter: f + "blur(0px)", transform: "scale(1)" }], { duration: 1000, easing: "cubic-bezier(.2,.75,.25,1)" }); })); };
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; io.unobserve(e.target); go(e.target); }), { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+  els.forEach(el => { el._pr = 1; const r = el.getBoundingClientRect(); if (r.top < vh && r.bottom > 0 && document.readyState === "complete" && false) return; el.classList.add("pr"); io.observe(el); }); }
+
+function wire(S,D){ setTimeout(wireTrophy, 0); setTimeout(wirePhotoReveal, 0); setTimeout(wireRot, 0); setTimeout(wirePhotoAdj, 0); setTimeout(wireImgAdj, 120); 
   clearInterval(koTimer); const ko = document.querySelector(".pill.ko");
   if (ko && !reduce) { let busy = false;
     const lines = [...ko.querySelectorAll(".ko-line")]; let cur = 0;
@@ -3303,7 +3320,7 @@ function featPool(S){ const k = Object.keys(SHOPS).find(x => SHOPS[x] === S); co
 /* blur-to-focus "rack focus" on a photo, keeping whatever tone filter it already has */
 function rackFocus(img, dur){ if (reduce || !img.animate) return; const base = getComputedStyle(img).filter, f = base === "none" ? "" : base + " ";
   img.animate([{ filter: f + "blur(16px)" }, { filter: f + "blur(0px)" }], { duration: dur || 1100, easing: "cubic-bezier(.22,.61,.36,1)" }); }
-function wireRot(){ document.querySelectorAll("[data-rot]").forEach(fig => { if (fig._rot) return; fig._rot = 1; const imgs = [...fig.querySelectorAll("img")]; if (imgs.length < 2 || reduce) { if (!reduce && imgs[0]) { const o = new IntersectionObserver(es => { if (es[0].isIntersecting) { o.disconnect(); rackFocus(imgs[0], 1000); } }, { threshold: .25 }); o.observe(fig); } return; }
+function wireRot(){ document.querySelectorAll("[data-rot]").forEach(fig => { if (fig._rot) return; fig._rot = 1; const imgs = [...fig.querySelectorAll("img")]; if (imgs.length < 2 || reduce) { return; }
   let i = 0, vis = false; const t = setInterval(() => { if (!document.body.contains(fig)) return clearInterval(t); if (!vis || document.hidden || fig.classList.contains("iadj-hold")) return;
     const cur = imgs[i]; i = (i + 1) % imgs.length; const nx = imgs[i]; nx.loading = "eager";
     const swap = () => { cur.classList.remove("on"); nx.classList.add("on"); cur.setAttribute("aria-hidden","true"); nx.removeAttribute("aria-hidden"); rackFocus(nx, 1300); };

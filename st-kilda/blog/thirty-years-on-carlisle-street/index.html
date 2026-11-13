@@ -2383,6 +2383,8 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 .iadj-tg{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:2147483001;padding:10px 16px;border-radius:999px;border:1px solid rgba(216,178,74,.55);background:rgba(10,10,10,.75);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#f2f0eb;font:700 12px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
 .iadj-tg[aria-pressed="true"]{background:var(--gold);color:#0b0b0c}
 body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
+.pr{opacity:0}
+@media (prefers-reduced-motion:reduce){.pr{opacity:1}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2427,7 +2429,7 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
 <div class="aura" id="aura" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 <div class="grain" aria-hidden="true"></div>
 <main id="main"><header class="phead wrap long art"><a class="x-back" data-go="blog" href="/st-kilda/blog/">← Journal</a><small class="x-meta">St&nbsp;Kilda · 3 min read</small><h1 id="h1" data-split="1"><span class="wd" style="--wi: 0;">Over</span> <span class="wd" style="--wi: 1;">thirty</span> <span class="wd" style="--wi: 2;">years</span> <span class="wd" style="--wi: 3;">on</span> <span class="wd" style="--wi: 4;">Carlisle</span> <span class="wd" style="--wi: 5;">Street</span></h1><p class="sub">Edward Scissorhands opened at 190 Carlisle St, St&nbsp;Kilda in 1991. How barbering has changed since, what hasn't, and why locals keep coming back.</p></header>
-<figure class="wrap x-hero"><img src="/images/edward-scissorhands-barber-shop-st-kilda.webp" alt="" decoding="async"></figure>
+<figure class="wrap x-hero"><img src="/images/edward-scissorhands-barber-shop-st-kilda.webp" alt="" decoding="async" class=""></figure>
 <section class="wrap x-prose"><p>Edward Scissorhands opened at 190 Carlisle Street in 1991. The styles have changed many times since. The idea behind the shop hasn't.</p><figure class="x-fig"><img src="/images/edward-scissorhands-barber-shop-st-kilda.webp" alt="Edward Scissorhands Barber Shop on Carlisle Street, St Kilda" loading="lazy" decoding="async"></figure><h2 class="x-h2">How has barbering changed since 1991?</h2><p>When the shop opened, most men asked for a short back and sides, a flat top or a simple number two all over. Barbering was quick and practical, and not something anyone talked about much.</p><p>Over the next three decades that changed completely. The late '90s and 2000s brought longer, textured styles and plenty of gel. Then, through the 2010s, the traditional barber shop came roaring back: skin fades, hard parts, pompadours, beards worth looking after and hot-towel shaves. Clients started bringing in photos, asking about products and caring about the details. The tools changed too, from cordless clippers to foil shavers and far better products on the shelf.</p><p>What we offer on Carlisle Street today looks very different from 1991. But every one of those changes came from the same place: listening to what the people in the chair were asking for.</p><h2 class="x-h2">What hasn't changed?</h2><p>Walk in off Carlisle Street on a Saturday and plenty will feel familiar to anyone who's been coming for years. You can still walk in without a booking. The shop is still open seven days. And a haircut is still a conversation — about the cut you want, and usually about everything else too.</p><p>Some of our clients first sat in the chair as kids and now bring their own children in for a cut. That's the part of the job no trend touches. A good barber shop is part of the street it sits on, and after more than thirty years that's still the role we want to play in St&nbsp;Kilda.</p><blockquote class="x-q"><p>“A good barber shop is part of the street it sits on.Edward Scissorhands, since 1991</p></blockquote><h2 class="x-h2">The shop through the years</h2><ul class="x-ul"><li>1991Doors open at 190 Carlisle Street, St&nbsp;Kilda.</li><li>2015A second shop opens in the Clarendon Centre, South&nbsp;Melbourne.</li><li>2024Named Fresha Best in Class.</li><li>2025Best in Class again.</li><li>2026Best in Class for a third year running.</li><li>TodayTwo shops, open 7&nbsp;days, walk-ins welcome.</li></ul><h2 class="x-h2">Why do locals keep coming back?</h2><p>We get asked this, and the honest answer is consistency. People come back when they know what they'll get: a barber who remembers how they like it, a cut that still looks good in week three, and a shop that's open when they need it.</p><p>Most of our regulars from St&nbsp;Kilda, Balaclava, Elwood and Ripponlea found us the same way — someone they knew had a good cut and told them where to go. That word of mouth is why we're still here, and it's why we take every cut seriously, whether it's someone's first visit or their hundredth.</p><p>Thank you to everyone who has sat in the chair since 1991. Here's to the next thirty years.</p><div class="acts xacts"><a class="pill fill" href="https://cutt.ly/Ed-Scissorhands-Bookings" target="_blank" rel="noopener">Book now</a><a class="pill" href="#st-kilda-locations">Find the shop</a></div></section>
 <section class="close wrap" aria-labelledby="cH">
   <div class="cstage wait" id="cstage">
@@ -3107,7 +3109,6 @@ function reveals(){
       n.replaceWith(frag); });
   });
   mark("main h2.s, .phead h1", "rv-h");
-  mark(".split figure, .two", "rv-m");
   // shops: wait until both photos are decoded, then rise together with a slow settle inside the frame
   const locs = [...document.querySelectorAll(".locs .loc")];
   if (locs.length && locs[0].getBoundingClientRect().top > vh * .92) {
@@ -3207,7 +3208,23 @@ function wireTrophy(){ clearInterval(troT); troIo && troIo.disconnect(); troIo =
   els.forEach(el => troIo.observe(el));
   if (!rm) troT = setInterval(() => { if (!document.hidden) els.forEach(el => { if (vis.get(el) && document.body.contains(el)) el._shine(0); }); }, 14000); }
 
-function wire(S,D){ setTimeout(wireTrophy, 0); setTimeout(wireRot, 0); setTimeout(wirePhotoAdj, 0); setTimeout(wireImgAdj, 120); setTimeout(wireFocusPairs, 0);
+/* every photo: waits until the picture is actually loaded, then goes quickly and smoothly from blurred to sharp as it comes into view */
+const PR_SKIP = ".team, .locs, .ohero, .lg-anim, .fp-anim, .rev-chair, .tro, .logo-wrap, .neon, .k-armwrap, .fl, .x-auth, .face";
+function wirePhotoReveal(){ if (reduce || !("IntersectionObserver" in window) || !Element.prototype.animate) return;
+  const els = new Set();
+  document.querySelectorAll("#main img").forEach(im => { if (im.closest(PR_SKIP) || /logo|\.svg($|\?)/.test(im.getAttribute("src") || "") || im._pr) return;
+    const rot = im.closest("[data-rot]"); const el = rot || im; if (el._pr) return; if (!rot && im.offsetWidth < 56) return; els.add(el); });
+  if (!els.size) return;
+  const vh = innerHeight;
+  const go = el => { const im = el.tagName === "IMG" ? el : el.querySelector("img.on") || el.querySelector("img");
+    const ready = im.complete && im.naturalWidth ? Promise.resolve() : new Promise(r => { im.addEventListener("load", r, { once: true }); im.addEventListener("error", r, { once: true }); });
+    Promise.race([ready.then(() => im.decode ? im.decode().catch(() => {}) : 0), new Promise(r => setTimeout(r, 2500))]).then(() => requestAnimationFrame(() => {
+      el.classList.remove("pr"); const base = getComputedStyle(el).filter, f = base === "none" ? "" : base + " ";
+      el.animate([{ opacity: 0, filter: f + "blur(14px)", transform: "scale(1.035)" }, { opacity: 1, offset: .35 }, { opacity: 1, filter: f + "blur(0px)", transform: "scale(1)" }], { duration: 1000, easing: "cubic-bezier(.2,.75,.25,1)" }); })); };
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; io.unobserve(e.target); go(e.target); }), { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+  els.forEach(el => { el._pr = 1; const r = el.getBoundingClientRect(); if (r.top < vh && r.bottom > 0 && document.readyState === "complete" && false) return; el.classList.add("pr"); io.observe(el); }); }
+
+function wire(S,D){ setTimeout(wireTrophy, 0); setTimeout(wirePhotoReveal, 0); setTimeout(wireRot, 0); setTimeout(wirePhotoAdj, 0); setTimeout(wireImgAdj, 120); 
   clearInterval(koTimer); const ko = document.querySelector(".pill.ko");
   if (ko && !reduce) { let busy = false;
     const lines = [...ko.querySelectorAll(".ko-line")]; let cur = 0;
@@ -3293,7 +3310,7 @@ function featPool(S){ const k = Object.keys(SHOPS).find(x => SHOPS[x] === S); co
 /* blur-to-focus "rack focus" on a photo, keeping whatever tone filter it already has */
 function rackFocus(img, dur){ if (reduce || !img.animate) return; const base = getComputedStyle(img).filter, f = base === "none" ? "" : base + " ";
   img.animate([{ filter: f + "blur(16px)" }, { filter: f + "blur(0px)" }], { duration: dur || 1100, easing: "cubic-bezier(.22,.61,.36,1)" }); }
-function wireRot(){ document.querySelectorAll("[data-rot]").forEach(fig => { if (fig._rot) return; fig._rot = 1; const imgs = [...fig.querySelectorAll("img")]; if (imgs.length < 2 || reduce) { if (!reduce && imgs[0]) { const o = new IntersectionObserver(es => { if (es[0].isIntersecting) { o.disconnect(); rackFocus(imgs[0], 1000); } }, { threshold: .25 }); o.observe(fig); } return; }
+function wireRot(){ document.querySelectorAll("[data-rot]").forEach(fig => { if (fig._rot) return; fig._rot = 1; const imgs = [...fig.querySelectorAll("img")]; if (imgs.length < 2 || reduce) { return; }
   let i = 0, vis = false; const t = setInterval(() => { if (!document.body.contains(fig)) return clearInterval(t); if (!vis || document.hidden || fig.classList.contains("iadj-hold")) return;
     const cur = imgs[i]; i = (i + 1) % imgs.length; const nx = imgs[i]; nx.loading = "eager";
     const swap = () => { cur.classList.remove("on"); nx.classList.add("on"); cur.setAttribute("aria-hidden","true"); nx.removeAttribute("aria-hidden"); rackFocus(nx, 1300); };

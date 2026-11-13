@@ -2382,6 +2382,8 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 .iadj-tg{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:2147483001;padding:10px 16px;border-radius:999px;border:1px solid rgba(216,178,74,.55);background:rgba(10,10,10,.75);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#f2f0eb;font:700 12px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
 .iadj-tg[aria-pressed="true"]{background:var(--gold);color:#0b0b0c}
 body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
+.pr{opacity:0}
+@media (prefers-reduced-motion:reduce){.pr{opacity:1}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2460,7 +2462,7 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
     <p class="sub rv-c" style="--d: 0.08s;">Step into a relaxed, welcoming barber shop where great cuts, good conversation and modern style come together. Our experienced barbers blend traditional barbering craft with contemporary technique, from precision scissor cuts and classic styles to modern fades, skin fades, tapers and beard trims. No matter the style, every cut is tailored to you and finished with care.</p>
     <p class="sub rv-c" style="--d: 0.16s;">Come in, take a seat, relax and leave the rest to us.</p>
     <p style="margin-top:22px"><a class="ul" data-go="about" href="/st-kilda/about/">Our story</a></p></div>
-  <figure class="rot rv-m" data-rot=""><img src="/images/inside-edward-scissorhands-barber-shop-st-kilda.webp" alt="Inside Edward Scissorhands on Carlisle Street, St Kilda" class="on" loading="lazy" decoding="async"><img src="/images/high-skin-fade-textured-crop-haircut.webp" alt="High skin fade with a textured crop by an Edward Scissorhands barber, St Kilda" aria-hidden="true" loading="lazy" decoding="async"><img src="/images/vintage-barber-chair-edward-scissorhands.webp" alt="Vintage barber chair at Edward Scissorhands Barber Shop, St Kilda" aria-hidden="true" loading="lazy" decoding="async"><img src="/images/low-taper-fade-pompadour-haircut.webp" alt="Low taper fade with a combed pompadour by an Edward Scissorhands barber, St Kilda" aria-hidden="true" loading="lazy" decoding="async"><img src="/images/barber-shop-floor-edward-scissorhands.webp" alt="Barber stations on the shop floor at Edward Scissorhands Barber Shop, St Kilda" aria-hidden="true" loading="lazy" decoding="async"><img src="/images/barber-knuckle-tattoos-scissors.webp" alt="Barber’s knuckle tattoos spelling BARBER at Edward Scissorhands Barber Shop, St Kilda" aria-hidden="true" loading="lazy" decoding="async"></figure>
+  <figure class="rot" data-rot=""><img src="/images/inside-edward-scissorhands-barber-shop-st-kilda.webp" alt="Inside Edward Scissorhands on Carlisle Street, St Kilda" class="on" loading="lazy" decoding="async"><img src="/images/high-skin-fade-textured-crop-haircut.webp" alt="High skin fade with a textured crop by an Edward Scissorhands barber, St Kilda" aria-hidden="true" loading="lazy" decoding="async"><img src="/images/vintage-barber-chair-edward-scissorhands.webp" alt="Vintage barber chair at Edward Scissorhands Barber Shop, St Kilda" aria-hidden="true" loading="lazy" decoding="async"><img src="/images/low-taper-fade-pompadour-haircut.webp" alt="Low taper fade with a combed pompadour by an Edward Scissorhands barber, St Kilda" aria-hidden="true" loading="lazy" decoding="async"><img src="/images/barber-shop-floor-edward-scissorhands.webp" alt="Barber stations on the shop floor at Edward Scissorhands Barber Shop, St Kilda" aria-hidden="true" loading="lazy" decoding="async"><img src="/images/barber-knuckle-tattoos-scissors.webp" alt="Barber’s knuckle tattoos spelling BARBER at Edward Scissorhands Barber Shop, St Kilda" aria-hidden="true" loading="lazy" decoding="async"></figure>
 </section>
 <section class="perks wrap" aria-label="In the shop">
   <div class="perk rv-c" style="--d: 0.24s;"><span class="ico-shears" role="img" aria-label="Barber scissors"></span><b>Experienced<br>barbers</b></div>
@@ -3212,7 +3214,6 @@ function reveals(){
       n.replaceWith(frag); });
   });
   mark("main h2.s, .phead h1", "rv-h");
-  mark(".split figure, .two", "rv-m");
   // shops: wait until both photos are decoded, then rise together with a slow settle inside the frame
   const locs = [...document.querySelectorAll(".locs .loc")];
   if (locs.length && locs[0].getBoundingClientRect().top > vh * .92) {
@@ -3312,7 +3313,23 @@ function wireTrophy(){ clearInterval(troT); troIo && troIo.disconnect(); troIo =
   els.forEach(el => troIo.observe(el));
   if (!rm) troT = setInterval(() => { if (!document.hidden) els.forEach(el => { if (vis.get(el) && document.body.contains(el)) el._shine(0); }); }, 14000); }
 
-function wire(S,D){ setTimeout(wireTrophy, 0); setTimeout(wireRot, 0); setTimeout(wirePhotoAdj, 0); setTimeout(wireImgAdj, 120); setTimeout(wireFocusPairs, 0);
+/* every photo: waits until the picture is actually loaded, then goes quickly and smoothly from blurred to sharp as it comes into view */
+const PR_SKIP = ".team, .locs, .ohero, .lg-anim, .fp-anim, .rev-chair, .tro, .logo-wrap, .neon, .k-armwrap, .fl, .x-auth, .face";
+function wirePhotoReveal(){ if (reduce || !("IntersectionObserver" in window) || !Element.prototype.animate) return;
+  const els = new Set();
+  document.querySelectorAll("#main img").forEach(im => { if (im.closest(PR_SKIP) || /logo|\.svg($|\?)/.test(im.getAttribute("src") || "") || im._pr) return;
+    const rot = im.closest("[data-rot]"); const el = rot || im; if (el._pr) return; if (!rot && im.offsetWidth < 56) return; els.add(el); });
+  if (!els.size) return;
+  const vh = innerHeight;
+  const go = el => { const im = el.tagName === "IMG" ? el : el.querySelector("img.on") || el.querySelector("img");
+    const ready = im.complete && im.naturalWidth ? Promise.resolve() : new Promise(r => { im.addEventListener("load", r, { once: true }); im.addEventListener("error", r, { once: true }); });
+    Promise.race([ready.then(() => im.decode ? im.decode().catch(() => {}) : 0), new Promise(r => setTimeout(r, 2500))]).then(() => requestAnimationFrame(() => {
+      el.classList.remove("pr"); const base = getComputedStyle(el).filter, f = base === "none" ? "" : base + " ";
+      el.animate([{ opacity: 0, filter: f + "blur(14px)", transform: "scale(1.035)" }, { opacity: 1, offset: .35 }, { opacity: 1, filter: f + "blur(0px)", transform: "scale(1)" }], { duration: 1000, easing: "cubic-bezier(.2,.75,.25,1)" }); })); };
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; io.unobserve(e.target); go(e.target); }), { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+  els.forEach(el => { el._pr = 1; const r = el.getBoundingClientRect(); if (r.top < vh && r.bottom > 0 && document.readyState === "complete" && false) return; el.classList.add("pr"); io.observe(el); }); }
+
+function wire(S,D){ setTimeout(wireTrophy, 0); setTimeout(wirePhotoReveal, 0); setTimeout(wireRot, 0); setTimeout(wirePhotoAdj, 0); setTimeout(wireImgAdj, 120); 
   clearInterval(koTimer); const ko = document.querySelector(".pill.ko");
   if (ko && !reduce) { let busy = false;
     const lines = [...ko.querySelectorAll(".ko-line")]; let cur = 0;
@@ -3398,7 +3415,7 @@ function featPool(S){ const k = Object.keys(SHOPS).find(x => SHOPS[x] === S); co
 /* blur-to-focus "rack focus" on a photo, keeping whatever tone filter it already has */
 function rackFocus(img, dur){ if (reduce || !img.animate) return; const base = getComputedStyle(img).filter, f = base === "none" ? "" : base + " ";
   img.animate([{ filter: f + "blur(16px)" }, { filter: f + "blur(0px)" }], { duration: dur || 1100, easing: "cubic-bezier(.22,.61,.36,1)" }); }
-function wireRot(){ document.querySelectorAll("[data-rot]").forEach(fig => { if (fig._rot) return; fig._rot = 1; const imgs = [...fig.querySelectorAll("img")]; if (imgs.length < 2 || reduce) { if (!reduce && imgs[0]) { const o = new IntersectionObserver(es => { if (es[0].isIntersecting) { o.disconnect(); rackFocus(imgs[0], 1000); } }, { threshold: .25 }); o.observe(fig); } return; }
+function wireRot(){ document.querySelectorAll("[data-rot]").forEach(fig => { if (fig._rot) return; fig._rot = 1; const imgs = [...fig.querySelectorAll("img")]; if (imgs.length < 2 || reduce) { return; }
   let i = 0, vis = false; const t = setInterval(() => { if (!document.body.contains(fig)) return clearInterval(t); if (!vis || document.hidden || fig.classList.contains("iadj-hold")) return;
     const cur = imgs[i]; i = (i + 1) % imgs.length; const nx = imgs[i]; nx.loading = "eager";
     const swap = () => { cur.classList.remove("on"); nx.classList.add("on"); cur.setAttribute("aria-hidden","true"); nx.removeAttribute("aria-hidden"); rackFocus(nx, 1300); };
