@@ -6,11 +6,15 @@
   Permissions-Policy: geolocation=(self), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()
   Content-Security-Policy: frame-ancestors 'self'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests
 
+/*/staff/
+  X-Robots-Tag: noindex, nofollow
 /*/staff
   X-Robots-Tag: noindex, nofollow
 /*/staff/*
   X-Robots-Tag: noindex, nofollow
 /*/brief
+  X-Robots-Tag: noindex, nofollow
+/*/first-day/
   X-Robots-Tag: noindex, nofollow
 /*/first-day
   X-Robots-Tag: noindex, nofollow
