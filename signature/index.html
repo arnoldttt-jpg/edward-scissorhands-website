@@ -2966,7 +2966,7 @@ function reveals(){
     if (h.dataset.split) return; h.dataset.split = "1"; let k = 0;
     [...h.childNodes].forEach(n => { if (n.nodeType !== 3) return;
       const frag = document.createDocumentFragment();
-      n.textContent.replace(/St Kilda/g, "St\u00a0Kilda").replace(/South Melbourne/g, "South\u00a0Melbourne").split(/([ \t\n\r]+)/).forEach(part => { if (!part) return; if (/^[ \t\n\r]+$/.test(part)) frag.appendChild(document.createTextNode(" ")); else { const w = document.createElement("span"); w.className = "wd"; w.style.setProperty("--wi", k++); w.textContent = part; frag.appendChild(w); } });
+      n.textContent.replace(/St Kilda/g, "St\u00a0Kilda").replace(/South Melbourne/g, "South\u00a0Melbourne").replace(/(\d) days/g, "$1\u00a0days").split(/([ \t\n\r]+)/).forEach(part => { if (!part) return; if (/^[ \t\n\r]+$/.test(part)) frag.appendChild(document.createTextNode(" ")); else { const w = document.createElement("span"); w.className = "wd"; w.style.setProperty("--wi", k++); w.textContent = part; frag.appendChild(w); } });
       n.replaceWith(frag); });
   });
   mark("main h2.s, .phead h1", "rv-h");
@@ -3284,8 +3284,8 @@ function wireFocusPairs(){ if (reduce || !("IntersectionObserver" in window)) re
 document.addEventListener("click", e => { const b = e.target.closest(".shops button[aria-pressed='true']"); if (!b || innerWidth > 1000) return; e.preventDefault(); e.stopImmediatePropagation();
   const other = [...document.querySelectorAll(".shops button")].find(x => x !== b); other && other.click(); }, true);
 /* keep "South Melbourne" together on one line wherever it appears */
-(function(){ const fix = root => { const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => /South Melbourne|St Kilda/.test(n.nodeValue) && !/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode && n.parentNode.nodeName) ? 1 : 3 });
-    const ns = []; while (w.nextNode()) ns.push(w.currentNode); ns.forEach(n => n.nodeValue = n.nodeValue.replace(/South Melbourne/g, "South Melbourne").replace(/St Kilda/g, "St Kilda")); };
+(function(){ const fix = root => { const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => /South Melbourne|St Kilda|\d days/.test(n.nodeValue) && !/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode && n.parentNode.nodeName) ? 1 : 3 });
+    const ns = []; while (w.nextNode()) ns.push(w.currentNode); ns.forEach(n => n.nodeValue = n.nodeValue.replace(/South Melbourne/g, "South Melbourne").replace(/St Kilda/g, "St Kilda").replace(/(\d) days/g, "$1 days")); };
   let q = 0; const run = () => { q = 0; fix(document.body); };
   new MutationObserver(() => { if (!q) q = requestAnimationFrame(run); }).observe(document.documentElement, { childList: true, subtree: true });
   if (document.body) run(); else addEventListener("DOMContentLoaded", run); })();
