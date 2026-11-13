@@ -2286,6 +2286,10 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 .x-tags li{display:inline-flex;align-items:center;line-height:1.25}
 .x-tags li:has(a)::after{content:none}
 .x-tags a{line-height:1.25}
+
+/* FAQ questions get the same soft push on hover as the services list */
+.faq summary{transition:text-indent .5s cubic-bezier(.22,.61,.36,1),color .3s}
+@media (hover:hover){.faq summary:hover{text-indent:10px}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
