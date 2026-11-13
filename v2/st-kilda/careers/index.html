@@ -790,12 +790,12 @@ body.menu-open .top .shops,body.menu-open .top .nav{opacity:0;pointer-events:non
 .fp h3{font-size:clamp(22px,2vw,28px);margin-top:16px}.fp p{margin:8px 0 0;color:var(--grey);font-size:15px;line-height:1.5}
 /* gallery */
 .gal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,28px);grid-auto-flow:dense}
-.gi{margin:0;position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5}
+.gi{margin:0;position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:7/5}
 .gi.w2{grid-column:span 2;aspect-ratio:auto}
 .gi img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .6s,transform 1.4s var(--ease)}
 .gi:hover img{filter:none;transform:scale(1.03)}
 .gi figcaption{position:absolute;left:14px;bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(10,10,10,.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-family:var(--cond);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
-@media (max-width:760px){.gal{grid-template-columns:1fr 1fr}.gi.w2{grid-column:span 2;aspect-ratio:16/10}}
+@media (max-width:760px){.gal{grid-template-columns:1fr 1fr}.gi{aspect-ratio:27/25}.gi.w2{grid-column:span 2;aspect-ratio:16/10}}
 /* locations */
 .hrs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:620px;margin-top:clamp(26px,3vw,44px)}
 .hrs div{border:1px solid var(--rule);border-radius:var(--r);padding:20px 22px;background:rgba(255,255,255,.025)}
@@ -2217,6 +2217,7 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 .cr-f ::placeholder{color:rgba(163,160,154,.6)}
 .cr-seg{display:flex;flex-wrap:wrap;gap:8px}
 .cr-seg label{position:relative;cursor:pointer}
+.cr-seg-fit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.cr-seg-fit span{display:flex;justify-content:center;padding:0 6px;white-space:nowrap;font-size:clamp(13px,3.4vw,15px)}
 .cr-seg input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
 .cr-seg span{display:inline-flex;align-items:center;min-height:42px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.16);color:var(--grey);font-size:15px;transition:background .3s,border-color .3s,color .3s}
 .cr-seg label:hover span{border-color:rgba(255,255,255,.35);color:var(--white)}
@@ -2365,7 +2366,8 @@ html.pg-enter #main{animation:pgIn2 .5s cubic-bezier(.22,.61,.36,1) both!importa
 .tro-refl{position:absolute;left:0;right:0;top:100%;height:30%;overflow:hidden;pointer-events:none;opacity:0;animation:trophyLevitateR 5.5s cubic-bezier(.45,0,.55,1) infinite;-webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.55),rgba(0,0,0,0) 80%);mask-image:linear-gradient(to bottom,rgba(0,0,0,.55),rgba(0,0,0,0) 80%)}
 .tro-refl img{display:block;width:100%;height:auto;transform:scaleY(-1);transform-origin:50% 0;position:absolute;left:0;top:0;translate:0 -100%;filter:blur(1.5px) brightness(.55)}
 .tro-spot{width:230%;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 40%),radial-gradient(closest-side,#000 60%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 40%);}
-.cr-hero-wrap .tro-spot{display:none}
+.cr-sh-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}.cr-sh-head .tro{height:clamp(170px,17vw,250px);margin:0 clamp(0px,3vw,48px) 10px 0}
+@media (max-width:760px){.cr-sh-head .tro{height:150px;margin:0}}
 .tro figcaption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media (prefers-reduced-motion:reduce){.tro-tilt,.tro-refl{animation:none}}
 /* About: heading left, trophy right */
@@ -2433,11 +2435,7 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
     <p class="sub cr-sub2">Two busy shops in St&nbsp;Kilda and South&nbsp;Melbourne, cutting hair since 1991. Chairs to fill, clients waiting, and a team that looks after each other.</p>
     <div class="cr-acts"><a class="pill fill" href="#cr-apply" data-cr-jump="">Apply now</a><div class="cr-op" role="group" aria-label="Contact the owner"><span>Talk to the owner</span><a href="tel:0403185329" aria-label="Call the owner" title="Call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a><a href="sms:+61403185329" aria-label="Text the owner" title="Text"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 3.5V17.5H4A1.5 1.5 0 0 1 2.5 16V7A1.5 1.5 0 0 1 4 5.5Z"></path><path d="M8 11.5h.01M12 11.5h.01M16 11.5h.01" stroke-width="2.4"></path></svg></a></div></div>
   </div>
-  <div class="cr-hero-wrap"><figure class="cr-hero-ph"><img src="/v2/images/barber-knuckle-tattoos-scissors.webp" alt="A barber's knuckle tattoos spelling BARBER, holding scissors" width="1600" height="900" decoding="async"></figure><figure class="tro " data-tro=""><div class="tro-spot" aria-hidden="true"></div><div class="tro-clip"><div class="tro-tilt"><div class="tro-body">
-  <img draggable="false" src="/v2/images/local-business-awards-2026-finalist-trophy.webp" width="520" height="1184" decoding="async" alt="Local Business Awards 2026 finalist trophy, Edward Scissorhands Barber Shop">
-  <div class="tro-sheen" aria-hidden="true"></div><div class="tro-spark" aria-hidden="true"></div><div class="tro-tip" aria-hidden="true"></div></div></div></div>
-  <div class="tro-refl" aria-hidden="true"><img draggable="false" src="/v2/images/local-business-awards-2026-finalist-trophy-sm.webp" alt="" decoding="async"></div>
-  <figcaption>Local Business Awards 2026, finalist</figcaption></figure></div>
+  <div class="cr-hero-wrap"><figure class="cr-hero-ph"><img src="/v2/images/barber-knuckle-tattoos-scissors.webp" alt="A barber's knuckle tattoos spelling BARBER, holding scissors" width="1600" height="900" decoding="async"></figure></div>
 </header>
 
 <section class="sec wrap cr-why" aria-labelledby="crWhy">
@@ -2482,8 +2480,12 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
 
 
 <section class="sec wrap" aria-labelledby="crShops">
-  <h2 class="s rv-h" id="crShops" data-split="1"><span class="wd" style="--wi: 0;">Two</span> <span class="wd" style="--wi: 1;">shops,</span> <span class="wd" style="--wi: 2;">one</span> <span class="wd" style="--wi: 3;">team.</span></h2>
-  <p class="sub rv-c" style="--d: 0.16s;">Tell us which suits you best, or say either and we'll work it out together.</p>
+  <div class="cr-sh-head"><div><h2 class="s rv-h" id="crShops" data-split="1"><span class="wd" style="--wi: 0;">Two</span> <span class="wd" style="--wi: 1;">shops,</span> <span class="wd" style="--wi: 2;">one</span> <span class="wd" style="--wi: 3;">team.</span></h2>
+  <p class="sub rv-c" style="--d: 0.16s;">Tell us which suits you best, or say either and we'll work it out together.</p></div><figure class="tro " data-tro=""><div class="tro-spot" aria-hidden="true"></div><div class="tro-clip"><div class="tro-tilt"><div class="tro-body">
+  <img draggable="false" src="/v2/images/local-business-awards-2026-finalist-trophy.webp" width="520" height="1184" decoding="async" alt="Local Business Awards 2026 finalist trophy, Edward Scissorhands Barber Shop">
+  <div class="tro-sheen" aria-hidden="true"></div><div class="tro-spark" aria-hidden="true"></div><div class="tro-tip" aria-hidden="true"></div></div></div></div>
+  <div class="tro-refl" aria-hidden="true"><img draggable="false" src="/v2/images/local-business-awards-2026-finalist-trophy-sm.webp" alt="" decoding="async"></div>
+  <figcaption>Local Business Awards 2026, finalist</figcaption></figure></div>
   <div class="cr-shops"><article class="cr-shop"><div class="cr-ph"><img src="/v2/images/edward-scissorhands-barber-shop-st-kilda.webp" alt="Edward Scissorhands, St Kilda" loading="lazy" decoding="async"></div>
     <div class="cr-sb"><h3>St&nbsp;Kilda.</h3><p>190 Carlisle Street, St&nbsp;Kilda</p><small>Since 1991 · Open 7&nbsp;days · 750+ Google reviews</small>
     <a class="pill" href="#cr-apply" data-cr-shop="St Kilda">Apply for St&nbsp;Kilda</a></div></article><article class="cr-shop"><div class="cr-ph"><img src="/v2/images/edward-scissorhands-barber-shop-south-melbourne.webp" alt="Edward Scissorhands, South Melbourne" loading="lazy" decoding="async"></div>
@@ -2501,7 +2503,7 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
     <label class="cr-f"><span>Email</span><input name="em" type="email" autocomplete="email" placeholder="you@example.com"></label></div>
     <div class="cr-f"><span>Shop</span><div class="cr-seg" role="radiogroup"><label><input type="radio" name="sh" value="St Kilda" checked=""><span>St&nbsp;Kilda</span></label><label><input type="radio" name="sh" value="South Melbourne"><span>South&nbsp;Melbourne</span></label><label><input type="radio" name="sh" value="Either"><span>Either</span></label></div></div>
     <div class="cr-f"><span>Hours</span><div class="cr-seg" role="radiogroup"><label><input type="radio" name="hr" value="Full-time" checked=""><span>Full-time</span></label><label><input type="radio" name="hr" value="Part-time"><span>Part-time</span></label><label><input type="radio" name="hr" value="Casual"><span>Casual</span></label></div></div>
-    <div class="cr-f"><span>Experience</span><div class="cr-seg" role="radiogroup"><label><input type="radio" name="ex" value="Under 2 years"><span>Under 2 years</span></label><label><input type="radio" name="ex" value="2–5 years"><span>2–5 years</span></label><label><input type="radio" name="ex" value="5–10 years"><span>5–10 years</span></label><label><input type="radio" name="ex" value="10+ years"><span>10+ years</span></label></div></div>
+    <div class="cr-f"><span>Experience</span><div class="cr-seg cr-seg-fit" role="radiogroup"><label><input type="radio" name="ex" value="Under 2 yrs"><span>Under 2 yrs</span></label><label><input type="radio" name="ex" value="2–5 yrs"><span>2–5 yrs</span></label><label><input type="radio" name="ex" value="5–10 yrs"><span>5–10 yrs</span></label><label><input type="radio" name="ex" value="10+ yrs"><span>10+ yrs</span></label></div></div>
     <label class="cr-f"><span>Instagram or a link to your work</span><input name="ig" placeholder="@yourhandle or a link"></label>
     <div class="cr-f"><span>Photos of your work <em>up to 4</em></span>
       <div class="cr-ph-grid" id="crPhotos"><label class="cr-add"><input type="file" accept="image/*" multiple="" id="crFiles"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg><b>Add photos</b></label></div></div>
@@ -2814,7 +2816,7 @@ function vCareers(S,D){ const other = shop === "st-kilda" ? "south-melbourne" : 
     <p class="sub cr-sub2">Two busy shops in St Kilda and South Melbourne, cutting hair since 1991. Chairs to fill, clients waiting, and a team that looks after each other.</p>
     <div class="cr-acts"><a class="pill fill" href="#cr-apply" data-cr-jump>Apply now</a><div class="cr-op" role="group" aria-label="Contact the owner"><span>Talk to the owner</span><a href="tel:${CR_TEL}" aria-label="Call the owner" title="Call">${phoneBadge(SHOPS[shop]).match(/<svg[\s\S]*?<\/svg>/)[0]}</a><a href="sms:+${CR_INT}" aria-label="Text the owner" title="Text">${SMS_SVG}</a></div></div>
   </div>
-  <div class="cr-hero-wrap"><figure class="cr-hero-ph"><img src="/v2/images/barber-knuckle-tattoos-scissors.webp" alt="A barber's knuckle tattoos spelling BARBER, holding scissors" width="1600" height="900" decoding="async"></figure>${TROPHY()}</div>
+  <div class="cr-hero-wrap"><figure class="cr-hero-ph"><img src="/v2/images/barber-knuckle-tattoos-scissors.webp" alt="A barber's knuckle tattoos spelling BARBER, holding scissors" width="1600" height="900" decoding="async"></figure></div>
 </header>
 
 <section class="sec wrap cr-why" aria-labelledby="crWhy">
@@ -2859,8 +2861,8 @@ ${CR_SHOW_SYS ? crSys("crSys", "Less admin, more cutting.", "The shops run on pr
 
 
 <section class="sec wrap" aria-labelledby="crShops">
-  <h2 class="s" id="crShops">Two shops, one team.</h2>
-  <p class="sub">Tell us which suits you best, or say either and we'll work it out together.</p>
+  <div class="cr-sh-head"><div><h2 class="s" id="crShops">Two shops, one team.</h2>
+  <p class="sub">Tell us which suits you best, or say either and we'll work it out together.</p></div>${TROPHY()}</div>
   <div class="cr-shops">${shopCard(shop)}${shopCard(other)}</div>
 </section>
 
@@ -2874,7 +2876,7 @@ ${CR_SHOW_SYS ? crSys("crSys", "Less admin, more cutting.", "The shops run on pr
     <label class="cr-f"><span>Email</span><input name="em" type="email" autocomplete="email" placeholder="you@example.com"></label></div>
     <div class="cr-f"><span>Shop</span>${crSeg("sh", ["St Kilda","South Melbourne","Either"], S.name)}</div>
     <div class="cr-f"><span>Hours</span>${crSeg("hr", ["Full-time","Part-time","Casual"], "Full-time")}</div>
-    <div class="cr-f"><span>Experience</span>${crSeg("ex", ["Under 2 years","2–5 years","5–10 years","10+ years"], "")}</div>
+    <div class="cr-f"><span>Experience</span>${crSeg("ex", ["Under 2 yrs","2–5 yrs","5–10 yrs","10+ yrs"], "").replace('class="cr-seg"', 'class="cr-seg cr-seg-fit"')}</div>
     <label class="cr-f"><span>Instagram or a link to your work</span><input name="ig" placeholder="@yourhandle or a link"></label>
     <div class="cr-f"><span>Photos of your work <em>up to 4</em></span>
       <div class="cr-ph-grid" id="crPhotos"><label class="cr-add"><input type="file" accept="image/*" multiple id="crFiles"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><b>Add photos</b></label></div></div>
@@ -3490,8 +3492,8 @@ function iadjApply(img, s){ const z = Math.max(1, s.z || 1), r = parseFloat(img.
   if (z === 1) { img.style.scale = ""; img.style.transformOrigin = ""; img.style.clipPath = ""; return; }
   img.style.transformOrigin = `${s.px}% ${s.py}%`; img.style.scale = z; const k = 1 - 1 / z, c = v => (v * k).toFixed(2) + "%";
   img.style.clipPath = `inset(${c(s.py)} ${c(100 - s.px)} ${c(100 - s.py)} ${c(s.px)} round ${r.toFixed(1)}px)`; }
-function iadjCandidates(){ return [...document.querySelectorAll("#main img, #gate .k-frame img")].filter(im => { if (im.closest(".team, .fdo, .brand, .logo-wrap, .tro, .k-armwrap") || im.classList.contains("neon") || /\.svg($|\?)/.test(im.getAttribute("src") || "") || !im.parentElement) return false;
-  const cs = getComputedStyle(im); return im.offsetWidth > 140 && (cs.objectFit === "cover" || /hidden|clip/.test(getComputedStyle(im.parentElement).overflow)); }); }
+function iadjCandidates(){ return [...document.querySelectorAll("#main img, #gate .k-frame img")].filter(im => { if (im.closest(".fdo, .logo-wrap, .tro, .k-armwrap, .neon") || /logo/.test(im.getAttribute("src") || "") || im.classList.contains("neon") || /\.svg($|\?)/.test(im.getAttribute("src") || "") || !im.parentElement) return false;
+  const cs = getComputedStyle(im); return im.offsetWidth > 56 && (cs.objectFit === "cover" || /hidden|clip/.test(getComputedStyle(im.parentElement).overflow)); }); }
 let iadjBtn = null, iadjCur = null;
 function iadjToggle(){ if (PROD || document.querySelector(".iadj-tg")) return; const b = document.createElement("button"); b.type = "button"; b.className = "iadj-tg"; b.textContent = "Edit photos";
   b.setAttribute("aria-pressed", "false"); document.body.appendChild(b);
