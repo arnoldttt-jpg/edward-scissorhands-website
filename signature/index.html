@@ -3011,6 +3011,10 @@ function sweep(){ const lim = innerHeight * .78;
   document.querySelectorAll(".rv-h:not(.in),.rv-m:not(.in),.rv-c:not(.in),.rv-l:not(.in),.rv-s:not(.in)").forEach(el => { const r = el.getBoundingClientRect(); if (r.top < (el.classList.contains("rv-l") ? innerHeight * .7 : lim) && r.bottom > 0) el.classList.add("in"); }); }
 if (!reduce) { const au = document.getElementById("aura"); let pt = 0;
   addEventListener("pointermove", e => { if (pt) return; pt = requestAnimationFrame(() => { pt = 0; au.style.setProperty("--ax", ((e.clientX / innerWidth - .5) * 50).toFixed(1) + "px"); au.style.setProperty("--ay", ((e.clientY / innerHeight - .5) * 36).toFixed(1) + "px"); }); }, { passive: true }); }
+/* phones have no mouse: let the glow drift gently as you scroll instead (transform only, so it costs next to nothing) */
+if (!reduce && matchMedia("(hover: none)").matches) { const au = document.getElementById("aura"); let st = 0;
+  addEventListener("scroll", () => { if (st) return; st = requestAnimationFrame(() => { st = 0; const y = scrollY;
+    au.style.setProperty("--ax", (Math.sin(y / 700) * 28).toFixed(1) + "px"); au.style.setProperty("--ay", (Math.cos(y / 900) * 22 - 11).toFixed(1) + "px"); }); }, { passive: true }); }
 document.addEventListener("dragstart", e => e.preventDefault());
 document.addEventListener("copy", e => e.preventDefault());
 let swT = 0; addEventListener("scroll", () => { if (swT) return; swT = requestAnimationFrame(() => { swT = 0; sweep(); }); }, { passive: true });
