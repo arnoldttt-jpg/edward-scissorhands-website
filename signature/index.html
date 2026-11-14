@@ -601,7 +601,7 @@ img{-webkit-user-drag:none;user-drag:none}
 .cstage.go .c4{opacity:1;transform:none;transition:opacity 1s ease 3.1s,transform 1.2s cubic-bezier(.22,.61,.36,1) 3.1s}
 .arm{width:min(620px,92vw);margin:26px auto 6px}
 .arm-svg{display:block;width:100%;height:auto;overflow:visible}
-.arm-svg .d{stroke-dasharray:1;stroke-dashoffset:1}
+.arm-svg .d{stroke-dasharray:1 2;stroke-dashoffset:1.04}  /* offset past the dash end: Safari otherwise paints a round dot at the start of every undrawn line */
 .cstage.go .arm-svg .d{animation:armDraw var(--du,1s) cubic-bezier(.55,.05,.3,1) var(--dl,1.5s) both}
 .arm-svg .edge path,.arm-svg .flare{opacity:0}
 .arm-svg .e-core{stroke-dasharray:.07 2;stroke-dashoffset:.185}
