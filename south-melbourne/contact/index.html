@@ -2640,7 +2640,7 @@ function vServices(D, full){ const list = full ? services(D).concat(MORE_SVC) : 
   <p class="fine">*Prices vary by barber, day of the week and payment method. Cash payments get a weekday discount.</p>
 </section>`; }
 
-function vBarbers(S,D){ const n = D.team.length, cols = n % 4 === 1 ? 5 : 4, colsT = n % 3 === 0 ? 3 : 4, colsM = n % 2 === 1 ? 3 : 2; return `
+function vBarbers(S,D){ const n = D.team.length, cols = n % 4 === 1 ? 5 : 4, colsT = n % 3 === 0 ? 3 : 4, colsM = 3; return `
 <section class="sec wrap" aria-labelledby="bH">
   <h2 class="s" id="bH">Meet the barbers.</h2><p class="sub">A familiar face in every chair. Choose your barber when you book online, or take the first chair that's free.</p>
   <div class="team" style="--cols-d:${cols};--cols-t:${colsT};--cols-m:${colsM}">${D.team.map((t, ti) => `<figure data-pk="${shop}|${ti}" data-pn="${esc(t.n)}"><div class="pic"><span class="pclip"><img src="${t.i}" alt="${esc(t.n)}, ${esc(t.r.toLowerCase())} at Edward Scissorhands ${S.name}" loading="lazy" decoding="async" style="--pb:${t.b || 1};--ps:${t.s || 1};--pc:${t.c || 1};object-position:${t.f};${t.d ? `translate:${t.d.split(" ").map(v => v + "%").join(" ")};` : ""}${t.z ? `scale:${t.z};transform-origin:${t.o || "50% 50%"}` : ""}" data-d="${t.d || "0 0"}" data-z="${t.z || 1}" data-b="${t.b || 1}" data-s="${t.s || 1}" data-c="${t.c || 1}" data-w="${t.w || 0}"><i class="ptint" style="--pw:${t.w || 0}" aria-hidden="true"></i></span></div><figcaption><b>${esc(t.n)}</b><span>${esc(t.r)}</span></figcaption></figure>`).join("")}</div>
