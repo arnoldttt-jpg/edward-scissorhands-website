@@ -2408,6 +2408,16 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
 @media (max-width:820px){.split .solo{max-width:min(100%,380px);justify-self:start}}
 .padj-rm{border-color:rgba(255,255,255,.22)!important;color:#d9d6cf!important}.padj-un{border-color:rgba(255,255,255,.22)!important;color:#d9d6cf!important}
 .padj-nx{display:block;width:100%;margin-top:10px;padding:11px 14px;border-radius:999px;border:1px solid rgba(216,178,74,.5);background:none;color:var(--gold);font:700 12px/1 var(--cond);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+/* phones: brand cards in one sliding row */
+.bcar-dots{display:none}
+@media (max-width:760px){
+ .brands.car{display:flex;grid-template-columns:none;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;margin-inline:calc(-1 * var(--pad));padding-inline:var(--pad);scroll-padding-inline:var(--pad);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+ .brands.car::-webkit-scrollbar{display:none}
+ .brands.car .brand{flex:0 0 86%;scroll-snap-align:center;min-width:0}
+ .bcar-dots{display:flex;justify-content:center;gap:8px;margin-top:16px}
+ .bcar-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.22);transition:background .3s,transform .3s}
+ .bcar-dots i.on{background:var(--gold);transform:scale(1.25)}
+}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2898,7 +2908,7 @@ function blocks(arr){ return arr.map(b => {
   return ""; }).join(""); }
 function vProse(arr, S, D, mode){ const first = arr[0] && arr[0].t === "h" && arr[0].l === 1 ? arr[0].c : ""; const rest = first ? arr.slice(1) : arr;
   return `<header class="phead wrap long"><h1 id="h1">${esc(first)}</h1></header><section class="wrap x-prose">${blocks(rest)}</section>` + vClose(S,D,mode); }
-const brandCards = tags => `<div class="brands">${P2.brands.map(b => `<article class="brand"><div class="lg lg-anim">${P2.anim.logo[b.n] || `<img src="${b.img}" alt="${esc(b.n)} logo" loading="lazy">`}</div><div class="tx"><small>${esc(b.line)}</small><h3>${esc(b.n)}</h3><p>${esc(b.blurb)}</p>${tags ? `<ul class="x-tags sm">${b.tags.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}</div></article>`).join("")}</div>`;
+const brandCards = tags => `<div class="brands${tags ? "" : " car"}"${tags ? "" : " data-bcar"}>${P2.brands.map(b => `<article class="brand"><div class="lg lg-anim">${P2.anim.logo[b.n] || `<img src="${b.img}" alt="${esc(b.n)} logo" loading="lazy">`}</div><div class="tx"><small>${esc(b.line)}</small><h3>${esc(b.n)}</h3><p>${esc(b.blurb)}</p>${tags ? `<ul class="x-tags sm">${b.tags.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}</div></article>`).join("")}</div>`;
 function vProducts(S,D){ const X = P2S();
   return phead("Products.", esc(X.prodIntro)) + `
 <section class="sec wrap" aria-labelledby="pbH"><h2 class="s" id="pbH">Three brands.</h2>
@@ -3270,7 +3280,18 @@ function vInsta(){ const X = P2S(), url = X.urls.instaUrl, at = "@" + url.replac
   return `<section class="sec wrap ig" aria-labelledby="igH"><div class="ig-head"><div><p class="ig-eye">On Instagram</p><h2 id="igH" class="ig-h"><a href="${url}" target="_blank" rel="noopener">${esc(at)}</a></h2></div>
   <a class="pill ig-follow" href="${url}" target="_blank" rel="noopener">${ig}<span>Follow</span></a></div><div class="ig-grid">${tiles}</div></section>`; }
 
-function wire(S,D){ setTimeout(wireTrophy, 0); setTimeout(wirePhotoReveal, 0); setTimeout(wireRot, 0); setTimeout(wirePhotoAdj, 0); setTimeout(wireImgAdj, 120); 
+/* phones: the home "What we use" cards sit in one row that slides to the next card every 4 seconds; swipe works too, and touching it pauses the cycle */
+function wireBrandCar(){ document.querySelectorAll("#main [data-bcar]").forEach(row => { if (row._bc) return; row._bc = 1; const cards = [...row.children]; if (cards.length < 2) return;
+  const dots = document.createElement("div"); dots.className = "bcar-dots"; dots.setAttribute("aria-hidden", "true"); dots.innerHTML = cards.map(() => "<i></i>").join(""); row.after(dots);
+  const pos = el => el.getBoundingClientRect().left - row.getBoundingClientRect().left + row.scrollLeft; const on = () => getComputedStyle(row).display === "flex", cur = () => { const c = row.scrollLeft + row.clientWidth / 2; let b = 0, bd = 1e9; cards.forEach((el, i) => { const d = Math.abs(pos(el) + el.offsetWidth / 2 - c); if (d < bd) { bd = d; b = i; } }); return b; };
+  const mark = () => { const i = cur(); [...dots.children].forEach((d, k) => d.classList.toggle("on", k === i)); }; mark();
+  const to = i => row.scrollTo({ left: pos(cards[i]) - (row.clientWidth - cards[i].offsetWidth) / 2, behavior: reduce ? "auto" : "smooth" });
+  let vis = false, hold = 0; row.addEventListener("scroll", mark, { passive: true });
+  ["touchstart", "pointerdown", "wheel"].forEach(t => row.addEventListener(t, () => { hold = Date.now() + 9000; }, { passive: true }));
+  if ("IntersectionObserver" in window) new IntersectionObserver(es => { vis = es[0].isIntersecting; }, { threshold: .35 }).observe(row); else vis = true;
+  const t = setInterval(() => { if (!document.body.contains(row)) return clearInterval(t); if (!on() || !vis || document.hidden || reduce || Date.now() < hold) return; to((cur() + 1) % cards.length); }, 4000); }); }
+
+function wire(S,D){ setTimeout(wireBrandCar, 0); setTimeout(wireTrophy, 0); setTimeout(wirePhotoReveal, 0); setTimeout(wireRot, 0); setTimeout(wirePhotoAdj, 0); setTimeout(wireImgAdj, 120); 
   clearInterval(koTimer); const ko = document.querySelector(".pill.ko");
   if (ko && !reduce) { let busy = false;
     const lines = [...ko.querySelectorAll(".ko-line")]; let cur = 0;
@@ -3450,16 +3471,17 @@ function pageVeil(p, swap){ if (reduce) return swap(); const main = $("#main");
 const IADJ_KEY = "esImgAdj5";
 const IADJ_BAKED = {}; /* positions built into the site (filled in by Claude from the shared store) */
 let IADJ_DB = {};
-const iadjGet = () => { let L = {}; try { L = JSON.parse(localStorage.getItem(IADJ_KEY) || "{}"); } catch(e) {} return { ...IADJ_BAKED, ...IADJ_DB, ...L }; };
+let iadjDbOn = false;  /* once the shared store has loaded it is the single source; this browser's copy is only a fallback */
+const iadjGet = () => { if (iadjDbOn) return { ...IADJ_BAKED, ...IADJ_DB }; let L = {}; try { L = JSON.parse(localStorage.getItem(IADJ_KEY) || "{}"); } catch(e) {} return { ...IADJ_BAKED, ...IADJ_DB, ...L }; };
 const iadjId = k => k.replace(/[^A-Za-z0-9_-]/g, "_").slice(0, 140);
 let iadjDb = null, iadjSaveT = {};
 /* preview only: positions are shared through the artifact's own store so everyone sees them and Claude can build them in */
 const IADJ_CL = (() => { try { return window.claude || (parent !== window && parent.claude) || null; } catch(e) { return null; } })();
 if (!PROD && IADJ_CL && IADJ_CL.use) IADJ_CL.use("db").then(db => { if (!db) return; iadjDb = db;
-  db.collection("photos").get().then(q => { (q.docs || []).forEach(d => { const v = d.data && d.data(); if (v && v.key) IADJ_DB[v.key] = v.reset ? {} : { px: v.px, py: v.py, z: v.z, ...(v.hide ? { hide: true } : {}) }; });
+  db.collection("photos").get().then(q => { iadjDbOn = true; (q.docs || []).forEach(d => { const v = d.data && d.data(); if (v && v.key) IADJ_DB[v.key] = v.reset ? {} : { px: v.px, py: v.py, z: v.z, ...(v.hide ? { hide: true } : {}) }; });
     if (Object.values(IADJ_DB).some(v => v.hide) && document.querySelector("#main [data-rot]")) { try { render(shop, page); } catch(e) {} }
-    document.querySelectorAll("#main img, #gate img").forEach(im => { const a = iadjGet()[iadjKey(im)]; if (a) iadjApply(im, a); }); }).catch(() => {}); }).catch(() => {});
-function iadjShare(key, s){ if (!iadjDb) return; clearTimeout(iadjSaveT[key]); iadjSaveT[key] = setTimeout(() => {
+    document.querySelectorAll("#main img, #gate img").forEach(im => { const a = iadjGet()[iadjKey(im)]; if (a) iadjApply(im, a); else if (im._adj) iadjApply(im, {}); }); }).catch(() => {}); }).catch(() => {});
+function iadjShare(key, s){ if (!iadjDb) return; if (s) IADJ_DB[key] = { ...s }; else delete IADJ_DB[key]; clearTimeout(iadjSaveT[key]); iadjSaveT[key] = setTimeout(() => {
   const d = s ? { key, px: s.px ?? 50, py: s.py ?? 50, z: s.z ?? 1, ...(s.hide ? { hide: true } : {}), at: new Date().toISOString() } : { key, reset: true, at: new Date().toISOString() };
   iadjDb.doc("photos/" + iadjId(key)).set(d).then(() => { IADJ_DB[key] = s || {}; iadjStatus("Saved for everyone"); }).catch(() => iadjStatus("Saved in this browser only")); }, 500); }
 function iadjStatus(t){ const n = document.querySelector(".padj-n"); if (n) n.textContent = t; }
