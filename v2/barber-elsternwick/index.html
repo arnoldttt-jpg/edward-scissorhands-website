@@ -2419,6 +2419,13 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
  .bcar-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.22);transition:background .3s,transform .3s}
  .bcar-dots i.on{background:var(--gold);transform:scale(1.25)}
 }
+/* Google stars arrive one after another from the left, then a soft glow passes along them (as on the original site) */
+@keyframes heroStarSlide{from{opacity:0;transform:translateX(-22px) scale(.7)}55%{opacity:1}to{opacity:1;transform:none}}
+.trust.go .st,.rscore.go .st{transition:none!important;animation:heroStarSlide 1s cubic-bezier(.16,1,.3,1) calc(.3s + var(--i) * .12s) both}
+.trust.go .st i,.rscore.go .st i{animation:starGlow 4.5s cubic-bezier(.37,0,.63,1) calc(.9s + var(--i) * .14s) infinite}
+#gate .rscore.go .st{animation-delay:calc(1.2s + var(--i) * .12s)}
+#gate .rscore.go .st i{animation-delay:calc(1.8s + var(--i) * .14s)}
+@media (prefers-reduced-motion:reduce){.trust.go .st,.rscore.go .st{animation:none!important;opacity:1!important;transform:none!important}.trust.go .st i,.rscore.go .st i{animation:none!important}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
