@@ -2396,7 +2396,7 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
 .ig-t img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s ease}
 .ig-i{position:absolute;right:10px;top:10px;color:#fff;opacity:.85;filter:drop-shadow(0 1px 4px rgba(0,0,0,.6));pointer-events:none;display:flex}
 @media (hover:hover){.ig-t:hover img{transform:scale(1.06);filter:none}}
-@media (min-width:900px){.ig-grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media (min-width:900px){.ig-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.ig-t:nth-child(n+6){display:none}}
 @media (max-width:640px){.ig-t{border-radius:10px}.ig-i svg{width:14px;height:14px}.ig-i{right:6px;top:6px}}
 </style>
 
@@ -3440,18 +3440,23 @@ const iadjSet = o => { try { localStorage.setItem(IADJ_KEY, JSON.stringify(o)); 
 const iadjKey = img => page + "|" + (img.getAttribute("src") || "").split("/").pop();
 /* pan = object-position across the whole photo (reaches the parts "cover" trims off); zoom scales toward that same point and is clipped back to the frame */
 function iadjApply(img, s){ const z = Math.max(1, s.z || 1), r = parseFloat(img.dataset.r || (img.dataset.r = parseFloat(getComputedStyle(img).borderTopLeftRadius) || 0)) / z;
-  if (s.px == null) { img.style.objectPosition = ""; img.style.scale = ""; img.style.transformOrigin = ""; img.style.clipPath = ""; img.style.translate = ""; return; }
-  img.style.translate = ""; img.style.objectPosition = `${s.px}% ${s.py}%`;
-  if (z === 1) { img.style.scale = ""; img.style.transformOrigin = ""; img.style.clipPath = ""; return; }
-  img.style.transformOrigin = `${s.px}% ${s.py}%`; img.style.scale = z; const k = 1 - 1 / z, c = v => (v * k).toFixed(2) + "%";
-  img.style.clipPath = `inset(${c(s.py)} ${c(100 - s.px)} ${c(100 - s.py)} ${c(s.px)} round ${r.toFixed(1)}px)`; }
-function iadjCandidates(){ return [...document.querySelectorAll("#main img, #gate .k-frame img")].filter(im => { if (im.closest(".fdo, .logo-wrap, .tro, .k-armwrap, .neon") || /logo/.test(im.getAttribute("src") || "") || im.classList.contains("neon") || /\.svg($|\?)/.test(im.getAttribute("src") || "") || !im.parentElement) return false;
+  const st = img.style, set = (k, v) => v === "" ? st.removeProperty(k) : st.setProperty(k, v, "important");  /* important: some frames pin a position in CSS */
+  if (s.px == null) { ["object-position","scale","transform-origin","clip-path","translate"].forEach(k => set(k, "")); return; }
+  set("translate", ""); set("object-position", `${s.px}% ${s.py}%`);
+  if (z === 1) { set("scale", ""); set("transform-origin", ""); set("clip-path", ""); return; }
+  set("transform-origin", `${s.px}% ${s.py}%`); set("scale", String(z)); const k = 1 - 1 / z, c = v => (v * k).toFixed(2) + "%";
+  set("clip-path", `inset(${c(s.py)} ${c(100 - s.px)} ${c(100 - s.py)} ${c(s.px)} round ${r.toFixed(1)}px)`); }
+/* a rotating frame holds several photos stacked; always edit the one on screen */
+function iadjPick(im){ if (!im) return im; const f = im.closest("[data-rot]"); return f ? (f.querySelector("img.on") || im) : im; }
+function iadjCandidates(){ return [...document.querySelectorAll("#main img, #gate .k-frame img")].filter(im => { if (im.closest(".fdo, .logo-wrap, .tro, .k-armwrap, .neon, .lg-anim") || (im.closest(".fp-anim") && im.closest(".fp-anim").querySelectorAll("img").length > 1) || /logo/.test(im.getAttribute("src") || "") || im.classList.contains("neon") || /\.svg($|\?)/.test(im.getAttribute("src") || "") || !im.parentElement) return false;
   const cs = getComputedStyle(im); return im.offsetWidth > 56 && (cs.objectFit === "cover" || /hidden|clip/.test(getComputedStyle(im.parentElement).overflow)); }); }
 let iadjBtn = null, iadjCur = null;
 function iadjToggle(){ if (PROD || document.querySelector(".iadj-tg")) return; const b = document.createElement("button"); b.type = "button"; b.className = "iadj-tg"; b.textContent = "Edit photos";
   b.setAttribute("aria-pressed", "false"); document.body.appendChild(b);
   b.onclick = () => { const on = document.body.classList.toggle("iadj-mode"); b.setAttribute("aria-pressed", on); b.textContent = on ? "Done editing" : "Edit photos"; if (!on) { document.querySelector(".padj-x")?.click(); iadjBtn && iadjBtn.classList.remove("on"); } };
-  document.addEventListener("click", e => { if (!document.body.classList.contains("iadj-mode")) return; const im = e.target.closest && e.target.closest("#main img, #gate .k-frame img"); if (!im || !iadjCandidates().includes(im)) return;
+  document.addEventListener("click", e => { if (!document.body.classList.contains("iadj-mode")) return; if (e.target.closest && e.target.closest(".iadj-zone")) { e.preventDefault(); e.stopPropagation(); return; }
+    let im = e.target.closest && e.target.closest("#main img, #gate .k-frame img"); { const C = iadjCandidates(), vis = x => { let o = 1; for (let n = x; n && n !== document.body; n = n.parentElement) { const cs = getComputedStyle(n); o *= +cs.opacity; if (cs.visibility === "hidden" || cs.display === "none") return 0; } return o; };
+      const hit = document.elementsFromPoint(e.clientX, e.clientY).filter(x => x.tagName === "IMG" && C.includes(x)).sort((a, b) => vis(b) - vis(a))[0]; if (hit && vis(hit) > .05) im = hit; } im = iadjPick(im); if (!im || !iadjCandidates().includes(im)) return;
     e.preventDefault(); e.stopPropagation(); if (!im.classList.contains("iadj-on")) openIadj(im); }, true); }
 function wireImgAdj(){ const A = iadjGet(), ims = iadjCandidates();
   ims.forEach(im => { const a = A[iadjKey(im)]; if (a) iadjApply(im, a); });
@@ -3461,13 +3466,13 @@ function wireImgAdj(){ const A = iadjGet(), ims = iadjCandidates();
     
     addEventListener("scroll", () => { if (iadjBtn.classList.contains("on") && iadjCur) iadjPlace(iadjCur); }, { passive: true }); }
   if (!iadjBtn._deleg) { iadjBtn._deleg = 1;
-    document.addEventListener("mouseover", e => { if (!document.body.classList.contains("iadj-mode")) return; const im = e.target.closest && e.target.closest("#main img, #gate .k-frame img"); if (!im || im === iadjCur && iadjBtn.classList.contains("on")) return; if (!iadjCandidates().includes(im)) return;
+    document.addEventListener("mouseover", e => { if (!document.body.classList.contains("iadj-mode")) return; const im = iadjPick(e.target.closest && e.target.closest("#main img, #gate .k-frame img")); if (!im || im === iadjCur && iadjBtn.classList.contains("on")) return; if (!iadjCandidates().includes(im)) return;
       iadjCur = im; iadjPlace(im); iadjBtn.classList.add("on"); });
     document.addEventListener("mouseout", e => { if (!iadjCur || e.target !== iadjCur || e.relatedTarget === iadjBtn) return; setTimeout(() => { if (!iadjBtn.matches(":hover") && !(iadjCur && iadjCur.matches(":hover"))) iadjBtn.classList.remove("on"); }, 140); }); } }
 function iadjPlace(im){ const r = im.getBoundingClientRect(), W = im.offsetWidth, H = im.offsetHeight, tr = (im.style.translate || "0% 0%").split(" ").map(v => parseFloat(v) || 0);
   const cx = r.left + r.width / 2 - tr[0] / 100 * W, cy = r.top + r.height / 2 - (tr[1] || 0) / 100 * H;
   iadjBtn.style.left = (cx + W / 2 - 12) + "px"; iadjBtn.style.top = (cy - H / 2 + 12) + "px"; }
-function openIadj(img){ const host = img; const key = iadjKey(img), A = iadjGet();
+function openIadj(img){ const host = img, zone = img.parentElement; /* drags are caught on the frame: overlays and stacked photos sit above the img */ const key = iadjKey(img), A = iadjGet();
   const op = getComputedStyle(img).objectPosition.split(" ").map(v => /%$/.test(v) ? parseFloat(v) : 50);
   let s = A[key] ? { ...A[key] } : { px: op[0], py: op[1] ?? 50, z: 1 };
   document.querySelector(".padj")?.remove(); document.querySelectorAll(".iadj-on").forEach(n => n.classList.remove("iadj-on")); img.classList.add("iadj-on"); const rotFig = img.closest("[data-rot]"); rotFig && rotFig.classList.add("iadj-hold");
@@ -3483,18 +3488,22 @@ function openIadj(img){ const host = img; const key = iadjKey(img), A = iadjGet(
   const out = () => { el.querySelector('[data-k="z"]').value = Math.round(s.z * 100); el.querySelector('[data-k="px"]').value = s.px; el.querySelector('[data-k="py"]').value = s.py;
     el.querySelector('[data-o="z"]').textContent = Math.round(s.z * 100) + "%"; el.querySelector('[data-o="px"]').textContent = Math.round(s.px) + "%"; el.querySelector('[data-o="py"]').textContent = Math.round(s.py) + "%"; };
   const sync = () => { out(); iadjApply(img, s); let L = {}; try { L = JSON.parse(localStorage.getItem(IADJ_KEY) || "{}"); } catch(e) {} L[key] = s; iadjSet(L); iadjShare(key, { ...s }); };
-  el.querySelectorAll("input").forEach(i => i.oninput = () => { s[i.dataset.k] = i.dataset.k === "z" ? +i.value / 100 : +i.value; sync(); });
+  /* a photo that already fits its frame has nothing hidden to slide to; moving it then zooms in just enough to give it room */
+  const room = ax => { const W = host.offsetWidth, H = host.offsetHeight, nw = host.naturalWidth || W, nh = host.naturalHeight || H, c = Math.max(W / nw, H / nh);
+    return ax === "px" ? nw * c * s.z - W : nh * c * s.z - H; };
+  const ensure = ax => { if (room(ax) < 8 && s.z < 1.2) s.z = 1.2; };
+  el.querySelectorAll("input").forEach(i => i.oninput = () => { const k = i.dataset.k; if (k !== "z") ensure(k); s[k] = k === "z" ? +i.value / 100 : +i.value; sync(); });
   /* how far the photo can travel in each direction: what cover trims, plus what zoom adds */
   const travel = () => { const W = host.offsetWidth, H = host.offsetHeight, nw = host.naturalWidth || W, nh = host.naturalHeight || H, c = Math.max(W / nw, H / nh);
     return [Math.max(140, nw * c * s.z - W), Math.max(140, nh * c * s.z - H)]; };
   let drag = null;
-  const down = e => { drag = { x: e.clientX, y: e.clientY, px: s.px, py: s.py, t: travel() }; host.setPointerCapture?.(e.pointerId); e.preventDefault(); };
+  const down = e => { if (room("px") < 8 && room("py") < 8 && s.z < 1.2) { s.z = 1.2; sync(); } drag = { x: e.clientX, y: e.clientY, px: s.px, py: s.py, t: travel() }; zone.setPointerCapture?.(e.pointerId); e.preventDefault(); };
   const move = e => { if (!drag) return; const cl = v => Math.round(Math.max(0, Math.min(100, v)) * 2) / 2;
     s.px = cl(drag.px - (e.clientX - drag.x) / drag.t[0] * 100); s.py = cl(drag.py - (e.clientY - drag.y) / drag.t[1] * 100); sync(); };
   const up = () => { drag = null; };
-  host.style.touchAction = "none"; host.style.cursor = "grab";
-  host.addEventListener("pointerdown", down); host.addEventListener("pointermove", move); host.addEventListener("pointerup", up); host.addEventListener("pointercancel", up);
-  const close = () => { el.remove(); img.classList.remove("iadj-on"); rotFig && rotFig.classList.remove("iadj-hold"); host.style.touchAction = ""; host.style.cursor = ""; host.removeEventListener("pointerdown", down); host.removeEventListener("pointermove", move); host.removeEventListener("pointerup", up); };
+  zone.classList.add("iadj-zone"); zone.style.touchAction = "none"; zone.style.cursor = "grab";
+  zone.addEventListener("pointerdown", down); zone.addEventListener("pointermove", move); zone.addEventListener("pointerup", up); zone.addEventListener("pointercancel", up);
+  const close = () => { el.remove(); img.classList.remove("iadj-on"); rotFig && rotFig.classList.remove("iadj-hold"); zone.classList.remove("iadj-zone"); zone.style.touchAction = ""; zone.style.cursor = ""; zone.removeEventListener("pointerdown", down); zone.removeEventListener("pointermove", move); zone.removeEventListener("pointerup", up); zone.removeEventListener("pointercancel", up); };
   el.querySelector(".padj-r").onclick = () => { let L = {}; try { L = JSON.parse(localStorage.getItem(IADJ_KEY) || "{}"); } catch(e) {} delete L[key]; iadjSet(L); delete IADJ_DB[key]; iadjShare(key, null); iadjApply(img, {}); const o2 = getComputedStyle(img).objectPosition.split(" ").map(v => /%$/.test(v) ? parseFloat(v) : 50); s = { px: o2[0], py: o2[1] ?? 50, z: 1 }; out(); };
   el.querySelector(".padj-x2").onclick = () => close(); false && (e => { const txt = `Photo: ${(img.getAttribute("src") || "").split("/").pop()} (${SHOPS[shop].name}, ${page}): position ${s.px}% ${s.py}%, zoom ${Math.round(s.z * 100)}%`; const btn = e.currentTarget;
     (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(() => { btn.textContent = "Copied"; setTimeout(() => btn.textContent = "Copy settings", 1600); }).catch(() => prompt("Copy this", txt)); });
