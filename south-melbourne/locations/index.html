@@ -2398,6 +2398,11 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
 @media (hover:hover){.ig-t:hover img{transform:scale(1.06);filter:none}}
 @media (min-width:900px){.ig-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.ig-t:nth-child(n+6){display:none}}
 @media (max-width:640px){.ig-t{border-radius:10px}.ig-i svg{width:14px;height:14px}.ig-i{right:6px;top:6px}}
+/* home photo pair (original layout) */
+.split .duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(12px,1.8vw,26px);align-items:start;width:100%;max-width:660px;justify-self:end}
+.split .duo figure.rot{aspect-ratio:3/4}
+.split .duo figure.rot + figure.rot{margin-top:clamp(36px,5vw,72px)}
+@media (max-width:820px){.split .duo{max-width:none;justify-self:stretch}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Choose your shop" hidden></div>
@@ -2602,8 +2607,12 @@ function vSplit(S){ return `
     <p class="sub">Come in, take a seat, relax and leave the rest to us.</p>` : `<h2 class="s" id="sH">Half craft.<br>Half listening.</h2>
     <p class="sub">We take the time to work out what actually suits your hair before the clippers come out, and we'll tell you straight if something won't.</p>`}
     <p style="margin-top:22px"><a class="ul" data-go="about" href="#">Our story</a></p></div>
-  <figure class="rot" data-rot>${featPool(S).map((f, i) => `<img src="${f[0]}" alt="${esc(f[1])}"${i ? ' aria-hidden="true"' : ' class="on"'} loading="lazy" decoding="async">`).join("")}</figure>
+  ${duoHTML(S)}
 </section>`; }
+/* home photos, as on the original site: two smaller 3:4 frames side by side, the second set lower; the shop's photos rotate through them in turn */
+function duoHTML(S){ const seen = new Set(), pool = [...(S.pair || []), ...featPool(S)].filter(f => f && f[0] && !seen.has(f[0]) && seen.add(f[0]));
+  const col = n => pool.filter((_, i) => i % 2 === n), fig = (list, d) => `<figure class="rot" data-rot${d ? ` data-rot-delay="${d}"` : ""}>${list.map((f, i) => `<img src="${f[0]}" alt="${esc(f[1])}"${i ? ' aria-hidden="true"' : ' class="on"'} loading="lazy" decoding="async">`).join("")}</figure>`;
+  return `<div class="duo">${fig(col(0), 0)}${fig(col(1), 3250)}</div>`; }
 
 function vServices(D, full){ const list = full ? services(D).concat(MORE_SVC) : services(D).slice(0,6); return `
 <section class="sec wrap" aria-labelledby="svH">
@@ -3344,10 +3353,10 @@ function featPool(S){ const k = Object.keys(SHOPS).find(x => SHOPS[x] === S); co
 function rackFocus(img, dur){ if (reduce || !img.animate) return; const base = getComputedStyle(img).filter, f = base === "none" ? "" : base + " ";
   img.animate([{ filter: f + "blur(16px)" }, { filter: f + "blur(0px)" }], { duration: dur || 1100, easing: "cubic-bezier(.22,.61,.36,1)" }); }
 function wireRot(){ document.querySelectorAll("[data-rot]").forEach(fig => { if (fig._rot) return; fig._rot = 1; const imgs = [...fig.querySelectorAll("img")]; if (imgs.length < 2 || reduce) { return; }
-  let i = 0, vis = false; const t = setInterval(() => { if (!document.body.contains(fig)) return clearInterval(t); if (!vis || document.hidden || fig.classList.contains("iadj-hold")) return;
+  let i = 0, vis = false, t = 0; setTimeout(() => { t = setInterval(tick, 6500); }, +fig.dataset.rotDelay || 0); const tick = (() => { if (!document.body.contains(fig)) return clearInterval(t); if (!vis || document.hidden || fig.classList.contains("iadj-hold")) return;
     const cur = imgs[i]; i = (i + 1) % imgs.length; const nx = imgs[i]; nx.loading = "eager";
     const swap = () => { cur.classList.remove("on"); nx.classList.add("on"); cur.setAttribute("aria-hidden","true"); nx.removeAttribute("aria-hidden"); rackFocus(nx, 1300); };
-    nx.complete && nx.naturalWidth ? swap() : nx.addEventListener("load", swap, { once: true }); }, 6500);
+    nx.complete && nx.naturalWidth ? swap() : nx.addEventListener("load", swap, { once: true }); });
   let seen = false; new IntersectionObserver(es => { vis = es[0].isIntersecting; if (vis && !seen) { seen = true; rackFocus(imgs[i], 1000); } }, { threshold: .25 }).observe(fig);
   setTimeout(() => imgs.slice(1).forEach(im => { im.loading = "eager"; }), 2500); }); }
 
@@ -3455,15 +3464,15 @@ const iadjKey = img => page + "|" + (img.getAttribute("src") || "").split("/").p
 function iadjApply(img, s){ const z = Math.max(1, s.z || 1), r0 = parseFloat(img.dataset.r || (img.dataset.r = parseFloat(getComputedStyle(img).borderTopLeftRadius) || 0)), r = r0 / z;
   const st = img.style, set = (k, v) => v === "" ? st.removeProperty(k) : st.setProperty(k, v, "important");  /* important: some frames pin a position in CSS */
   img._adj = s.px == null ? null : s;
-  if (s.px == null) { ["object-position","scale","transform-origin","clip-path","translate","padding","box-sizing"].forEach(k => set(k, "")); return; }
+  if (s.px == null) { ["object-position","scale","transform-origin","clip-path","translate","padding","box-sizing","background-color"].forEach(k => set(k, "")); return; }
   set("translate", ""); set("object-position", `${s.px}% ${s.py}%`);
-  if ((s.z || 1) < 1) {  /* zoomed out: the photo is drawn smaller inside its frame so more of it shows; at 50% the whole photo is visible */
-    set("scale", ""); set("transform-origin", ""); set("padding", ""); set("box-sizing", "border-box");
-    if (!img.naturalWidth) { img.addEventListener("load", () => img._adj === s && iadjApply(img, s), { once: true }); set("clip-path", ""); return; }
-    const W = img.offsetWidth, H = img.offsetHeight, ri = img.naturalWidth / img.naturalHeight, f = Math.min(1, (1 - s.z) / .5);
-    let ph = 0, pv = 0; if (ri > W / H) pv = (H - W / ri) / 2 * f; else ph = (W - H * ri) / 2 * f;
-    set("padding", `${pv.toFixed(1)}px ${ph.toFixed(1)}px`); set("clip-path", `inset(${pv.toFixed(1)}px ${ph.toFixed(1)}px round ${r0.toFixed(1)}px)`); return; }
-  set("padding", ""); set("box-sizing", "");
+  if ((s.z || 1) < 1) {  /* zoomed out: the frame keeps its size and shape; the photo is drawn smaller inside it and can sit anywhere in the frame */
+    set("scale", ""); set("transform-origin", ""); set("clip-path", ""); set("padding", ""); set("box-sizing", "border-box"); set("background-color", "rgba(255,255,255,.035)");
+    if (!img.naturalWidth) { img.addEventListener("load", () => img._adj === s && iadjApply(img, s), { once: true }); return; }
+    const W = img.offsetWidth, H = img.offsetHeight, nw = img.naturalWidth, nh = img.naturalHeight, c = Math.max(W / nw, H / nh);
+    const ex = Math.max(0, W - nw * c * s.z), ey = Math.max(0, H - nh * c * s.z), pl = ex * s.px / 100, pt = ey * s.py / 100;
+    set("padding", `${pt.toFixed(1)}px ${(ex - pl).toFixed(1)}px ${(ey - pt).toFixed(1)}px ${pl.toFixed(1)}px`); return; }
+  set("padding", ""); set("box-sizing", ""); set("background-color", "");
   if (z === 1) { set("scale", ""); set("transform-origin", ""); set("clip-path", ""); return; }
   set("transform-origin", `${s.px}% ${s.py}%`); set("scale", String(z)); const k = 1 - 1 / z, c = v => (v * k).toFixed(2) + "%";
   set("clip-path", `inset(${c(s.py)} ${c(100 - s.px)} ${c(100 - s.py)} ${c(s.px)} round ${r.toFixed(1)}px)`); }
@@ -3503,27 +3512,27 @@ function openIadj(img){ const host = img, zone = img.parentElement; /* drags are
   const name = (img.getAttribute("src") || "").split("/").pop().replace(/\.\w+$/, "").replace(/-/g, " ");
   const el = document.createElement("div"); el.className = "padj"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Adjust photo");
   el.innerHTML = `<div class="padj-h"><b>Photo</b><span>${esc(name)}</span><button type="button" class="padj-x" aria-label="Close">×</button></div>
-   <label>Zoom <output data-o="z"></output><input type="range" data-k="z" min="50" max="300" step="1"></label>
+   <label>Zoom <output data-o="z"></output><input type="range" data-k="z" min="30" max="300" step="1"></label>
    <label>Left / right <output data-o="px"></output><input type="range" data-k="px" min="0" max="100" step="0.5"></label>
    <label>Up / down <output data-o="py"></output><input type="range" data-k="py" min="0" max="100" step="0.5"></label>
-   <p class="padj-tip">Drag the photo, or use the sliders. Left/right and up/down slide across the whole photo, including the parts the frame trims. Zoom below 100% shows more of the photo (50% shows all of it); above 100% zooms in.</p>
+   <p class="padj-tip">Drag the photo, or use the sliders. Left/right and up/down slide across the whole photo, including the parts the frame trims. Below 100% the photo gets smaller inside its frame so more of it shows; the frame itself stays the same.</p>
    <div class="padj-a"><button type="button" class="padj-r">Reset</button><button type="button" class="padj-c padj-x2">Done</button></div><p class="padj-n">${iadjDb ? "Changes save for everyone as you go." : "Saved in this browser."}</p>`;
   document.body.appendChild(el);
   const out = () => { el.querySelector('[data-k="z"]').value = Math.round(s.z * 100); el.querySelector('[data-k="px"]').value = s.px; el.querySelector('[data-k="py"]').value = s.py;
     el.querySelector('[data-o="z"]').textContent = Math.round(s.z * 100) + "%"; el.querySelector('[data-o="px"]').textContent = Math.round(s.px) + "%"; el.querySelector('[data-o="py"]').textContent = Math.round(s.py) + "%"; };
   const sync = () => { out(); iadjApply(img, s); let L = {}; try { L = JSON.parse(localStorage.getItem(IADJ_KEY) || "{}"); } catch(e) {} L[key] = s; iadjSet(L); iadjShare(key, { ...s }); };
   /* a photo that already fits its frame has nothing hidden to slide to; moving it then zooms in just enough to give it room */
-  const room = ax => { const [W, H] = iadjBox(host), nw = host.naturalWidth || W, nh = host.naturalHeight || H, c = Math.max(W / nw, H / nh), zz = Math.max(1, s.z);
-    return ax === "px" ? nw * c * zz - W : nh * c * zz - H; };
-  const ensure = ax => { if (s.z >= 1 && room(ax) < 8 && s.z < 1.2) s.z = 1.2; };
+  const slack = () => { const W = host.offsetWidth, H = host.offsetHeight, nw = host.naturalWidth || W, nh = host.naturalHeight || H, c = Math.max(W / nw, H / nh);
+    return [nw * c * s.z - W, nh * c * s.z - H]; };  /* per axis: + = photo larger than the frame (slides), - = smaller (moves inside the frame) */
+  const room = ax => Math.abs(slack()[ax === "px" ? 0 : 1]);
+  const ensure = ax => { if (room(ax) < 8) s.z = s.z >= 1 ? Math.max(s.z, 1.2) : s.z * .92; };
   el.querySelectorAll("input").forEach(i => i.oninput = () => { const k = i.dataset.k; if (k !== "z") ensure(k); s[k] = k === "z" ? +i.value / 100 : +i.value; sync(); });
   /* how far the photo can travel in each direction: what cover trims, plus what zoom adds */
-  const travel = () => { const [W, H] = iadjBox(host), nw = host.naturalWidth || W, nh = host.naturalHeight || H, c = Math.max(W / nw, H / nh), zz = Math.max(1, s.z);
-    return [Math.max(140, nw * c * zz - W), Math.max(140, nh * c * zz - H)]; };
+  const travel = () => slack();
   let drag = null;
-  const down = e => { if (s.z >= 1 && room("px") < 8 && room("py") < 8 && s.z < 1.2) { s.z = 1.2; sync(); } drag = { x: e.clientX, y: e.clientY, px: s.px, py: s.py, t: travel() }; zone.setPointerCapture?.(e.pointerId); e.preventDefault(); };
+  const down = e => { if (room("px") < 8 && room("py") < 8) { s.z = s.z >= 1 ? Math.max(s.z, 1.2) : s.z * .92; sync(); } drag = { x: e.clientX, y: e.clientY, px: s.px, py: s.py, t: travel() }; zone.setPointerCapture?.(e.pointerId); e.preventDefault(); };
   const move = e => { if (!drag) return; const cl = v => Math.round(Math.max(0, Math.min(100, v)) * 2) / 2;
-    s.px = cl(drag.px - (e.clientX - drag.x) / drag.t[0] * 100); s.py = cl(drag.py - (e.clientY - drag.y) / drag.t[1] * 100); sync(); };
+    if (Math.abs(drag.t[0]) >= 8) s.px = cl(drag.px - (e.clientX - drag.x) / drag.t[0] * 100); if (Math.abs(drag.t[1]) >= 8) s.py = cl(drag.py - (e.clientY - drag.y) / drag.t[1] * 100); sync(); };
   const up = () => { drag = null; };
   zone.classList.add("iadj-zone"); zone.style.touchAction = "none"; zone.style.cursor = "grab";
   zone.addEventListener("pointerdown", down); zone.addEventListener("pointermove", move); zone.addEventListener("pointerup", up); zone.addEventListener("pointercancel", up);
