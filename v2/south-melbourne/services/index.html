@@ -1918,6 +1918,10 @@ h2.s{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg
 .padj-a{display:flex;gap:8px;margin-top:14px}.padj-a button{flex:1;height:42px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#f2f0eb;font:700 12px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
 .padj-a .padj-c{background:#f2efe7;color:#0b0b0c;border-color:#f2efe7}
 .padj-tip{margin:10px 0 0;font-size:12.5px;color:#cfcbc3}
+.padj.dock-l{left:16px;transform:none}.padj.dock-r{left:auto;right:16px;transform:none}
+@keyframes padjNudge{0%,100%{box-shadow:0 0 0 0 rgba(216,178,74,0)}30%{box-shadow:0 0 0 3px rgba(216,178,74,.85)}}
+.padj.nudge{animation:padjNudge .7s ease}
+body.iadj-mode .iadj-on{outline:2px solid rgba(216,178,74,.9)!important;outline-offset:-2px}
 .team figure.padj-on .pic{cursor:grab;touch-action:none;outline:1px dashed rgba(216,178,74,.7);outline-offset:3px}
 .team figure.padj-on .pic:active{cursor:grabbing}
 .team figure.padj-on img{transition:none!important}
@@ -2120,7 +2124,7 @@ h2.s.rv-h .wd,.phead h1.rv-h .wd{background:url("data:image/svg+xml,%3Csvg xmlns
  filter:drop-shadow(0 0 3px rgba(215,175,95,.35)) drop-shadow(0 1px 0 rgba(0,0,0,.4))}
 
 /* barber photos: a dedicated clipping layer so iOS Safari never lets the photo spill past the rounded corners when it changes on tap */
-.team .pclip{position:absolute;inset:0;display:block;overflow:hidden;border-radius:inherit;isolation:isolate;-webkit-mask-image:-webkit-radial-gradient(white,black);mask-image:linear-gradient(#000,#000);transform:translateZ(0)}
+.team .pclip{position:absolute;inset:0;margin:0!important;display:block;overflow:hidden;border-radius:inherit;isolation:isolate;-webkit-mask-image:-webkit-radial-gradient(white,black);mask-image:linear-gradient(#000,#000);transform:translateZ(0)}
 .team .pclip img{display:block;width:100%;height:100%;object-fit:cover;-webkit-backface-visibility:hidden;backface-visibility:hidden}
 
 /* hero Book now + phone badge: a touch smaller */
@@ -3578,7 +3582,9 @@ let iadjBtn = null, iadjCur = null;
 function iadjToggle(){ if (PROD || document.querySelector(".iadj-tg")) return; const b = document.createElement("button"); b.type = "button"; b.className = "iadj-tg"; b.textContent = "Edit photos";
   b.setAttribute("aria-pressed", "false"); document.body.appendChild(b);
   b.onclick = () => { const on = document.body.classList.toggle("iadj-mode"); b.setAttribute("aria-pressed", on); b.textContent = on ? "Done editing" : "Edit photos"; if (!on) { document.querySelector(".padj-x")?.click(); iadjBtn && iadjBtn.classList.remove("on"); } };
-  document.addEventListener("click", e => { if (!document.body.classList.contains("iadj-mode")) return; if (e.target.closest && e.target.closest(".iadj-zone")) { e.preventDefault(); e.stopPropagation(); return; }
+  document.addEventListener("click", e => { if (!document.body.classList.contains("iadj-mode")) return; if (e.target.closest && e.target.closest(".padj, .iadj-tg, .iadj-b, .padj-b")) return;
+    if (e.target.closest && e.target.closest(".iadj-zone")) { e.preventDefault(); e.stopPropagation(); return; }
+    if (document.querySelector(".padj")) { if (e.target.closest && e.target.closest("#main, #gate")) { e.preventDefault(); e.stopPropagation(); const pj = document.querySelector(".padj"); pj.classList.remove("nudge"); void pj.offsetWidth; pj.classList.add("nudge"); } return; }
     let im = e.target.closest && e.target.closest("#main img, #gate .k-frame img"); { const C = iadjCandidates(), vis = x => { let o = 1; for (let n = x; n && n !== document.body; n = n.parentElement) { const cs = getComputedStyle(n); o *= +cs.opacity; if (cs.visibility === "hidden" || cs.display === "none") return 0; } return o; };
       const hit = document.elementsFromPoint(e.clientX, e.clientY).filter(x => x.tagName === "IMG" && C.includes(x)).sort((a, b) => vis(b) - vis(a))[0]; if (hit && vis(hit) > .05) im = hit; } im = iadjPick(im); if (!im || !iadjCandidates().includes(im)) return;
     e.preventDefault(); e.stopPropagation(); if (!im.classList.contains("iadj-on")) openIadj(im); }, true); }
@@ -3590,7 +3596,7 @@ function wireImgAdj(){ const A = iadjGet(), ims = iadjCandidates();
     
     addEventListener("scroll", () => { if (iadjBtn.classList.contains("on") && iadjCur) iadjPlace(iadjCur); }, { passive: true }); }
   if (!iadjBtn._deleg) { iadjBtn._deleg = 1;
-    document.addEventListener("mouseover", e => { if (!document.body.classList.contains("iadj-mode")) return; const im = iadjPick(e.target.closest && e.target.closest("#main img, #gate .k-frame img")); if (!im || im === iadjCur && iadjBtn.classList.contains("on")) return; if (!iadjCandidates().includes(im)) return;
+    document.addEventListener("mouseover", e => { if (!document.body.classList.contains("iadj-mode") || document.querySelector(".padj")) return; const im = iadjPick(e.target.closest && e.target.closest("#main img, #gate .k-frame img")); if (!im || im === iadjCur && iadjBtn.classList.contains("on")) return; if (!iadjCandidates().includes(im)) return;
       iadjCur = im; iadjPlace(im); iadjBtn.classList.add("on"); });
     document.addEventListener("mouseout", e => { if (!iadjCur || e.target !== iadjCur || e.relatedTarget === iadjBtn) return; setTimeout(() => { if (!iadjBtn.matches(":hover") && !(iadjCur && iadjCur.matches(":hover"))) iadjBtn.classList.remove("on"); }, 140); }); } }
 function iadjPlace(im){ const r = im.getBoundingClientRect(), W = im.offsetWidth, H = im.offsetHeight, tr = (im.style.translate || "0% 0%").split(" ").map(v => parseFloat(v) || 0);
@@ -3606,9 +3612,12 @@ function openIadj(img){ const host = img, zone = img.parentElement; /* drags are
    <label>Zoom <output data-o="z"></output><input type="range" data-k="z" min="30" max="300" step="1"></label>
    <label>Left / right <output data-o="px"></output><input type="range" data-k="px" min="0" max="100" step="0.5"></label>
    <label>Up / down <output data-o="py"></output><input type="range" data-k="py" min="0" max="100" step="0.5"></label>
-   <p class="padj-tip">Drag the photo, or use the sliders. Left/right and up/down slide across the whole photo, including the parts the frame trims. Below 100% the photo gets smaller inside its frame so more of it shows; the frame itself stays the same.</p>
+   <p class="padj-tip">Drag the photo or use the sliders. Press Done before picking another photo.</p>
    <div class="padj-a"><button type="button" class="padj-r">Reset</button><button type="button" class="padj-c padj-x2">Done</button></div>${rotFig && rotFig.querySelectorAll("img").length > 1 ? `<button type="button" class="padj-nx">Next photo in this frame ›</button>` : ""}${rotFig ? `${rotFig.querySelectorAll("img").length > 1 ? `<button type="button" class="padj-nx padj-rm">Remove this photo from the frame</button>` : ""}${Object.entries(iadjGet()).filter(([k, v]) => v.hide && k.startsWith(page + "|")).length ? `<button type="button" class="padj-nx padj-un">Restore removed photos (${Object.entries(iadjGet()).filter(([k, v]) => v.hide && k.startsWith(page + "|")).length})</button>` : ""}` : ""}<p class="padj-n">${iadjDb ? "Changes save for everyone as you go." : "Saved in this browser."}</p>`;
   document.body.appendChild(el);
+  iadjBtn && iadjBtn.classList.remove("on");
+  { const r = zone.getBoundingClientRect(), wide = innerWidth >= 900; el.classList.toggle("dock-l", wide && r.left + r.width / 2 > innerWidth / 2); el.classList.toggle("dock-r", wide && r.left + r.width / 2 <= innerWidth / 2);
+    if (!wide) { const ph = el.offsetHeight + 28, top = 86, room = innerHeight - ph; if (r.top < top || r.bottom > room) scrollBy({ top: r.top - top - Math.max(0, (room - top - r.height) / 2), behavior: "smooth" }); } }
   const out = () => { el.querySelector('[data-k="z"]').value = Math.round(s.z * 100); el.querySelector('[data-k="px"]').value = s.px; el.querySelector('[data-k="py"]').value = s.py;
     el.querySelector('[data-o="z"]').textContent = Math.round(s.z * 100) + "%"; el.querySelector('[data-o="px"]').textContent = Math.round(s.px) + "%"; el.querySelector('[data-o="py"]').textContent = Math.round(s.py) + "%"; };
   const sync = () => { out(); iadjApply(img, s); let L = {}; try { L = JSON.parse(localStorage.getItem(IADJ_KEY) || "{}"); } catch(e) {} L[key] = s; iadjSet(L); iadjShare(key, { ...s }); };
