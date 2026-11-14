@@ -208,6 +208,7 @@ main.out{opacity:0}
 .line .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .line .pill{min-height:40px;padding:0 16px;font-size:14px;border-color:var(--rule)}
 .line .pill:hover{border-color:var(--white)}
+@media (min-width:1000px){.lines:has(> :nth-child(3)){grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:760px){.lines{grid-template-columns:1fr}}
 .faq{max-width:900px;margin-top:clamp(26px,3vw,44px);border-top:1px solid var(--rule)}
 .faq details{border-bottom:1px solid var(--rule)}
@@ -2423,6 +2424,8 @@ body.iadj-mode #main img,body.iadj-mode #gate .k-frame img{cursor:pointer}
 .trust.go .st,.rscore.go .st{transition:none!important;animation:heroStarSlide 1s cubic-bezier(.16,1,.3,1) calc(.3s + var(--i) * .12s) both}
 .trust.go .st i,.rscore.go .st i{animation:starGlow 4.5s cubic-bezier(.37,0,.63,1) calc(.9s + var(--i) * .14s) infinite}
 #gate .rscore.go .st{animation-delay:calc(1.2s + var(--i) * .12s)}
+.trust.go .st{animation-delay:calc(1.25s + var(--i) * .16s)}
+.trust.go .st i{animation-delay:calc(2.3s + var(--i) * .14s)}
 #gate .rscore.go .st i{animation-delay:calc(1.8s + var(--i) * .14s)}
 @media (prefers-reduced-motion:reduce){.trust.go .st,.rscore.go .st{animation:none!important;opacity:1!important;transform:none!important}.trust.go .st i,.rscore.go .st i{animation:none!important}}
 </style>
@@ -2528,7 +2531,9 @@ const SHOPS = {
     feature:["/v2/images/inside-edward-scissorhands-barber-shop-st-kilda.webp","Inside Edward Scissorhands on Carlisle Street, St Kilda"],
     areas:["St Kilda","St Kilda East","St Kilda West","Balaclava","Elwood","Ripponlea","Windsor","Prahran","South Yarra","Elsternwick","Caulfield","Glen Huntly","Albert Park","Middle Park","Brighton"],
     walk:"Walk-ins are always welcome, 7 days a week, and we'll fit you in as soon as a chair's free. Booked appointments are prioritised, so we recommend booking online, especially on weekends or if you'd like a particular barber.",
-    shopLine:"Running late, checking the wait, or have a quick question? Call the shop and choose AI reception to book or reschedule any time, or the team to speak with a barber."
+    shopLine:"Running late, or want to speak with the team? Call the shop floor directly during opening hours.",
+    line:"(03) 9534 4546", lineTel:"tel:0395344546",
+    recLine:"Book, reschedule or ask a quick question at any hour. Our AI reception answers straight away."
   }
 };
 const MORE_SVC = [
@@ -3112,7 +3117,8 @@ const VIEWS = {
   contact:(S,D) => phead("Contact us.", "Pick the right line for your enquiry. For bookings, it's quickest to book online.") + vVisit(S) + `
 <section class="sec wrap" aria-labelledby="kH"><h2 class="s" id="kH">Who to call.</h2>
   <div class="lines">
-    <div class="line"><h3>The shop.</h3><p>${S.shopLine}</p><div class="acts" style="align-items:center">${phoneBadge(S," big")}<a href="${S.tel}" style="color:var(--grey);text-decoration:none">${S.phone}</a></div></div>
+    ${S.line ? `<div class="line"><h3>Reception.</h3><p>${S.recLine}</p><div class="acts" style="align-items:center">${phoneBadge({tel:S.tel, phone:S.phone, name:S.name + " reception"}," big")}<a href="${S.tel}" style="color:var(--grey);text-decoration:none">${S.phone}</a></div></div>
+    <div class="line"><h3>The shop.</h3><p>${S.shopLine}</p><div class="acts" style="align-items:center">${phoneBadge({tel:S.lineTel, phone:S.line, name:S.name}," big")}<a href="${S.lineTel}" style="color:var(--grey);text-decoration:none">${S.line}</a></div></div>` : `<div class="line"><h3>The shop.</h3><p>${S.shopLine}</p><div class="acts" style="align-items:center">${phoneBadge(S," big")}<a href="${S.tel}" style="color:var(--grey);text-decoration:none">${S.phone}</a></div></div>`}
     <div class="line"><h3>Management.</h3><p>Wedding parties and group bookings, gift cards, jobs, media or feedback. This line goes straight to the owner.</p><div class="acts" style="align-items:center">${phoneBadge({tel:"tel:0403185329", phone:"0403 185 329", name:"management"}," big")}<a href="tel:0403185329" style="color:var(--grey);text-decoration:none">0403 185 329</a></div><div class="acts" style="margin-top:14px"><a class="pill" href="https://wa.me/61403185329" target="_blank" rel="noopener">WhatsApp</a><a class="pill" href="sms:0403185329">SMS</a><a class="pill" href="mailto:${EMAIL}">Email</a></div></div>
   </div></section>
 <section class="sec wrap" aria-labelledby="fH"><h2 class="s" id="fH">Good to know.</h2>
