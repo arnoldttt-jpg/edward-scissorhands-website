@@ -2571,6 +2571,15 @@ body.qr-mode .mp-toggle{top:10px!important;bottom:auto!important;right:10px!impo
 .qr-cta::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 38%,rgba(255,250,226,.5) 50%,transparent 62%);transform:translateX(-120%);animation:qrSheen 3.6s ease-in-out 1.2s infinite}
 @keyframes qrSheen{0%{transform:translateX(-120%)}38%,100%{transform:translateX(120%)}}
 .qr-cta:active{transform:scale(.98)}
+/* softer, slower sheen: a wide, feathered band of light every 9s */
+.qr-cta::after{inset:-20% -40%;background:linear-gradient(105deg,transparent 30%,rgba(255,247,222,.04) 40%,rgba(255,250,232,.24) 50%,rgba(255,247,222,.04) 60%,transparent 70%);opacity:0;animation:qrSheen2 9s cubic-bezier(.45,0,.25,1) 2.2s infinite;pointer-events:none}
+@keyframes qrSheen2{0%{transform:translateX(-62%);opacity:0}8%{opacity:1}36%{transform:translateX(62%);opacity:.9}44%,100%{transform:translateX(62%);opacity:0}}
+/* gold leaf: lit from above, a thin pressed edge underneath, engraved lettering */
+.qr-cta span{z-index:2}
+.qr-cta[data-st="1"]{color:var(--qr-color,#1a1408);text-shadow:0 1px 0 rgba(255,238,190,.5);box-shadow:0 0 0 1px rgba(243,215,126,.7),0 3px 0 0 #8a6a1c,0 5px 0 0 #4e3a0d,0 20px 36px -12px rgba(0,0,0,.9),0 0 48px -10px rgba(216,178,74,.45),inset 0 1.5px 0 rgba(255,248,220,.85),inset 0 -5px 12px -3px rgba(72,46,4,.6),inset 0 0 0 1px rgba(255,232,160,.3);transition:transform .25s cubic-bezier(.22,.61,.36,1),box-shadow .25s ease}
+.qr-cta[data-st="1"]::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:1;pointer-events:none;background:radial-gradient(90% 120% at 50% -25%,rgba(255,251,232,.5),rgba(255,251,232,.08) 48%,transparent 62%),linear-gradient(180deg,transparent 52%,rgba(60,38,4,.32) 100%)}
+.qr-cta[data-st="1"]:active{transform:translateY(3px);box-shadow:0 0 0 1px rgba(243,215,126,.7),0 1px 0 0 #8a6a1c,0 2px 0 0 #4e3a0d,0 10px 22px -10px rgba(0,0,0,.9),0 0 40px -10px rgba(216,178,74,.4),inset 0 1.5px 0 rgba(255,248,220,.7),inset 0 -3px 10px -3px rgba(72,46,4,.6),inset 0 0 0 1px rgba(255,232,160,.3)}
+@media (hover:hover){.qr-cta[data-st="1"]:hover{transform:translateY(-1px)}}
 @media (hover:hover){.qr-cta:hover{transform:translateY(-2px)}}
 .qr-cta:focus-visible{outline:3px solid #fff;outline-offset:4px}
 .qr-note{margin:clamp(8px,1.5svh,14px) 0 0;color:var(--grey);font-size:14.5px}
