@@ -2466,17 +2466,19 @@ body.iadj-mode .ohero .hero-adj{border-color:var(--gold);color:var(--gold)}
 @media (max-width:899px){body:has(.padj) .iadj-tg{opacity:0;pointer-events:none}}
 .ohero.iadj-guide::after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:1px dashed rgba(216,178,74,.95);z-index:5;pointer-events:none}
 .ohero.iadj-guide::before{content:"";position:absolute;top:50%;left:0;right:0;border-top:1px dashed rgba(216,178,74,.4);z-index:5;pointer-events:none}
-/* QR landing page */
+/* QR landing page. Sizes use --qw / --qh (1% of the screen) so an arranged layout can be shown on a fixed "stage" and scaled to any phone */
+:root{--qw:1vw;--qh:1vh}
+@supports (height:1svh){:root{--qh:1svh}}
 body.qr-mode .top{display:none!important}
 body.qr-mode::before{background:transparent!important} /* no header on the QR page, so no black strip under the phone status bar */
 body.qr-mode #main{padding-top:0!important}
-.qr{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:max(18px,env(safe-area-inset-top)) 22px max(6px,env(safe-area-inset-bottom));gap:0;overflow-x:clip}
-.qr-logo.logo-wrap{width:calc(min(56vw,240px,29svh) * var(--qr-logo,1));max-width:100%;aspect-ratio:900/530;margin:clamp(0px,2.5svh,36px) 0 clamp(8px,1.6svh,20px);opacity:0;animation:logoReveal 2.2s cubic-bezier(.22,.61,.36,1) .05s both,logoFade 1.2s cubic-bezier(.4,0,.2,1) .05s both}
+.qr{min-height:calc(100 * var(--qh));display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:max(18px,env(safe-area-inset-top)) 22px max(6px,env(safe-area-inset-bottom));gap:0;overflow-x:clip}
+.qr-logo.logo-wrap{width:calc(min(calc(56 * var(--qw)),240px,calc(29 * var(--qh))) * var(--qr-logo,1));max-width:100%;aspect-ratio:900/530;margin:clamp(0px,calc(2.5 * var(--qh)),36px) 0 clamp(8px,calc(1.6 * var(--qh)),20px);opacity:0;animation:logoReveal 2.2s cubic-bezier(.22,.61,.36,1) .05s both,logoFade 1.2s cubic-bezier(.4,0,.2,1) .05s both}
 .qr-logo.logo-wrap img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 14px 30px rgba(0,0,0,.55)) drop-shadow(0 0 calc(var(--qr-glow,30) * .45px) rgba(216,178,74,calc(var(--qr-glow,30) / 130)))}
 .qr-logo .shine{animation:logoGlint var(--qr-speed,4.5s) cubic-bezier(.45,0,.55,1) 2.2s infinite}
 .qr[data-shine="0"] .qr-logo .shine{display:none}
 .qr[data-reveal="0"] .qr-logo.logo-wrap{animation:none;opacity:1}
-.qr-tick{width:100vw;margin:clamp(10px,1.8svh,18px) -22px 0;overflow:hidden;border-block:1px solid rgba(216,178,74,.28);background:rgba(216,178,74,.06);-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.qr-tick{width:calc(100 * var(--qw));margin:clamp(10px,calc(1.8 * var(--qh)),18px) -22px 0;overflow:hidden;border-block:1px solid rgba(216,178,74,.28);background:rgba(216,178,74,.06);-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .qr-tick-t{display:flex;align-items:center;width:max-content;padding:9px 0;animation:qrTick var(--qr-tspeed,26s) linear infinite;font:700 var(--qr-tsize,13px)/1 var(--cond);letter-spacing:.18em;text-transform:uppercase;color:#e9dfc3;white-space:nowrap}
 .qr-tick-t span{padding:0 1.1em}.qr-tick-t i{font-style:normal;color:var(--gold);font-size:.75em}
 @keyframes qrTick{to{transform:translateX(-50%)}}
@@ -2497,8 +2499,8 @@ i.qs{display:inline-block;flex:none;font-style:normal;font-size:1em!important;co
 .qr-tick-t[data-mode="slide"] i{font-style:normal;color:var(--gold);font-size:.75em}
 @media (prefers-reduced-motion:reduce){.qr-tick-t[data-mode="slide"]>span{transform:none!important;transition:opacity .3s ease!important}.qr-tick-t[data-mode="slide"] .dup{display:flex}}
 @media (prefers-reduced-motion:reduce){.qr-tick{-webkit-mask:none;mask:none}.qr-tick-t{animation:none;width:auto;white-space:normal;flex-wrap:wrap;justify-content:center;row-gap:8px;line-height:1.3}.qr-tick-t .dup{display:none}}
-.qr-rate{display:grid!important;grid-template-columns:auto auto;align-items:center;justify-content:center;column-gap:14px;row-gap:4px;margin:clamp(12px,2.4svh,30px) 0 0;text-align:left}
-.qr-rate .big{grid-area:1/1/3/2!important;font-size:clamp(40px,6svh,50px)!important;line-height:.9!important;margin:0!important}
+.qr-rate{display:grid!important;grid-template-columns:auto auto;align-items:center;justify-content:center;column-gap:14px;row-gap:4px;margin:clamp(12px,calc(2.4 * var(--qh)),30px) 0 0;text-align:left}
+.qr-rate .big{grid-area:1/1/3/2!important;font-size:clamp(40px,calc(6 * var(--qh)),50px)!important;line-height:.9!important;margin:0!important}
 .qr-rate .rline{margin:0!important;grid-area:1/2/2/3!important;align-self:end;display:flex;align-items:center;gap:8px}
 .qr-rate .g-logo.lg{width:22px;height:22px}
 .qr-rate .stars3{font-size:16px;gap:3px}
@@ -2508,16 +2510,16 @@ i.qs{display:inline-block;flex:none;font-style:normal;font-size:1em!important;co
 .qr[data-score="0"] .qr-rate{grid-template-columns:auto;justify-items:center;text-align:center}
 .qr[data-score="0"] .qr-rate .rline,.qr[data-score="0"] .qr-count{grid-column:1!important}
 .qr-count{margin:0;grid-area:2/2/3/3!important;align-self:start;color:var(--grey);font-size:14px}
-.qr-foot{margin-top:0;padding-top:clamp(6px,1.2svh,12px);display:flex;flex-direction:column;align-items:center;gap:9px;font:700 12px/1.2 var(--cond);letter-spacing:.18em;text-transform:uppercase;color:#b3ad9f}
+.qr-foot{margin-top:0;padding-top:clamp(6px,calc(1.2 * var(--qh)),12px);display:flex;flex-direction:column;align-items:center;gap:9px;font:700 12px/1.2 var(--cond);letter-spacing:.18em;text-transform:uppercase;color:#b3ad9f}
 .qr-foot i{font-style:normal;color:var(--gold);padding:0 .35em}
 .qr[data-row="0"] .qr-row{display:none}
 .qr[data-tg="0"] .qr-h{background-image:linear-gradient(180deg,#ffffff 8%,#f3eee1 44%,#c2bbab 74%,#8f887a 100%);background-size:auto}
 .qr>.qr-arm{order:60}.qr>.qr-mgmt{order:80}
-.qr-arm{will-change:transform;width:calc(min(76vw,340px,15svh * 2.72) * var(--qr-asz,1));max-width:100%;margin:auto 0 0;padding-top:clamp(10px,2svh,24px);translate:var(--qr-ax,0px) var(--qr-ay,0px)}
+.qr-arm{will-change:transform;width:calc(min(calc(76 * var(--qw)),340px,calc(15 * var(--qh)) * 2.72) * var(--qr-asz,1));max-width:100%;margin:auto 0 0;padding-top:clamp(10px,calc(2 * var(--qh)),24px);translate:var(--qr-ax,0px) var(--qr-ay,0px)}
 .qr-arm.cstage{display:block!important}
 .qr-arm .arm{width:100%!important;margin:0!important;grid-column:auto!important;grid-row:auto!important}
 .qr-arm[data-on="0"]{display:none}
-.qr-mgmt{margin:clamp(8px,1.6svh,18px) 0 0;display:flex;flex-direction:column;align-items:center}
+.qr-mgmt{margin:clamp(8px,calc(1.6 * var(--qh)),18px) 0 0;display:flex;flex-direction:column;align-items:center}
 .qr[data-mg="0"] .qr-mgmt{display:none}
 .qr-mgmt-t{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 14px;border:0;background:none;color:#b3ad9f;font:700 12px/1 var(--cond);letter-spacing:.18em;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .qr-mgmt-t svg{color:var(--gold);transform:rotate(-90deg);transition:transform .45s cubic-bezier(.22,.61,.36,1)}
@@ -2538,7 +2540,7 @@ i.qs{display:inline-block;flex:none;font-style:normal;font-size:1em!important;co
 .qr-mgmt-r a:focus-visible{outline:2px solid #fff;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.qr-mgmt-p,.qr-mgmt-p>div,.qr-mgmt p,.qr-mgmt-r a,.qr-mgmt-t svg{transition:none!important}}
 .qr>*{order:50}.qr>.qr-logo{order:10}.qr>.qr-h{order:20}.qr>.qr-tick{order:30}.qr>.qr-cta-w{order:40}.qr>.qr-note{order:45}.qr>.qr-foot{order:90}.qr>.qr-site{order:100}
-.qr[data-tpos="top"]>.qr-tick{order:5;margin-top:0}.qr[data-tpos="below"]>.qr-tick{order:47}.qr[data-tpos="low"]>.qr-tick{order:95;margin-top:clamp(14px,2.4svh,24px)}
+.qr[data-tpos="top"]>.qr-tick{order:5;margin-top:0}.qr[data-tpos="below"]>.qr-tick{order:47}.qr[data-tpos="low"]>.qr-tick{order:95;margin-top:clamp(14px,calc(2.4 * var(--qh)),24px)}
 .qr-logo.logo-wrap{translate:var(--qr-lx,0px) var(--qr-ly,0px)}.qr-h{translate:var(--qr-hx,0px) var(--qr-hy,0px)}.qr-tick{translate:0 var(--qr-ty,0px)}
 .qr-rate{translate:var(--qr-rx,0px) var(--qr-ry,0px)}.qr-mgmt{translate:var(--qr-mx,0px) var(--qr-my,0px)}.qr-badge{translate:var(--qr-bx,0px) var(--qr-by,0px)}
 .qr>.qr-badge{order:46}
@@ -2548,7 +2550,7 @@ i.qs{display:inline-block;flex:none;font-style:normal;font-size:1em!important;co
 .qr-note[data-ns="3"]{color:var(--gold)}
 .qr-note[data-ns="4"]{color:var(--gold);font-family:var(--cond);font-weight:700;font-size:calc(12px * var(--qr-nsz,1))!important;letter-spacing:.18em;text-transform:uppercase}
 .qr-cta-w{translate:var(--qr-cx,0px) var(--qr-cy,0px)}.qr-note{translate:var(--qr-nx,0px) var(--qr-ny,0px)}
-.qr-badge{display:inline-flex;align-items:center;gap:.8em;margin:clamp(8px,1.4svh,14px) 0 0;padding:.6em 1.2em;border-radius:999px;border:1px solid rgba(216,178,74,.5);background:rgba(216,178,74,.08);color:#efe3bf;font:700 calc(11.5px * var(--qr-bsz,1))/1.15 var(--cond);letter-spacing:.16em;text-transform:uppercase;max-width:100%}
+.qr-badge{display:inline-flex;align-items:center;gap:.8em;margin:clamp(8px,calc(1.4 * var(--qh)),14px) 0 0;padding:.6em 1.2em;border-radius:999px;border:1px solid rgba(216,178,74,.5);background:rgba(216,178,74,.08);color:#efe3bf;font:700 calc(11.5px * var(--qr-bsz,1))/1.15 var(--cond);letter-spacing:.16em;text-transform:uppercase;max-width:100%}
 .qr-badge u{text-decoration:underline;text-decoration-thickness:1px;text-decoration-color:currentColor;text-underline-offset:.28em}
 .qr-badge[data-bs="1"] u,.qr-badge[data-bs="3"] u,.qr-badge[data-bs="6"] u{text-decoration-color:var(--gold)}
 .qr-badge i{font-style:normal;color:var(--gold);font-size:.78em}
@@ -2573,9 +2575,9 @@ body.qr-mode .mp-toggle{top:10px!important;bottom:auto!important;right:10px!impo
 .qre-flip{width:36px;padding:0!important}
 .qre-tip{margin:0 0 8px;color:#8f8b84;font-size:12px}
 @media (prefers-reduced-motion:reduce){.qr-logo.logo-wrap{opacity:1!important;animation:none!important}}
-.qr-h{margin:0;padding:.06em 0 .04em;font-size:clamp(30px,min(11.5vw,6.2svh),64px);line-height:.95;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .45 -.22'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/160px 160px,linear-gradient(180deg,#ffffff 8%,#f3eee1 44%,#c2bbab 74%,#8f887a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55))}
+.qr-h{margin:0;padding:.06em 0 .04em;font-size:clamp(30px,min(calc(11.5 * var(--qw)),calc(6.2 * var(--qh))),64px);line-height:.95;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .45 -.22'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/160px 160px,linear-gradient(180deg,#ffffff 8%,#f3eee1 44%,#c2bbab 74%,#8f887a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55))}
 .qr-ad{margin:12px 0 0;color:var(--grey);font-size:16px}
-.qr-cta{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;justify-content:center;width:min(100%,420px);min-height:clamp(56px,8.4svh,72px);padding:8px 22px;margin-top:clamp(12px,2.2svh,24px);border-radius:999px;background:#c9a23c url(/v2/images/gold-leaf.webp) center/cover;color:var(--qr-color,#0b0b0c);line-height:1.1;text-decoration:none;font-family:var(--cond);font-weight:var(--qr-wt,700);font-size:min(var(--qr-size,24px),11vw);letter-spacing:.2em;text-transform:uppercase;box-shadow:0 0 0 1px rgba(243,215,126,.65),0 0 0 5px rgba(216,178,74,.12),0 18px 44px -14px rgba(0,0,0,.85),0 0 46px -8px rgba(216,178,74,.5),inset 0 1px 0 rgba(255,246,214,.55),inset 0 -10px 18px -10px rgba(90,62,8,.55);transition:transform .2s ease,box-shadow .3s ease;-webkit-tap-highlight-color:transparent}
+.qr-cta{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;justify-content:center;width:min(100%,420px);min-height:clamp(56px,calc(8.4 * var(--qh)),72px);padding:8px 22px;margin-top:clamp(12px,calc(2.2 * var(--qh)),24px);border-radius:999px;background:#c9a23c url(/v2/images/gold-leaf.webp) center/cover;color:var(--qr-color,#0b0b0c);line-height:1.1;text-decoration:none;font-family:var(--cond);font-weight:var(--qr-wt,700);font-size:min(var(--qr-size,24px),calc(11 * var(--qw)));letter-spacing:.2em;text-transform:uppercase;box-shadow:0 0 0 1px rgba(243,215,126,.65),0 0 0 5px rgba(216,178,74,.12),0 18px 44px -14px rgba(0,0,0,.85),0 0 46px -8px rgba(216,178,74,.5),inset 0 1px 0 rgba(255,246,214,.55),inset 0 -10px 18px -10px rgba(90,62,8,.55);transition:transform .2s ease,box-shadow .3s ease;-webkit-tap-highlight-color:transparent}
 .qr-cta span{position:relative;z-index:1;padding-left:.2em}
 .qr-cta[data-ko="1"]{background:none!important}
 .qr-ko{position:absolute;inset:0;z-index:0;display:block}
@@ -2596,7 +2598,7 @@ body.qr-mode .mp-toggle{top:10px!important;bottom:auto!important;right:10px!impo
 .qr[data-tc="0"] .qr-cta:is([data-st="1"],[data-st="4"]):not([data-ko="1"]) span{color:transparent;-webkit-text-fill-color:transparent;text-shadow:none;background:linear-gradient(rgba(36,23,2,.8),rgba(36,23,2,.8)),#c9a23c url(/v2/images/gold-leaf.webp) center/cover;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 1px 0 rgba(255,241,200,.62)) drop-shadow(0 -1px 0 rgba(0,0,0,.42))}
 /* the button floats a few pixels; only transform and opacity move, so the phone's GPU slides the finished button
    instead of repainting the lettering every frame. A separate soft shadow on the "ground" shrinks and fades as it rises */
-.qr-cta-w{position:relative;width:min(100%,420px);margin-top:clamp(12px,2.2svh,24px);isolation:isolate}
+.qr-cta-w{position:relative;width:min(100%,420px);margin-top:clamp(12px,calc(2.2 * var(--qh)),24px);isolation:isolate}
 .qr-cta-w>.qr-cta{width:100%!important;margin-top:0!important}
 .qr-cta-gnd{position:absolute;left:9%;right:9%;bottom:-16px;height:26px;border-radius:50%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(0,0,0,.62),rgba(0,0,0,.28) 55%,transparent);transform-origin:50% 50%;animation:qrGnd 5.2s ease-in-out 1.5s infinite;will-change:transform,opacity}
 @keyframes qrGnd{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.88,.8);opacity:.62}}
@@ -2607,16 +2609,16 @@ body.qr-mode .mp-toggle{top:10px!important;bottom:auto!important;right:10px!impo
 @media (prefers-reduced-motion:reduce){.qr-cta,.qr-cta-gnd{animation:none}}
 
 .qr-cta:focus-visible{outline:3px solid #fff;outline-offset:4px}
-.qr-note{margin:clamp(8px,1.5svh,14px) 0 0;color:var(--grey);font-size:14.5px}
-.qr-sur{margin:auto 0 0;padding-top:clamp(14px,2.4svh,26px);color:#a9a59e;font-size:13.5px}
-.qr-row{display:flex;gap:10px;width:min(100%,420px);margin-top:clamp(12px,2.4svh,30px)}
-.qr-row a{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:clamp(4px,.9svh,8px);padding:clamp(9px,1.5svh,14px) 6px;border-radius:16px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);color:var(--white);text-decoration:none;font-family:var(--cond);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.qr-note{margin:clamp(8px,calc(1.5 * var(--qh)),14px) 0 0;color:var(--grey);font-size:14.5px}
+.qr-sur{margin:auto 0 0;padding-top:clamp(14px,calc(2.4 * var(--qh)),26px);color:#a9a59e;font-size:13.5px}
+.qr-row{display:flex;gap:10px;width:min(100%,420px);margin-top:clamp(12px,calc(2.4 * var(--qh)),30px)}
+.qr-row a{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:clamp(4px,calc(.9 * var(--qh)),8px);padding:clamp(9px,calc(1.5 * var(--qh)),14px) 6px;border-radius:16px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);color:var(--white);text-decoration:none;font-family:var(--cond);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
 .qr-row a svg{color:var(--gold)}
-.qr-meta{display:flex;align-items:center;justify-content:center;gap:10px;margin:clamp(20px,3.6vh,30px) 0 0;color:var(--grey);font-size:14.5px}
+.qr-meta{display:flex;align-items:center;justify-content:center;gap:10px;margin:clamp(20px,calc(3.6 * var(--qh)),30px) 0 0;color:var(--grey);font-size:14.5px}
 .qr-meta b{color:var(--gold);font-family:var(--cond);font-size:22px;letter-spacing:.02em}
 .qr-st{color:var(--gold);letter-spacing:.12em;font-size:15px}
 .qr-hrs{margin:8px 0 0;color:var(--grey);font-size:14.5px}
-.qr-site{margin-top:clamp(8px,1.4svh,14px);padding:6px 0 2px;color:#e9e3d4;font:700 12px/1.2 var(--cond);letter-spacing:.18em;text-transform:uppercase;text-decoration:underline;text-decoration-color:rgba(216,178,74,.7);text-underline-offset:5px}
+.qr-site{margin-top:clamp(8px,calc(1.4 * var(--qh)),14px);padding:6px 0 2px;color:#e9e3d4;font:700 12px/1.2 var(--cond);letter-spacing:.18em;text-transform:uppercase;text-decoration:underline;text-decoration-color:rgba(216,178,74,.7);text-underline-offset:5px}
 @media (prefers-reduced-motion:reduce){.qr-cta::after{animation:none}}
 /* Book now button styles 2-4 (1 = gold leaf) */
 .qr-cta[data-st="2"]{background:linear-gradient(180deg,#fbf7ec,#e2d8c0);box-shadow:0 0 0 1.5px #d8b24a,0 0 0 6px rgba(216,178,74,.12),0 18px 44px -14px rgba(0,0,0,.85),0 0 40px -10px rgba(216,178,74,.45),inset 0 1px 0 #fff,inset 0 -8px 14px -10px rgba(120,96,40,.5)}
@@ -3342,7 +3344,7 @@ const VIEWS = {
     <div class="logo-wrap qr-logo"><img src="/v2/images/edward-scissorhands-barber-shop-logo.webp" alt="Edward Scissorhands Barber Shop, est. 1991" width="900" height="530"><span class="shine" aria-hidden="true"></span></div>
     <h1 id="h1" class="qr-h">${S.name}</h1>
     <div class="qr-tick" data-sep="${QRS.tsep}" role="note" aria-label="${esc(qrTickParts().join(". "))}"><div class="qr-tick-t" aria-hidden="true" data-mode="${QRS.tmode}">${qrTickHtml()}</div></div>
-    <div class="qr-cta-w"><span class="qr-cta-gnd" aria-hidden="true"></span><a class="qr-cta js-book" data-st="${QRS.btn}" data-ko="${qrKo()?1:0}" href="${D.book}" target="_blank" rel="noopener">${qrCtaInner()}</a></div>
+    <div class="qr-cta-w"><span class="qr-cta-gnd" aria-hidden="true"></span><a class="qr-cta js-book" data-st="${QRS.btn}" data-ko="${qrKo()?1:0}" data-def="${D.book}" href="${esc(QRS.link || D.book)}" target="_blank" rel="noopener">${qrCtaInner()}</a></div>
     <p class="qr-note" data-on="${QRS.note?1:0}" data-ns="${QRS.ns}">${esc(QRS.ntxt)}</p>
     <p class="qr-badge" data-on="${QRS.badge?1:0}" data-bs="${QRS.bs}" data-sep="${QRS.bsep}"><i class="qs" aria-hidden="true"></i><span>${qrMark(QRS.btxt)}</span><i class="qs" aria-hidden="true"></i></p>
     <div class="qr-row"><a href="${S.tel}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.300-1.300a2 2 0 0 1 2.100-.5c.9.3 1.800.6 2.800.7a2 2 0 0 1 1.700 2z"/></svg>Call</a>
@@ -3372,7 +3374,7 @@ function render(s,p){
   const S = SHOPS[shop], D = DATA[shop], main = $("#main");
   const swap = () => {
     document.body.classList.toggle("staff-mode", /^staff|^first-day/.test(page)); document.body.classList.toggle("qr-mode", page === "qr"); main.innerHTML = (/^staff|^first-day/.test(page) ? vStaff(page, S, D) : /^blog~/.test(page) ? vArticle(page.slice(5), S, D) : /^sub~/.test(page) ? vProse(P2.subs[page.slice(4)].body, S, D) : VIEWS[page](S,D));
-    $$(".js-book").forEach(a => a.href = D.book);
+    $$(".js-book").forEach(a => a.href = D.book); $$(".qr-cta").forEach(a => { a.dataset.def = D.book; if (QRS.link) a.href = QRS.link; });
     $$("[data-go]").forEach(a => { const g = a.dataset.go; a.href = hashFor(shop,g); if (a.closest(".nav,.sheet,.sheet-more")) { if (g === page || (g === "blog" && /^blog~/.test(page))) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); } });
     $$(".shops button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.shop === shop))); placeInd(shop, true);
     $("#sheetShop").textContent = S.name;
@@ -3728,16 +3730,18 @@ const iadjId = k => k.replace(/[^A-Za-z0-9_-]/g, "_").slice(0, 140);
 let iadjDb = null, iadjSaveT = {};
 /* preview only: positions are shared through the artifact's own store so everyone sees them and Claude can build them in */
 /* QR page settings: adjustable in the preview (shared through the artifact store); Claude builds the chosen values into the live page */
-const QR_DEF = { logo:100, glow:30, shine:1, speed:4.5, reveal:1, score:0, row:0, arm:1, mg:1, tg:1, title:1, ns:1, nsz:100, note:1, ntxt:"Pick your barber and time. It takes about a minute.", cx:0, cy:0, nx:0, ny:0, bs:1, bsz:100, badge:1, btxt:"Pick _any barber_ for the shortest wait", bx:0, by:0, rx:0, ry:0, mx:0, my:0, asz:100, ax:0, ay:0, tpos:"above", lx:0, ly:0, hx:0, hy:0, ty:0, btn:1, color:"", size:24, wt:700, text:"Book now", tsize:13, tspeed:26, tsep:"line", bsep:"none", tmode:"scroll", thold:2.5, tick:"Walk-ins welcome | Tap Book now to lock in your spot | Or ask our staff at reception to book you in" };
+const QR_DEF = { logo:100, glow:30, shine:1, speed:4.5, reveal:1, score:0, row:0, arm:1, mg:1, tg:1, title:1, ns:1, nsz:100, note:1, ntxt:"Pick your barber and time. It takes about a minute.", cx:0, cy:0, nx:0, ny:0, bs:1, bsz:100, badge:1, btxt:"Pick _any barber_ for the shortest wait", bx:0, by:0, rx:0, ry:0, mx:0, my:0, asz:100, ax:0, ay:0, tpos:"above", lx:0, ly:0, hx:0, hy:0, ty:0, btn:1, color:"", rw:0, rh:0, size:24, wt:700, link:"", text:"Book now", tsize:13, tspeed:26, tsep:"line", bsep:"none", tmode:"scroll", thold:2.5, tick:"Walk-ins welcome | Tap Book now to lock in your spot | Or ask our staff at reception to book you in" };
 const QR_BAKED = {};
 const qrClean = v => { const o = {}, n = (k,a,b) => { const x = +v[k]; if (isFinite(x) && v[k] !== "" && v[k] != null) o[k] = Math.min(b, Math.max(a, x)); };
-  if (!v || typeof v !== "object") return o; n("logo",50,160); n("glow",0,100); n("speed",2,12); n("size",14,64); n("wt",500,900); if (o.wt) o.wt = Math.round(o.wt / 100) * 100; n("tsize",9,24); n("thold",1,8); const SEPS = ["none","star","diamond","line","dot","scissors"]; if (SEPS.includes(v.tsep)) o.tsep = v.tsep; if (SEPS.includes(v.bsep)) o.bsep = v.bsep; if (["scroll","slide"].includes(v.tmode)) o.tmode = v.tmode; ["lx","ly","hx","hy","ty","ax","ay","bx","by","rx","ry","mx","my","cx","cy","nx","ny"].forEach(k => n(k,-400,400)); if ("note" in v) o.note = v.note ? 1 : 0; if (typeof v.ntxt === "string") o.ntxt = v.ntxt.replace(/\s+/g, " ").trim().slice(0, 90) || QR_DEF.ntxt; if ("badge" in v) o.badge = v.badge ? 1 : 0; n("bs",1,6); n("ns",1,4); if (o.ns) o.ns = Math.round(o.ns); n("nsz",60,200); if (o.bs) o.bs = Math.round(o.bs); n("bsz",60,200); if (v.btxt === "Pick any barber for the shortest wait") v = { ...v, btxt: QR_DEF.btxt }; if (typeof v.btxt === "string") o.btxt = v.btxt.replace(/\s+/g, " ").trim().slice(0, 64) || QR_DEF.btxt; n("asz",40,160); if ("arm" in v) o.arm = v.arm ? 1 : 0; if ("mg" in v) o.mg = v.mg ? 1 : 0; if ("tg" in v) o.tg = v.tg ? 1 : 0; if ("title" in v) o.title = v.title ? 1 : 0; if (["top","above","below","low"].includes(v.tpos)) o.tpos = v.tpos; if ("row" in v) o.row = v.row ? 1 : 0; n("tspeed",8,70); n("btn",1,6); if (o.btn) o.btn = Math.round(o.btn);
+  if (!v || typeof v !== "object") return o; n("logo",50,160); n("glow",0,100); n("speed",2,12); n("size",14,64); n("rw",0,4000); n("rh",0,4000); n("wt",500,900); if (o.wt) o.wt = Math.round(o.wt / 100) * 100; n("tsize",9,24); n("thold",1,8); const SEPS = ["none","star","diamond","line","dot","scissors"]; if (SEPS.includes(v.tsep)) o.tsep = v.tsep; if (SEPS.includes(v.bsep)) o.bsep = v.bsep; if (["scroll","slide"].includes(v.tmode)) o.tmode = v.tmode; ["lx","ly","hx","hy","ty","ax","ay","bx","by","rx","ry","mx","my","cx","cy","nx","ny"].forEach(k => n(k,-400,400)); if ("note" in v) o.note = v.note ? 1 : 0; if (typeof v.ntxt === "string") o.ntxt = v.ntxt.replace(/\s+/g, " ").trim().slice(0, 90) || QR_DEF.ntxt; if ("badge" in v) o.badge = v.badge ? 1 : 0; n("bs",1,6); n("ns",1,4); if (o.ns) o.ns = Math.round(o.ns); n("nsz",60,200); if (o.bs) o.bs = Math.round(o.bs); n("bsz",60,200); if (v.btxt === "Pick any barber for the shortest wait") v = { ...v, btxt: QR_DEF.btxt }; if (typeof v.btxt === "string") o.btxt = v.btxt.replace(/\s+/g, " ").trim().slice(0, 64) || QR_DEF.btxt; n("asz",40,160); if ("arm" in v) o.arm = v.arm ? 1 : 0; if ("mg" in v) o.mg = v.mg ? 1 : 0; if ("tg" in v) o.tg = v.tg ? 1 : 0; if ("title" in v) o.title = v.title ? 1 : 0; if (["top","above","below","low"].includes(v.tpos)) o.tpos = v.tpos; if ("row" in v) o.row = v.row ? 1 : 0; n("tspeed",8,70); n("btn",1,6); if (o.btn) o.btn = Math.round(o.btn);
   if ("shine" in v) o.shine = v.shine ? 1 : 0; if ("score" in v) o.score = v.score ? 1 : 0; if ("reveal" in v) o.reveal = v.reveal ? 1 : 0;
   if (typeof v.color === "string" && (v.color === "" || v.color === "ko" || /^#[0-9a-f]{6}$/i.test(v.color))) o.color = v.color;
   if (typeof v.tick === "string") o.tick = v.tick.replace(/[ \t]+/g, " ").replace(/\n+/g, " | ").trim().slice(0, 240);
+  if (typeof v.link === "string") { const u = v.link.trim(); if (u === "" || /^https:\/\/[^\s"'<>`]{4,300}$/.test(u)) o.link = u; }
   if (typeof v.text === "string") o.text = v.text.replace(/\s+/g, " ").trim().slice(0, 28); return o; };
 let QRS = { ...QR_DEF, ...qrClean(QR_BAKED) };
-if (!PROD) { try { Object.assign(QRS, qrClean(JSON.parse(localStorage.getItem("esQr1") || "{}"))); } catch(e) {} }
+let qrAt = 0;
+if (!PROD) { try { const L = JSON.parse(localStorage.getItem("esQr1") || "{}"); Object.assign(QRS, qrClean(L)); qrAt = +L.at || 0; } catch(e) {} }
 const qrTickParts = () => { const a = (QRS.tick || "").split("|").map(x => x.trim()).filter(Boolean); return a.length ? a : QR_DEF.tick.split(" | "); };
 function qrTickHtml(){ const a = qrTickParts(); if (QRS.tmode === "slide") return a.map((t,i) => `<span class="${i ? "" : "on"}"><i class="qs"></i>${esc(t)}<i class="qs"></i></span>`).join(""); return qrTickScroll(a); }
 let qrTickT = 0;
@@ -3752,9 +3756,9 @@ function qrDragWire(){ if (qrDragWire.on) return; qrDragWire.on = 1; let d = nul
   document.addEventListener("pointerdown", e => { if (!document.body.classList.contains("qre-on") || e.button > 0 || !e.target.closest || e.target.closest(".qre, .qr-tg")) return;
     for (const [sel, kx, ky] of QR_DRAG) { const el = e.target.closest("#main .qr " + sel); if (!el) continue;
       d = { el, kx, ky, x: e.clientX, y: e.clientY, sx: kx ? QRS[kx] : 0, sy: QRS[ky] }; moved = false; el.classList.add("qr-dragging"); try { el.setPointerCapture(e.pointerId); } catch(_) {} e.preventDefault(); return; } });
-  addEventListener("pointermove", e => { if (!d) return; const dx = e.clientX - d.x, dy = e.clientY - d.y; if (Math.abs(dx) + Math.abs(dy) > 4) moved = true; if (!moved) return;
+  addEventListener("pointermove", e => { if (!d) return; const g = qrStage(), z = g ? g.z : 1, dx = (e.clientX - d.x) / z, dy = (e.clientY - d.y) / z; if (Math.abs(dx) + Math.abs(dy) > 4 / z) moved = true; if (!moved) return;
     const o = { [d.ky]: Math.round(d.sy + dy) }; if (d.kx) o[d.kx] = Math.round(d.sx + dx); Object.assign(QRS, qrClean(o)); qrApply(); qrSync && qrSync(); });
-  const end = () => { if (!d) return; d.el.classList.remove("qr-dragging"); if (moved) qrSave(); d = null; setTimeout(() => { moved = false; }, 0); };
+  const end = () => { if (!d) return; d.el.classList.remove("qr-dragging"); if (moved) qrSave([d.kx, d.ky].filter(Boolean)); d = null; setTimeout(() => { moved = false; }, 0); };
   addEventListener("pointerup", end); addEventListener("pointercancel", end);
   document.addEventListener("click", e => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true); }
 function qrArmReplay(){ const a = document.querySelector("#main .qr-arm"); if (!a) return; a.classList.remove("go"); void a.offsetWidth; a.classList.add("go"); }
@@ -3766,18 +3770,46 @@ function qrCtaInner(){ const t = QRS.text || "Book now"; if (!qrKo()) return `<s
     : `<rect width="100%" height="100%" fill="#c9a23c" mask="url(#qrKoM)"/><image href="/v2/images/gold-leaf.webp" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" mask="url(#qrKoM)"/>`;
   return `<svg class="qr-ko" width="100%" height="100%" aria-hidden="true"><mask id="qrKoM" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%"><rect width="100%" height="100%" fill="#fff"/><text x="50%" y="50%" dx=".1em" text-anchor="middle" dominant-baseline="central" fill="#000">${esc(t.toUpperCase())}</text></mask>${f}</svg><span class="qr-ko-t">${esc(t)}</span>`; }
 const qrMark = t => esc(t).replace(/_([^_]+)_/g, "<u>$1</u>").replace(/_/g, "");
-function qrVars(){ return `--qr-wt:${QRS.wt};--qr-nsz:${QRS.nsz/100};--qr-bsz:${QRS.bsz/100};--qr-cx:${QRS.cx}px;--qr-cy:${QRS.cy}px;--qr-nx:${QRS.nx}px;--qr-ny:${QRS.ny}px;--qr-bx:${QRS.bx}px;--qr-by:${QRS.by}px;--qr-rx:${QRS.rx}px;--qr-ry:${QRS.ry}px;--qr-mx:${QRS.mx}px;--qr-my:${QRS.my}px;--qr-asz:${QRS.asz/100};--qr-ax:${QRS.ax}px;--qr-ay:${QRS.ay}px;--qr-lx:${QRS.lx}px;--qr-ly:${QRS.ly}px;--qr-hx:${QRS.hx}px;--qr-hy:${QRS.hy}px;--qr-ty:${QRS.ty}px;--qr-tsize:${QRS.tsize}px;--qr-tspeed:${QRS.tspeed}s;--qr-logo:${QRS.logo/100};--qr-glow:${QRS.glow};--qr-speed:${QRS.speed}s;--qr-size:${QRS.size}px;${/^#/.test(QRS.color) ? `--qr-color:${QRS.color};` : ""}`; }
+/* Once anything has been moved by hand, the page is laid out on a stage the size of the screen it was arranged on
+   and zoomed to fit the visitor's phone, so the arrangement looks the same everywhere instead of colliding on smaller screens */
+const QR_POS = ["lx","hx","bx","rx","ax","mx","cx","nx","ly","hy","ty","by","ry","ay","my","cy","ny"];
+let qrVp = null;
+function qrView(){ const w = document.documentElement.clientWidth || innerWidth; if (qrVp && qrVp[0] === w && Math.abs(qrVp[2] - innerHeight) < 130) return qrVp;  /* ignore the phone's address bar sliding away */
+  let h = innerHeight; try { const pr = document.createElement("div"); pr.style.cssText = "position:fixed;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none"; document.body.appendChild(pr); if (pr.offsetHeight > 200) h = pr.offsetHeight; pr.remove(); } catch(e) {}
+  return (qrVp = [w, h, innerHeight]); }
+function qrStage(){ if (!QR_POS.some(k => QRS[k])) return null; const [w, h] = qrView(), rw = QRS.rw || 440, rh = QRS.rh || 890;
+  let z = Math.min(w / rw, h / rh); z = Math.max(z, Math.min(w / rw, 1) * .92); z = Math.min(z, 1.3, w / rw); z = Math.round(z * 1000) / 1000;
+  return { rw, rh, z, pad: Math.max(0, Math.round((h / z - rh) / 2)) }; }
+addEventListener("resize", () => { const o = qrVp && qrVp.join(); qrView(); if (qrVp.join() !== o) qrApply(); });
+function qrVars(){ const g = qrStage(); return (g ? `--qw:${g.rw / 100}px;--qh:${g.rh / 100}px;width:${g.rw}px;zoom:${g.z};margin:${g.pad}px auto 0;` : "") + `--qr-wt:${QRS.wt};--qr-nsz:${QRS.nsz/100};--qr-bsz:${QRS.bsz/100};--qr-cx:${QRS.cx}px;--qr-cy:${QRS.cy}px;--qr-nx:${QRS.nx}px;--qr-ny:${QRS.ny}px;--qr-bx:${QRS.bx}px;--qr-by:${QRS.by}px;--qr-rx:${QRS.rx}px;--qr-ry:${QRS.ry}px;--qr-mx:${QRS.mx}px;--qr-my:${QRS.my}px;--qr-asz:${QRS.asz/100};--qr-ax:${QRS.ax}px;--qr-ay:${QRS.ay}px;--qr-lx:${QRS.lx}px;--qr-ly:${QRS.ly}px;--qr-hx:${QRS.hx}px;--qr-hy:${QRS.hy}px;--qr-ty:${QRS.ty}px;--qr-tsize:${QRS.tsize}px;--qr-tspeed:${QRS.tspeed}s;--qr-logo:${QRS.logo/100};--qr-glow:${QRS.glow};--qr-speed:${QRS.speed}s;--qr-size:${QRS.size}px;${/^#/.test(QRS.color) ? `--qr-color:${QRS.color};` : ""}`; }
 function qrApply(){ const q = document.querySelector("#main .qr"); if (!q) return; q.style.cssText = qrVars(); q.dataset.shine = QRS.shine ? 1 : 0; q.dataset.score = QRS.score ? 1 : 0; q.dataset.row = QRS.row ? 1 : 0; q.dataset.mg = QRS.mg ? 1 : 0; q.dataset.tg = QRS.tg ? 1 : 0; q.dataset.ti = QRS.title ? 1 : 0; q.dataset.tc = /^#/.test(QRS.color) ? 1 : 0; { const nt = q.querySelector(".qr-note"); if (nt) { nt.dataset.on = QRS.note ? 1 : 0; nt.dataset.ns = QRS.ns; nt.textContent = QRS.ntxt; } }
   { const tw = q.querySelector(".qr-tick"); if (tw) tw.dataset.sep = QRS.tsep; }
   { const g = q.querySelector(".qr-badge"); if (g) { g.dataset.sep = QRS.bsep; g.dataset.on = QRS.badge ? 1 : 0; g.dataset.bs = QRS.bs; g.querySelector("span").innerHTML = qrMark(QRS.btxt); } } { const a = q.querySelector(".qr-arm"); if (a) a.dataset.on = QRS.arm ? 1 : 0; } q.dataset.tpos = QRS.tpos; q.dataset.reveal = QRS.reveal ? 1 : 0;
   const tk = q.querySelector(".qr-tick-t"); if (tk && tk.dataset.v !== QRS.tick + QRS.tmode) { tk.dataset.v = QRS.tick + QRS.tmode; tk.dataset.mode = QRS.tmode; tk.innerHTML = qrTickHtml(); qrTickRun(); tk.parentNode.setAttribute("aria-label", qrTickParts().join(". ")); }
-  const c = q.querySelector(".qr-cta"); if (c) { c.dataset.st = QRS.btn; c.dataset.ko = qrKo() ? 1 : 0; c.innerHTML = qrCtaInner(); } }
-let qrDb = null, qrSaveT = 0;
-function qrSave(){ try { localStorage.setItem("esQr1", JSON.stringify(QRS)); } catch(e) {} const st = document.querySelector(".qre-hd small"); if (st) st.textContent = "Saving…"; clearTimeout(qrSaveT);
-  qrSaveT = setTimeout(() => { const done = t => { const e = document.querySelector(".qre-hd small"); if (e) e.textContent = t; }; if (!qrDb) return done("Saved in this browser");
-    qrDb.doc("settings/qr").set({ ...QRS, at: Date.now() }).then(() => done("Saved")).catch(() => done("Saved in this browser")); }, 500); }
+  const c = q.querySelector(".qr-cta"); if (c) { if (c.dataset.def) c.href = QRS.link || c.dataset.def; c.dataset.st = QRS.btn; c.dataset.ko = qrKo() ? 1 : 0; c.innerHTML = qrCtaInner(); } }
+/* Saving. Every change is written straight to this device, then to the shared store as only the settings that changed
+   (so a second phone or the iPhone preview can never overwrite newer work with an old copy). Changes made elsewhere arrive
+   live; anything changed here and not yet saved always wins. */
+let qrDb = null, qrSaveT = 0, qrBusy = false; const qrDirty = new Set();
+const qrLocal = () => { try { localStorage.setItem("esQr1", JSON.stringify({ ...QRS, at: qrAt })); } catch(e) {} };
+const qrStatus = t => { const e = document.querySelector(".qre-hd small"); if (e) e.textContent = t; };
+function qrSave(keys){ (keys || Object.keys(QRS)).forEach(k => qrDirty.add(k)); qrAt = Math.max(Date.now(), qrAt + 1); qrLocal(); qrStatus("Saving…"); clearTimeout(qrSaveT); qrSaveT = setTimeout(qrFlush, 350); }
+function qrFlush(){ clearTimeout(qrSaveT); if (!qrDirty.size) return; if (!qrDb) return qrStatus("Saved on this device");
+  if (qrBusy) { qrSaveT = setTimeout(qrFlush, 250); return; }
+  const keys = [...qrDirty], d = { at: qrAt }; keys.forEach(k => { d[k] = QRS[k]; }); qrDirty.clear(); qrBusy = true;
+  const ref = qrDb.doc("settings/qr"); let w; try { w = ref.update ? ref.update(d) : Promise.reject(new Error("no update")); } catch(e) { w = Promise.reject(e); }
+  w.catch(() => ref.set({ ...QRS, at: qrAt })).then(() => { qrBusy = false; qrStatus(qrDirty.size ? "Saving…" : "Saved"); })
+   .catch(() => { qrBusy = false; keys.forEach(k => qrDirty.add(k)); qrStatus("Saved on this device, retrying online"); clearTimeout(qrSaveT); qrSaveT = setTimeout(qrFlush, 4000); }); }
+function qrTake(v, push){ if (!v || typeof v !== "object") return; const at = +v.at || 0;
+  if (at < qrAt) { if (push && qrDb && !qrDirty.size && !qrBusy) { Object.keys(QRS).forEach(k => qrDirty.add(k)); qrFlush(); } return; }  /* this device holds newer work: send it up */
+  const c = qrClean(v); let ch = false; Object.keys(c).forEach(k => { if (!qrDirty.has(k) && JSON.stringify(QRS[k]) !== JSON.stringify(c[k])) { QRS[k] = c[k]; ch = true; } });
+  qrAt = Math.max(qrAt, at); if (ch) { qrLocal(); qrApply(); qrSync && qrSync(); } }
+function qrPull(){ if (!qrDb) return; try { qrDb.doc("settings/qr").get().then(d => qrTake(d && (typeof d.data === "function" ? d.data() : d.data || d), true)).catch(() => {}); } catch(e) {} }
+if (!PROD) { addEventListener("storage", e => { if (e.key === "esQr1" && e.newValue) { try { qrTake(JSON.parse(e.newValue), false); } catch(_) {} } });
+  let qrSeen = 0; const again = () => { if (document.visibilityState === "hidden") { qrFlush(); return; } if (Date.now() - qrSeen > 3000) { qrSeen = Date.now(); qrPull(); } };
+  document.addEventListener("visibilitychange", again); addEventListener("focus", again); addEventListener("pagehide", () => qrFlush()); }
 function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const b = document.createElement("button"); b.type = "button"; b.className = "qr-tg"; b.textContent = "Edit this page"; document.body.appendChild(b);
-  b.onclick = () => { const old = document.querySelector(".qre"); if (old) { old.remove(); qrSync = null; document.body.classList.remove("qre-on"); b.textContent = "Edit this page"; return; } b.textContent = "Close editor";
+  b.onclick = () => { const old = document.querySelector(".qre"); if (old) { qrFlush(); old.remove(); qrSync = null; document.body.classList.remove("qre-on"); b.textContent = "Edit this page"; return; } b.textContent = "Close editor";
     const SW = [["#0b0b0c","Black"],["#ffffff","White"],["#d8b24a","Gold"],["#f3e7c4","Cream"],["#3a2a06","Dark bronze"]], ST = ["Gold leaf","Cream","Gold outline","Solid gold","Frosted glass","Black & gold"];
     const p = document.createElement("div"); p.className = "qre"; p.dataset.tab = "logo"; p.setAttribute("role", "dialog"); p.setAttribute("aria-label", "Edit QR page");
     p.innerHTML = `<div class="qre-hd"><b>Edit QR page</b><small></small><button type="button" class="qre-flip" aria-label="Move this panel to the other end of the screen" title="Move panel">⇅</button><button type="button" class="qre-done">Done</button></div>
@@ -3794,6 +3826,8 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
 <div class="qre-ft"><button type="button" data-t="tg"></button></div></div>
 <div class="qre-b"><div class="qre-lb">Style</div><div class="qre-chips">${ST.map((t,i) => `<button type="button" data-st="${i+1}">${i+1}. ${t}</button>`).join("")}</div>
 <label for="qreT">Wording</label><input type="text" id="qreT" data-k="text" maxlength="28" autocomplete="off">
+<label for="qreL">Booking link</label><input type="text" inputmode="url" id="qreL" data-k="link" placeholder="Using the shop's normal booking link" maxlength="300" autocomplete="off" autocapitalize="off" spellcheck="false">
+<p class="qre-tip qre-lk" style="margin:6px 0 0"></p>
 <label>Boldness <output data-o="wt"></output></label><input type="range" data-k="wt" min="500" max="900" step="100" aria-label="Boldness of the Book now text">
 <label>Text size <output data-o="size"></output></label><input type="range" data-k="size" min="16" max="60" step="1" aria-label="Text size">
 <div class="qre-lb">Text colour</div><div class="qre-sw"><button type="button" class="auto" data-c="">Auto</button><button type="button" class="auto" data-c="ko" title="Letters are cut out of the button so the page shows through">See-through</button>${SW.map(c => `<button type="button" data-c="${c[0]}" style="--c:${c[0]}" aria-label="${c[1]}" title="${c[1]}"></button>`).join("")}<input type="color" aria-label="Custom colour" title="Custom colour"></div>
@@ -3834,6 +3868,7 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
       p.querySelector('[data-o="tsize"]').textContent = QRS.tsize + "px"; p.querySelector('[data-o="tspeed"]').textContent = QRS.tspeed + "s";
       p.querySelector('[data-o="logo"]').textContent = QRS.logo + "%"; p.querySelector('[data-o="glow"]').textContent = QRS.glow + "%"; p.querySelector('[data-o="speed"]').textContent = QRS.speed + "s"; p.querySelector('[data-o="size"]').textContent = QRS.size + "px";
       p.querySelector('[data-o="asz"]').textContent = QRS.asz + "%"; p.querySelector('[data-o="bsz"]').textContent = QRS.bsz + "%"; p.querySelectorAll("[data-tsp]").forEach(x => x.setAttribute("aria-pressed", x.dataset.tsp === QRS.tsep)); p.querySelectorAll("[data-bsp]").forEach(x => x.setAttribute("aria-pressed", x.dataset.bsp === QRS.bsep));
+      { const li = p.querySelector("#qreL"), typed = li.value.trim(), ok = typed === QRS.link; p.querySelector(".qre-lk").textContent = !ok ? "Not saved yet: the link must be complete and start with https://" : QRS.link ? "Book now opens this link. Clear the box to go back to the normal one." : "Paste a full link starting with https://, or leave empty to use the normal booking link."; }
       p.querySelector('[data-o="wt"]').textContent = ({500:"Medium",600:"Semi-bold",700:"Bold",800:"Extra bold",900:"Black"})[QRS.wt] + " · " + QRS.wt;
       p.querySelector('[data-o="thold"]').textContent = QRS.thold + "s"; p.querySelectorAll("[data-tm]").forEach(x => x.setAttribute("aria-pressed", x.dataset.tm === QRS.tmode));
       p.querySelector('[data-o="nsz"]').textContent = QRS.nsz + "%"; p.querySelectorAll("[data-nst]").forEach(x => x.setAttribute("aria-pressed", +x.dataset.nst === QRS.ns));
@@ -3845,7 +3880,7 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
       const sh = p.querySelector('[data-t="shine"]'), rv = p.querySelector('[data-t="reveal"]'); sh.textContent = "Sparkle " + (QRS.shine ? "on" : "off"); sh.setAttribute("aria-pressed", !!QRS.shine); rv.textContent = "Fade-in " + (QRS.reveal ? "on" : "off"); rv.setAttribute("aria-pressed", !!QRS.reveal);
       p.querySelectorAll("[data-st]").forEach(x => x.setAttribute("aria-pressed", +x.dataset.st === QRS.btn)); p.querySelectorAll("[data-c]").forEach(x => x.setAttribute("aria-pressed", x.dataset.c.toLowerCase() === (QRS.color || "").toLowerCase()));
       p.querySelector("input[type=color]").value = /^#/.test(QRS.color) ? QRS.color : "#0b0b0c"; };
-    const set = (k,v) => { Object.assign(QRS, qrClean({ [k]: v })); qrApply(); sync(); qrSave(); };
+    const set = (k,v) => { Object.assign(QRS, qrClean({ [k]: v })); qrApply(); sync(); qrSave([k]); };
     const replay = () => { const l = document.querySelector("#main .qr-logo"), s = l && l.querySelector(".shine"); if (!l) return; [l,s].forEach(x => { x.style.animation = "none"; }); void l.offsetWidth; [l,s].forEach(x => { x.style.animation = ""; }); };
     p.addEventListener("input", e => { const i = e.target; if (i.dataset.k) set(i.dataset.k, /^text/.test(i.type) ? i.value : +i.value); else if (i.type === "color") set("color", i.value); });
     p.addEventListener("click", e => { const t = e.target.closest("button"); if (!t) return;
@@ -3858,13 +3893,14 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
       else if (t.dataset.tm) set("tmode", t.dataset.tm);
       else if (t.dataset.tsp) set("tsep", t.dataset.tsp); else if (t.dataset.bsp) set("bsep", t.dataset.bsp);
       else if (t.dataset.st) set("btn", +t.dataset.st); else if ("c" in t.dataset) set("color", t.dataset.c);
-      else if ("replay" in t.dataset) replay(); else if ("reset" in t.dataset) { QRS = { ...QR_DEF, ...qrClean(QR_BAKED) }; qrApply(); sync(); qrSave(); replay(); }
+      else if ("replay" in t.dataset) replay(); else if ("reset" in t.dataset) { if (t.dataset.sure !== "1") { t.dataset.sure = "1"; t.textContent = "Tap again to reset everything"; setTimeout(() => { t.dataset.sure = ""; t.textContent = "Reset all to default"; }, 4000); return; }
+        t.dataset.sure = ""; t.textContent = "Reset all to default"; QRS = { ...QR_DEF, ...qrClean(QR_BAKED) }; qrApply(); sync(); qrSave(); replay(); }
       else if (t.classList.contains("qre-flip")) p.dataset.at = p.dataset.at === "top" ? "" : "top";
-      else if (t.classList.contains("qre-done")) { p.remove(); qrSync = null; document.body.classList.remove("qre-on"); b.textContent = "Edit this page"; } });
-    qrSync = sync; document.body.classList.add("qre-on"); qrDragWire(); sync(); }; }
+      else if (t.classList.contains("qre-done")) { qrFlush(); p.remove(); qrSync = null; document.body.classList.remove("qre-on"); b.textContent = "Edit this page"; } });
+    qrSync = sync; document.body.classList.add("qre-on"); qrDragWire(); if (!QRS.rw || !QRS.rh) { const g = qrStage(), v = qrView(); QRS.rw = g ? g.rw : v[0]; QRS.rh = g ? g.rh : v[1]; qrSave(["rw","rh"]); } sync(); }; }
 const IADJ_CL = (() => { try { return window.claude || (parent !== window && parent.claude) || null; } catch(e) { return null; } })();
 if (!PROD && IADJ_CL && IADJ_CL.use) IADJ_CL.use("db").then(db => { if (!db) return; iadjDb = db; qrDb = db;
-  try { db.doc("settings/qr").get().then(d => { const v = d && (typeof d.data === "function" ? d.data() : d.data || d); if (v && typeof v === "object" && Object.keys(qrClean(v)).length) { Object.assign(QRS, qrClean(v)); try { localStorage.setItem("esQr1", JSON.stringify(QRS)); } catch(e) {} qrApply(); } }).catch(() => {}); } catch(e) {}
+  qrPull(); try { const r = db.doc("settings/qr"); if (typeof r.onSnapshot === "function") r.onSnapshot(d => qrTake(d && (typeof d.data === "function" ? d.data() : d.data || d), false), () => {}); } catch(e) {}
   db.collection("photos").get().then(q => { iadjDbOn = true; (q.docs || []).forEach(d => { const v = d.data && d.data(); if (v && v.key) IADJ_DB[v.key] = v.reset ? {} : { px: v.px, py: v.py, z: v.z, ...iadjLt(v), ...(v.hide ? { hide: true } : {}) }; });
     if (Object.values(IADJ_DB).some(v => v.hide) && document.querySelector("#main [data-rot]")) { try { render(shop, page); } catch(e) {} }
     document.querySelectorAll("#main img:not(.neon), #gate img").forEach(im => { const a = iadjGet()[iadjKey(im)]; if (a) iadjApply(im, a); else if (im._adj) iadjApply(im, {}); }); }).catch(() => {}); }).catch(() => {});
