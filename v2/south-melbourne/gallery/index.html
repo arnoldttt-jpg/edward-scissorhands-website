@@ -2478,6 +2478,12 @@ body.qr-mode #main{padding-top:0!important}
 .qr-tick-t{display:flex;align-items:center;width:max-content;padding:9px 0;animation:qrTick var(--qr-tspeed,26s) linear infinite;font:700 var(--qr-tsize,13px)/1 var(--cond);letter-spacing:.18em;text-transform:uppercase;color:#e9dfc3;white-space:nowrap}
 .qr-tick-t span{padding:0 1.1em}.qr-tick-t i{font-style:normal;color:var(--gold);font-size:.75em}
 @keyframes qrTick{to{transform:translateX(-50%)}}
+.qr-tick-t[data-mode="slide"]{display:grid;width:100%;animation:none;white-space:normal}
+.qr-tick-t[data-mode="slide"]>span{grid-area:1/1;display:flex;align-items:center;justify-content:center;gap:1em;padding:0 18px;line-height:1.25;text-align:center;opacity:0;transform:translateX(70%);transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .45s ease}
+.qr-tick-t[data-mode="slide"]>span.on{opacity:1;transform:none}
+.qr-tick-t[data-mode="slide"]>span.out{opacity:0;transform:translateX(-70%);transition:transform .5s cubic-bezier(.7,0,.84,0),opacity .4s ease}
+.qr-tick-t[data-mode="slide"] i{font-style:normal;color:var(--gold);font-size:.75em}
+@media (prefers-reduced-motion:reduce){.qr-tick-t[data-mode="slide"]>span{transform:none!important;transition:opacity .3s ease!important}.qr-tick-t[data-mode="slide"] .dup{display:flex}}
 @media (prefers-reduced-motion:reduce){.qr-tick{-webkit-mask:none;mask:none}.qr-tick-t{animation:none;width:auto;white-space:normal;flex-wrap:wrap;justify-content:center;row-gap:8px;line-height:1.3}.qr-tick-t .dup{display:none}}
 .qr-rate{display:grid!important;grid-template-columns:auto auto;align-items:center;justify-content:center;column-gap:14px;row-gap:4px;margin:clamp(12px,2.4svh,30px) 0 0;text-align:left}
 .qr-rate .big{grid-area:1/1/3/2!important;font-size:clamp(40px,6svh,50px)!important;line-height:.9!important;margin:0!important}
@@ -3302,7 +3308,7 @@ const VIEWS = {
   qr:(S,D) => `<section class="qr" aria-labelledby="h1" style="${qrVars()}" data-shine="${QRS.shine?1:0}" data-score="${QRS.score?1:0}" data-ti="${QRS.title?1:0}" data-tc="${/^#/.test(QRS.color)?1:0}" data-row="${QRS.row?1:0}" data-mg="${QRS.mg?1:0}" data-tg="${QRS.tg?1:0}" data-tpos="${QRS.tpos}" data-reveal="${QRS.reveal?1:0}">
     <div class="logo-wrap qr-logo"><img src="/v2/images/edward-scissorhands-barber-shop-logo.webp" alt="Edward Scissorhands Barber Shop, est. 1991" width="900" height="530"><span class="shine" aria-hidden="true"></span></div>
     <h1 id="h1" class="qr-h">${S.name}</h1>
-    <div class="qr-tick" role="note" aria-label="${esc(qrTickParts().join(". "))}"><div class="qr-tick-t" aria-hidden="true">${qrTickHtml()}</div></div>
+    <div class="qr-tick" role="note" aria-label="${esc(qrTickParts().join(". "))}"><div class="qr-tick-t" aria-hidden="true" data-mode="${QRS.tmode}">${qrTickHtml()}</div></div>
     <a class="qr-cta js-book" data-st="${QRS.btn}" data-ko="${qrKo()?1:0}" href="${D.book}" target="_blank" rel="noopener">${qrCtaInner()}</a>
     <p class="qr-note" data-on="${QRS.note?1:0}" data-ns="${QRS.ns}">${esc(QRS.ntxt)}</p>
     <p class="qr-badge" data-on="${QRS.badge?1:0}" data-bs="${QRS.bs}"><i aria-hidden="true">✦</i><span>${esc(QRS.btxt)}</span><i aria-hidden="true">✦</i></p>
@@ -3390,6 +3396,7 @@ function reveals(){
     setTimeout(() => { if (!figs[0].classList.contains("in") && team.getBoundingClientRect().top < innerHeight * .8) go(); }, 6000);
   }
   mark(".perk, .brand, .line, .yr, .trust > *, .svcs, .sub, .faq, .rev > div", "rv-c", 4);
+  qrTickRun();
   document.querySelectorAll("#main .qr-arm .arm-svg .d").forEach((d, k) => d.style.setProperty("--k", k));
   const cs = document.getElementById("cstage");
   if (cs) { cs.querySelectorAll(".arm-svg .d").forEach((d, k) => d.style.setProperty("--k", k));
@@ -3688,10 +3695,10 @@ const iadjId = k => k.replace(/[^A-Za-z0-9_-]/g, "_").slice(0, 140);
 let iadjDb = null, iadjSaveT = {};
 /* preview only: positions are shared through the artifact's own store so everyone sees them and Claude can build them in */
 /* QR page settings: adjustable in the preview (shared through the artifact store); Claude builds the chosen values into the live page */
-const QR_DEF = { logo:100, glow:30, shine:1, speed:4.5, reveal:1, score:0, row:0, arm:1, mg:1, tg:1, title:1, ns:1, nsz:100, note:1, ntxt:"Pick your barber and time. It takes about a minute.", cx:0, cy:0, nx:0, ny:0, bs:1, bsz:100, badge:1, btxt:"Pick any barber for the shortest wait", bx:0, by:0, rx:0, ry:0, mx:0, my:0, asz:100, ax:0, ay:0, tpos:"above", lx:0, ly:0, hx:0, hy:0, ty:0, btn:1, color:"", size:24, text:"Book now", tsize:13, tspeed:26, tick:"Walk-ins welcome | Tap Book now to lock in your spot | Or ask our staff at reception to book you in" };
+const QR_DEF = { logo:100, glow:30, shine:1, speed:4.5, reveal:1, score:0, row:0, arm:1, mg:1, tg:1, title:1, ns:1, nsz:100, note:1, ntxt:"Pick your barber and time. It takes about a minute.", cx:0, cy:0, nx:0, ny:0, bs:1, bsz:100, badge:1, btxt:"Pick any barber for the shortest wait", bx:0, by:0, rx:0, ry:0, mx:0, my:0, asz:100, ax:0, ay:0, tpos:"above", lx:0, ly:0, hx:0, hy:0, ty:0, btn:1, color:"", size:24, text:"Book now", tsize:13, tspeed:26, tmode:"scroll", thold:2.5, tick:"Walk-ins welcome | Tap Book now to lock in your spot | Or ask our staff at reception to book you in" };
 const QR_BAKED = {};
 const qrClean = v => { const o = {}, n = (k,a,b) => { const x = +v[k]; if (isFinite(x) && v[k] !== "" && v[k] != null) o[k] = Math.min(b, Math.max(a, x)); };
-  if (!v || typeof v !== "object") return o; n("logo",50,160); n("glow",0,100); n("speed",2,12); n("size",14,64); n("tsize",9,24); ["lx","ly","hx","hy","ty","ax","ay","bx","by","rx","ry","mx","my","cx","cy","nx","ny"].forEach(k => n(k,-400,400)); if ("note" in v) o.note = v.note ? 1 : 0; if (typeof v.ntxt === "string") o.ntxt = v.ntxt.replace(/\s+/g, " ").trim().slice(0, 90) || QR_DEF.ntxt; if ("badge" in v) o.badge = v.badge ? 1 : 0; n("bs",1,6); n("ns",1,4); if (o.ns) o.ns = Math.round(o.ns); n("nsz",60,200); if (o.bs) o.bs = Math.round(o.bs); n("bsz",60,200); if (typeof v.btxt === "string") o.btxt = v.btxt.replace(/\s+/g, " ").trim().slice(0, 60) || QR_DEF.btxt; n("asz",40,160); if ("arm" in v) o.arm = v.arm ? 1 : 0; if ("mg" in v) o.mg = v.mg ? 1 : 0; if ("tg" in v) o.tg = v.tg ? 1 : 0; if ("title" in v) o.title = v.title ? 1 : 0; if (["top","above","below","low"].includes(v.tpos)) o.tpos = v.tpos; if ("row" in v) o.row = v.row ? 1 : 0; n("tspeed",8,70); n("btn",1,6); if (o.btn) o.btn = Math.round(o.btn);
+  if (!v || typeof v !== "object") return o; n("logo",50,160); n("glow",0,100); n("speed",2,12); n("size",14,64); n("tsize",9,24); n("thold",1,8); if (["scroll","slide"].includes(v.tmode)) o.tmode = v.tmode; ["lx","ly","hx","hy","ty","ax","ay","bx","by","rx","ry","mx","my","cx","cy","nx","ny"].forEach(k => n(k,-400,400)); if ("note" in v) o.note = v.note ? 1 : 0; if (typeof v.ntxt === "string") o.ntxt = v.ntxt.replace(/\s+/g, " ").trim().slice(0, 90) || QR_DEF.ntxt; if ("badge" in v) o.badge = v.badge ? 1 : 0; n("bs",1,6); n("ns",1,4); if (o.ns) o.ns = Math.round(o.ns); n("nsz",60,200); if (o.bs) o.bs = Math.round(o.bs); n("bsz",60,200); if (typeof v.btxt === "string") o.btxt = v.btxt.replace(/\s+/g, " ").trim().slice(0, 60) || QR_DEF.btxt; n("asz",40,160); if ("arm" in v) o.arm = v.arm ? 1 : 0; if ("mg" in v) o.mg = v.mg ? 1 : 0; if ("tg" in v) o.tg = v.tg ? 1 : 0; if ("title" in v) o.title = v.title ? 1 : 0; if (["top","above","below","low"].includes(v.tpos)) o.tpos = v.tpos; if ("row" in v) o.row = v.row ? 1 : 0; n("tspeed",8,70); n("btn",1,6); if (o.btn) o.btn = Math.round(o.btn);
   if ("shine" in v) o.shine = v.shine ? 1 : 0; if ("score" in v) o.score = v.score ? 1 : 0; if ("reveal" in v) o.reveal = v.reveal ? 1 : 0;
   if (typeof v.color === "string" && (v.color === "" || v.color === "ko" || /^#[0-9a-f]{6}$/i.test(v.color))) o.color = v.color;
   if (typeof v.tick === "string") o.tick = v.tick.replace(/[ \t]+/g, " ").replace(/\n+/g, " | ").trim().slice(0, 240);
@@ -3699,7 +3706,12 @@ const qrClean = v => { const o = {}, n = (k,a,b) => { const x = +v[k]; if (isFin
 let QRS = { ...QR_DEF, ...qrClean(QR_BAKED) };
 if (!PROD) { try { Object.assign(QRS, qrClean(JSON.parse(localStorage.getItem("esQr1") || "{}"))); } catch(e) {} }
 const qrTickParts = () => { const a = (QRS.tick || "").split("|").map(x => x.trim()).filter(Boolean); return a.length ? a : QR_DEF.tick.split(" | "); };
-function qrTickHtml(){ const a = qrTickParts(), one = d => a.map(t => `<span${d}>${esc(t)}</span><i${d}>✦</i>`).join(""), n = Math.max(1, Math.ceil(4 / a.length)); return one("") + one(' class="dup"').repeat(2 * n - 1); }
+function qrTickHtml(){ const a = qrTickParts(); if (QRS.tmode === "slide") return a.map((t,i) => `<span class="${i ? "" : "on"}"><i>✦</i>${esc(t)}<i>✦</i></span>`).join(""); return qrTickScroll(a); }
+let qrTickT = 0;
+function qrTickRun(){ clearTimeout(qrTickT); const t = document.querySelector('#main .qr-tick-t[data-mode="slide"]'); if (!t || t.children.length < 2) return;
+  qrTickT = setTimeout(() => { if (!t.isConnected) return; const s = [...t.children], i = Math.max(0, s.findIndex(x => x.classList.contains("on")));
+    s.forEach(x => x.classList.remove("out")); s[i].classList.remove("on"); s[i].classList.add("out"); s[(i + 1) % s.length].classList.add("on"); qrTickRun(); }, QRS.thold * 1000 + 600); }
+function qrTickScroll(a){ const one = d => a.map(t => `<span${d}>${esc(t)}</span><i${d}>✦</i>`).join(""), n = Math.max(1, Math.ceil(4 / a.length)); return one("") + one(' class="dup"').repeat(2 * n - 1); }
 document.addEventListener("click", e => { const t = e.target.closest && e.target.closest(".qr-mgmt-t"); if (!t) return; const m = t.closest(".qr-mgmt"), o = m.dataset.open !== "1"; m.dataset.open = o ? 1 : 0; t.setAttribute("aria-expanded", o); });
 let qrSync = null;
 const QR_DRAG = [[".qr-cta","cx","cy"],[".qr-note","nx","ny"],[".qr-logo","lx","ly"],[".qr-h","hx","hy"],[".qr-tick",null,"ty"],[".qr-badge","bx","by"],[".qr-rate","rx","ry"],[".qr-arm","ax","ay"],[".qr-mgmt","mx","my"]];
@@ -3723,7 +3735,7 @@ function qrCtaInner(){ const t = QRS.text || "Book now"; if (!qrKo()) return `<s
 function qrVars(){ return `--qr-nsz:${QRS.nsz/100};--qr-bsz:${QRS.bsz/100};--qr-cx:${QRS.cx}px;--qr-cy:${QRS.cy}px;--qr-nx:${QRS.nx}px;--qr-ny:${QRS.ny}px;--qr-bx:${QRS.bx}px;--qr-by:${QRS.by}px;--qr-rx:${QRS.rx}px;--qr-ry:${QRS.ry}px;--qr-mx:${QRS.mx}px;--qr-my:${QRS.my}px;--qr-asz:${QRS.asz/100};--qr-ax:${QRS.ax}px;--qr-ay:${QRS.ay}px;--qr-lx:${QRS.lx}px;--qr-ly:${QRS.ly}px;--qr-hx:${QRS.hx}px;--qr-hy:${QRS.hy}px;--qr-ty:${QRS.ty}px;--qr-tsize:${QRS.tsize}px;--qr-tspeed:${QRS.tspeed}s;--qr-logo:${QRS.logo/100};--qr-glow:${QRS.glow};--qr-speed:${QRS.speed}s;--qr-size:${QRS.size}px;${/^#/.test(QRS.color) ? `--qr-color:${QRS.color};` : ""}`; }
 function qrApply(){ const q = document.querySelector("#main .qr"); if (!q) return; q.style.cssText = qrVars(); q.dataset.shine = QRS.shine ? 1 : 0; q.dataset.score = QRS.score ? 1 : 0; q.dataset.row = QRS.row ? 1 : 0; q.dataset.mg = QRS.mg ? 1 : 0; q.dataset.tg = QRS.tg ? 1 : 0; q.dataset.ti = QRS.title ? 1 : 0; q.dataset.tc = /^#/.test(QRS.color) ? 1 : 0; { const nt = q.querySelector(".qr-note"); if (nt) { nt.dataset.on = QRS.note ? 1 : 0; nt.dataset.ns = QRS.ns; nt.textContent = QRS.ntxt; } }
   { const g = q.querySelector(".qr-badge"); if (g) { g.dataset.on = QRS.badge ? 1 : 0; g.dataset.bs = QRS.bs; g.querySelector("span").textContent = QRS.btxt; } } { const a = q.querySelector(".qr-arm"); if (a) a.dataset.on = QRS.arm ? 1 : 0; } q.dataset.tpos = QRS.tpos; q.dataset.reveal = QRS.reveal ? 1 : 0;
-  const tk = q.querySelector(".qr-tick-t"); if (tk && tk.dataset.v !== QRS.tick) { tk.dataset.v = QRS.tick; tk.innerHTML = qrTickHtml(); tk.parentNode.setAttribute("aria-label", qrTickParts().join(". ")); }
+  const tk = q.querySelector(".qr-tick-t"); if (tk && tk.dataset.v !== QRS.tick + QRS.tmode) { tk.dataset.v = QRS.tick + QRS.tmode; tk.dataset.mode = QRS.tmode; tk.innerHTML = qrTickHtml(); qrTickRun(); tk.parentNode.setAttribute("aria-label", qrTickParts().join(". ")); }
   const c = q.querySelector(".qr-cta"); if (c) { c.dataset.st = QRS.btn; c.dataset.ko = qrKo() ? 1 : 0; c.innerHTML = qrCtaInner(); } }
 let qrDb = null, qrSaveT = 0;
 function qrSave(){ try { localStorage.setItem("esQr1", JSON.stringify(QRS)); } catch(e) {} const st = document.querySelector(".qre-hd small"); if (st) st.textContent = "Saving…"; clearTimeout(qrSaveT);
@@ -3771,7 +3783,9 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
 <label>Move left / right <output data-o="ax"></output></label><input type="range" data-k="ax" min="-300" max="300" step="1" aria-label="Hand left or right">
 <label>Move up / down <output data-o="ay"></output></label><input type="range" data-k="ay" min="-300" max="300" step="1" aria-label="Hand up or down">
 <div class="qre-ft"><button type="button" data-t="arm"></button><button type="button" data-replay-arm>Replay</button></div></div>
-<div class="qre-t"><div class="qre-lb">Where it sits</div><div class="qre-chips">${[["top","Top of page"],["above","Above button"],["below","Below button"],["low","Bottom"]].map(c => `<button type="button" data-tp="${c[0]}">${c[1]}</button>`).join("")}</div>
+<div class="qre-t"><div class="qre-lb">Motion</div><div class="qre-chips"><button type="button" data-tm="scroll">Continuous scroll</button><button type="button" data-tm="slide">One at a time</button></div>
+<label>Hold each message <output data-o="thold"></output></label><input type="range" data-k="thold" min="1.5" max="5" step="0.5" aria-label="Seconds each message holds">
+<div class="qre-lb">Where it sits</div><div class="qre-chips">${[["top","Top of page"],["above","Above button"],["below","Below button"],["low","Bottom"]].map(c => `<button type="button" data-tp="${c[0]}">${c[1]}</button>`).join("")}</div>
 <label>Nudge up / down <output data-o="ty"></output></label><input type="range" data-k="ty" min="-300" max="300" step="1" aria-label="Scroller up or down">
 <label>Text size <output data-o="tsize"></output></label><input type="range" data-k="tsize" min="10" max="22" step="1" aria-label="Scroller text size">
 <label>Speed, one loop in <output data-o="tspeed"></output></label><input type="range" data-k="tspeed" min="10" max="60" step="1" aria-label="Scroller speed">
@@ -3781,7 +3795,8 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
     const sync = () => { p.querySelectorAll("[data-k]").forEach(i => { if (document.activeElement !== i || !/^text/.test(i.type)) i.value = i.dataset.k === "tick" ? qrTickParts().join("\n") : QRS[i.dataset.k]; });
       p.querySelector('[data-o="tsize"]').textContent = QRS.tsize + "px"; p.querySelector('[data-o="tspeed"]').textContent = QRS.tspeed + "s";
       p.querySelector('[data-o="logo"]').textContent = QRS.logo + "%"; p.querySelector('[data-o="glow"]').textContent = QRS.glow + "%"; p.querySelector('[data-o="speed"]').textContent = QRS.speed + "s"; p.querySelector('[data-o="size"]').textContent = QRS.size + "px";
-      p.querySelector('[data-o="asz"]').textContent = QRS.asz + "%"; p.querySelector('[data-o="bsz"]').textContent = QRS.bsz + "%"; p.querySelector('[data-o="nsz"]').textContent = QRS.nsz + "%"; p.querySelectorAll("[data-nst]").forEach(x => x.setAttribute("aria-pressed", +x.dataset.nst === QRS.ns));
+      p.querySelector('[data-o="asz"]').textContent = QRS.asz + "%"; p.querySelector('[data-o="bsz"]').textContent = QRS.bsz + "%"; p.querySelector('[data-o="thold"]').textContent = QRS.thold + "s"; p.querySelectorAll("[data-tm]").forEach(x => x.setAttribute("aria-pressed", x.dataset.tm === QRS.tmode));
+      p.querySelector('[data-o="nsz"]').textContent = QRS.nsz + "%"; p.querySelectorAll("[data-nst]").forEach(x => x.setAttribute("aria-pressed", +x.dataset.nst === QRS.ns));
       p.querySelectorAll("[data-bst]").forEach(x => x.setAttribute("aria-pressed", +x.dataset.bst === QRS.bs));
       [["arm","Hand"],["mg","Feedback contact"],["tg","Grain"],["badge","Badge"],["note","Line under button"],["title","South Melbourne title"]].forEach(([k,l]) => { const x = p.querySelector(`[data-t="${k}"]`); x.textContent = l + " " + (QRS[k] ? "on" : "off"); x.setAttribute("aria-pressed", !!QRS[k]); });
       ["lx","ly","hx","hy","ty","ax","ay","bx","by","rx","ry","mx","my","cx","cy","nx","ny"].forEach(k => { p.querySelector(`[data-o="${k}"]`).textContent = (QRS[k] > 0 ? "+" : "") + QRS[k]; }); p.querySelectorAll("[data-tp]").forEach(x => x.setAttribute("aria-pressed", x.dataset.tp === QRS.tpos));
@@ -3800,6 +3815,7 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
       else if (t.dataset.tp) set("tpos", t.dataset.tp);
       else if (t.dataset.bst) set("bs", +t.dataset.bst);
       else if (t.dataset.nst) set("ns", +t.dataset.nst);
+      else if (t.dataset.tm) set("tmode", t.dataset.tm);
       else if (t.dataset.st) set("btn", +t.dataset.st); else if ("c" in t.dataset) set("color", t.dataset.c);
       else if ("replay" in t.dataset) replay(); else if ("reset" in t.dataset) { QRS = { ...QR_DEF, ...qrClean(QR_BAKED) }; qrApply(); sync(); qrSave(); replay(); }
       else if (t.classList.contains("qre-flip")) p.dataset.at = p.dataset.at === "top" ? "" : "top";
