@@ -5,4 +5,10 @@ http://www.edwardscissorhandsbarber.com.au/*   https://edwardscissorhandsbarber.
 /st-kilda/brief          /st-kilda/staff/          301
 /south-melbourne/brief   /south-melbourne/staff/   301
 
+# QR code landing page (any capitalisation, plus a short form)
+/south-melbourne/QR      /south-melbourne/qr/      301
+/south-melbourne/Qr      /south-melbourne/qr/      301
+/qr                      /south-melbourne/qr/      302
+/QR                      /south-melbourne/qr/      302
+
 # every page is its own ready-made file; anything else gets the 404 page
