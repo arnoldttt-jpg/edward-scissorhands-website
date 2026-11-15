@@ -2493,26 +2493,38 @@ body.qr-mode #main{padding-top:0!important}
 .qr-foot{margin-top:auto;padding-top:clamp(14px,2.4svh,26px);display:flex;flex-direction:column;align-items:center;gap:9px;font:600 12px/1 var(--cond);letter-spacing:.22em;text-transform:uppercase;color:#9a968e}
 .qr-foot i{font-style:normal;color:var(--gold);padding:0 .35em}
 .qr[data-row="0"] .qr-row{display:none}
+.qr[data-tg="0"] .qr-h{background-image:linear-gradient(180deg,#ffffff 8%,#f3eee1 44%,#c2bbab 74%,#8f887a 100%);background-size:auto}
 .qr>.qr-arm{order:60}.qr>.qr-mgmt{order:80}
 .qr-arm{width:calc(min(76vw,340px,15svh * 2.72) * var(--qr-asz,1));max-width:100%;margin:clamp(4px,1.2svh,14px) 0 0;translate:var(--qr-ax,0px) var(--qr-ay,0px)}
 .qr-arm.cstage{display:block!important}
 .qr-arm .arm{width:100%!important;margin:0!important;grid-column:auto!important;grid-row:auto!important}
 .qr-arm[data-on="0"]{display:none}
-.qr-mgmt{margin:clamp(10px,2svh,24px) 0 0;display:flex;flex-direction:column;align-items:center}
+.qr-mgmt{margin:clamp(8px,1.6svh,18px) 0 0;display:flex;flex-direction:column;align-items:center}
 .qr[data-mg="0"] .qr-mgmt{display:none}
-.qr-mgmt-h{margin:0;font-size:clamp(17px,2.5svh,21px)!important;letter-spacing:.06em!important;color:#efe9da;line-height:1.1!important}
-.qr-mgmt p{margin:5px 0 0;color:var(--grey);font-size:13.5px}
-.qr-mgmt-r{display:flex;gap:10px;margin-top:10px}
-.qr-mgmt-r a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(216,178,74,.45);background:rgba(216,178,74,.06);color:#efe9da;text-decoration:none;font:700 12.5px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase}
+.qr-mgmt-t{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 14px;border:0;background:none;color:#cfc8b6;font:700 12.5px/1 var(--cond);letter-spacing:.18em;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.qr-mgmt-t svg{color:var(--gold);transition:transform .45s cubic-bezier(.22,.61,.36,1)}
+.qr-mgmt[data-open="1"] .qr-mgmt-t svg{transform:rotate(180deg)}
+.qr-mgmt-t:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:999px}
+.qr-mgmt-p{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.22,.61,.36,1)}
+.qr-mgmt-p>div{min-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;visibility:hidden;transition:visibility 0s .5s}
+.qr-mgmt[data-open="1"] .qr-mgmt-p{grid-template-rows:1fr}
+.qr-mgmt[data-open="1"] .qr-mgmt-p>div{visibility:visible;transition-delay:0s}
+.qr-mgmt p{margin:2px 0 0;color:var(--grey);font-size:13px;opacity:0;transform:translateY(-4px);transition:opacity .35s ease,transform .45s cubic-bezier(.22,.61,.36,1)}
+.qr-mgmt-r{display:flex;gap:10px;padding:8px 4px 4px}
+.qr-mgmt-r a{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 18px;border-radius:999px;border:1px solid rgba(216,178,74,.45);background:rgba(216,178,74,.06);color:#efe9da;text-decoration:none;font:700 12px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase;opacity:0;transform:translateY(-8px) scale(.96);transition:opacity .4s ease,transform .55s cubic-bezier(.22,.61,.36,1)}
+.qr-mgmt-r a:nth-child(2){transition-delay:.06s}
+.qr-mgmt[data-open="1"] p,.qr-mgmt[data-open="1"] .qr-mgmt-r a{opacity:1;transform:none}
+.qr-mgmt[data-open="1"] p{transition-delay:.08s}.qr-mgmt[data-open="1"] .qr-mgmt-r a{transition-delay:.14s}.qr-mgmt[data-open="1"] .qr-mgmt-r a:nth-child(2){transition-delay:.2s}
 .qr-mgmt-r a svg{color:var(--gold)}
 .qr-mgmt-r a:active{background:rgba(216,178,74,.2)}
 .qr-mgmt-r a:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.qr-mgmt-p,.qr-mgmt-p>div,.qr-mgmt p,.qr-mgmt-r a,.qr-mgmt-t svg{transition:none!important}}
 .qr>*{order:50}.qr>.qr-logo{order:10}.qr>.qr-h{order:20}.qr>.qr-tick{order:30}.qr>.qr-cta{order:40}.qr>.qr-note{order:45}.qr>.qr-foot{order:90}.qr>.qr-site{order:100}
 .qr[data-tpos="top"]>.qr-tick{order:5;margin-top:0}.qr[data-tpos="below"]>.qr-tick{order:47}.qr[data-tpos="low"]>.qr-tick{order:95;margin-top:clamp(14px,2.4svh,24px)}
 .qr-logo.logo-wrap{translate:var(--qr-lx,0px) var(--qr-ly,0px)}.qr-h{translate:var(--qr-hx,0px) var(--qr-hy,0px)}.qr-tick{translate:0 var(--qr-ty,0px)}
 html:not(.prod) .qr-site{margin-bottom:58px} /* preview only: clear the preview tool buttons */
 @media (prefers-reduced-motion:reduce){.qr-logo.logo-wrap{opacity:1!important;animation:none!important}}
-.qr-h{margin:0;padding:.06em 0 .04em;font-size:clamp(30px,min(11.5vw,6.2svh),64px);line-height:.95;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .7 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/160px 160px,linear-gradient(180deg,#ffffff 8%,#f3eee1 44%,#c2bbab 74%,#8f887a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55))}
+.qr-h{margin:0;padding:.06em 0 .04em;font-size:clamp(30px,min(11.5vw,6.2svh),64px);line-height:.95;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .45 -.22'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/160px 160px,linear-gradient(180deg,#ffffff 8%,#f3eee1 44%,#c2bbab 74%,#8f887a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55))}
 .qr-ad{margin:12px 0 0;color:var(--grey);font-size:16px}
 .qr-cta{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;justify-content:center;width:min(100%,420px);min-height:clamp(56px,8.4svh,72px);padding:8px 22px;margin-top:clamp(12px,2.2svh,24px);border-radius:999px;background:#c9a23c url(/images/gold-leaf.webp) center/cover;color:var(--qr-color,#0b0b0c);line-height:1.1;text-decoration:none;font-family:var(--cond);font-weight:700;font-size:min(var(--qr-size,24px),8.4vw);letter-spacing:.2em;text-transform:uppercase;box-shadow:0 0 0 1px rgba(243,215,126,.65),0 0 0 5px rgba(216,178,74,.12),0 18px 44px -14px rgba(0,0,0,.85),0 0 46px -8px rgba(216,178,74,.5),inset 0 1px 0 rgba(255,246,214,.55),inset 0 -10px 18px -10px rgba(90,62,8,.55);transition:transform .2s ease,box-shadow .3s ease;-webkit-tap-highlight-color:transparent}
 .qr-cta span{position:relative;z-index:1;padding-left:.2em}
@@ -3248,7 +3260,7 @@ const VIEWS = {
   locations:(S,D) => vLocPage(S,D),
   faq:(S,D) => vFaqPage(S,D),
   /* QR landing page: one screen, one job (book). No header, no footer. */
-  qr:(S,D) => `<section class="qr" aria-labelledby="h1" style="${qrVars()}" data-shine="${QRS.shine?1:0}" data-score="${QRS.score?1:0}" data-row="${QRS.row?1:0}" data-mg="${QRS.mg?1:0}" data-tpos="${QRS.tpos}" data-reveal="${QRS.reveal?1:0}">
+  qr:(S,D) => `<section class="qr" aria-labelledby="h1" style="${qrVars()}" data-shine="${QRS.shine?1:0}" data-score="${QRS.score?1:0}" data-row="${QRS.row?1:0}" data-mg="${QRS.mg?1:0}" data-tg="${QRS.tg?1:0}" data-tpos="${QRS.tpos}" data-reveal="${QRS.reveal?1:0}">
     <div class="logo-wrap qr-logo"><img src="/images/edward-scissorhands-barber-shop-logo.webp" alt="Edward Scissorhands Barber Shop, est. 1991" width="900" height="530"><span class="shine" aria-hidden="true"></span></div>
     <h1 id="h1" class="qr-h">${S.name}</h1>
     <div class="qr-tick" role="note" aria-label="${esc(qrTickParts().join(". "))}"><div class="qr-tick-t" aria-hidden="true">${qrTickHtml()}</div></div>
@@ -3258,9 +3270,8 @@ const VIEWS = {
       <a href="${S.dir}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.800-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Directions</a></div>
     <div class="rscore go qr-rate" aria-label="Rated 4.8 out of 5 on Google, ${esc(S.count)}"><div class="big" aria-hidden="true">4.8</div><div class="rline" aria-hidden="true"><svg class="g-logo lg" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" fill="none" stroke="url(#gg9)" stroke-width="1.4"/><defs><linearGradient id="gg9" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dd95"/><stop offset=".5" stop-color="#d8b24a"/><stop offset="1" stop-color="#8a6a17"/></linearGradient></defs><g transform="translate(16 16) scale(.6667)" fill="url(#gg9)"><path d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path d="M24 48c6.48 0 11.930-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.920 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></g></svg><span class="stars3">${[0,1,2,3,4].map(k => `<span class="st" style="--i:${k}">★<i>★</i></span>`).join("")}</span></div><p class="qr-count">${esc(S.count)}</p></div>
     <div class="cstage go qr-arm" data-on="${QRS.arm?1:0}">${armHTML("q")}</div>
-    <div class="qr-mgmt"><h2 class="qr-mgmt-h">Feedback or a complaint?</h2><p>Talk directly to management.</p>
-      <div class="qr-mgmt-r"><a href="tel:0403185329" aria-label="Call management on 0403 185 329"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span>Call</span></a>
-      <a href="mailto:${EMAIL}?subject=${encodeURIComponent("Feedback: South Melbourne")}" aria-label="Email management"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg><span>Email</span></a></div></div>
+    <div class="qr-mgmt" data-open="0"><button type="button" class="qr-mgmt-t" aria-expanded="false" aria-controls="qrMg">Feedback or a complaint?<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="qr-mgmt-p" id="qrMg"><div><p>Talk directly to management.</p><div class="qr-mgmt-r"><a href="tel:0403185329" aria-label="Call management on 0403 185 329"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span>Call</span></a><a href="sms:0403185329" aria-label="Text management on 0403 185 329"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.4 7.6L3 21l1.5-5.2A8.5 8.5 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01" stroke-width="2.4"/></svg><span>SMS</span></a></div></div></div></div>
     <footer class="qr-foot"><span>Open 7 days</span><span>Mon–Fri 9–7 <i>·</i> Sat–Sun 9–5</span><span>Sat, Sun & Public Holidays <i>·</i> +10%</span></footer>
     <a class="qr-site" data-go="home" href="#">Visit the full website</a>
   </section>`,
@@ -3637,10 +3648,10 @@ const iadjId = k => k.replace(/[^A-Za-z0-9_-]/g, "_").slice(0, 140);
 let iadjDb = null, iadjSaveT = {};
 /* preview only: positions are shared through the artifact's own store so everyone sees them and Claude can build them in */
 /* QR page settings: adjustable in the preview (shared through the artifact store); Claude builds the chosen values into the live page */
-const QR_DEF = { logo:100, glow:30, shine:1, speed:4.5, reveal:1, score:0, row:0, arm:1, mg:1, asz:100, ax:0, ay:0, tpos:"above", lx:0, ly:0, hx:0, hy:0, ty:0, btn:1, color:"", size:24, text:"Book now", tsize:13, tspeed:26, tick:"Walk-ins welcome | Tap Book now to lock in your spot | Or ask our staff at reception to book you in" };
+const QR_DEF = { logo:100, glow:30, shine:1, speed:4.5, reveal:1, score:0, row:0, arm:1, mg:1, tg:1, asz:100, ax:0, ay:0, tpos:"above", lx:0, ly:0, hx:0, hy:0, ty:0, btn:1, color:"", size:24, text:"Book now", tsize:13, tspeed:26, tick:"Walk-ins welcome | Tap Book now to lock in your spot | Or ask our staff at reception to book you in" };
 const QR_BAKED = {};
 const qrClean = v => { const o = {}, n = (k,a,b) => { const x = +v[k]; if (isFinite(x) && v[k] !== "" && v[k] != null) o[k] = Math.min(b, Math.max(a, x)); };
-  if (!v || typeof v !== "object") return o; n("logo",50,160); n("glow",0,100); n("speed",2,12); n("size",14,40); n("tsize",9,24); ["lx","ly","hx","hy","ty","ax","ay"].forEach(k => n(k,-150,150)); n("asz",40,160); if ("arm" in v) o.arm = v.arm ? 1 : 0; if ("mg" in v) o.mg = v.mg ? 1 : 0; if (["top","above","below","low"].includes(v.tpos)) o.tpos = v.tpos; if ("row" in v) o.row = v.row ? 1 : 0; n("tspeed",8,70); n("btn",1,4); if (o.btn) o.btn = Math.round(o.btn);
+  if (!v || typeof v !== "object") return o; n("logo",50,160); n("glow",0,100); n("speed",2,12); n("size",14,40); n("tsize",9,24); ["lx","ly","hx","hy","ty","ax","ay"].forEach(k => n(k,-150,150)); n("asz",40,160); if ("arm" in v) o.arm = v.arm ? 1 : 0; if ("mg" in v) o.mg = v.mg ? 1 : 0; if ("tg" in v) o.tg = v.tg ? 1 : 0; if (["top","above","below","low"].includes(v.tpos)) o.tpos = v.tpos; if ("row" in v) o.row = v.row ? 1 : 0; n("tspeed",8,70); n("btn",1,4); if (o.btn) o.btn = Math.round(o.btn);
   if ("shine" in v) o.shine = v.shine ? 1 : 0; if ("score" in v) o.score = v.score ? 1 : 0; if ("reveal" in v) o.reveal = v.reveal ? 1 : 0;
   if (typeof v.color === "string" && (v.color === "" || /^#[0-9a-f]{6}$/i.test(v.color))) o.color = v.color;
   if (typeof v.tick === "string") o.tick = v.tick.replace(/[ \t]+/g, " ").replace(/\n+/g, " | ").trim().slice(0, 240);
@@ -3649,9 +3660,10 @@ let QRS = { ...QR_DEF, ...qrClean(QR_BAKED) };
 if (!PROD) { try { Object.assign(QRS, qrClean(JSON.parse(localStorage.getItem("esQr1") || "{}"))); } catch(e) {} }
 const qrTickParts = () => { const a = (QRS.tick || "").split("|").map(x => x.trim()).filter(Boolean); return a.length ? a : QR_DEF.tick.split(" | "); };
 function qrTickHtml(){ const a = qrTickParts(), one = d => a.map(t => `<span${d}>${esc(t)}</span><i${d}>✦</i>`).join(""), n = Math.max(1, Math.ceil(4 / a.length)); return one("") + one(' class="dup"').repeat(2 * n - 1); }
+document.addEventListener("click", e => { const t = e.target.closest && e.target.closest(".qr-mgmt-t"); if (!t) return; const m = t.closest(".qr-mgmt"), o = m.dataset.open !== "1"; m.dataset.open = o ? 1 : 0; t.setAttribute("aria-expanded", o); });
 function qrArmReplay(){ const a = document.querySelector("#main .qr-arm"); if (!a) return; a.classList.remove("go"); void a.offsetWidth; a.classList.add("go"); }
 function qrVars(){ return `--qr-asz:${QRS.asz/100};--qr-ax:${QRS.ax}px;--qr-ay:${QRS.ay}px;--qr-lx:${QRS.lx}px;--qr-ly:${QRS.ly}px;--qr-hx:${QRS.hx}px;--qr-hy:${QRS.hy}px;--qr-ty:${QRS.ty}px;--qr-tsize:${QRS.tsize}px;--qr-tspeed:${QRS.tspeed}s;--qr-logo:${QRS.logo/100};--qr-glow:${QRS.glow};--qr-speed:${QRS.speed}s;--qr-size:${QRS.size}px;${QRS.color ? `--qr-color:${QRS.color};` : ""}`; }
-function qrApply(){ const q = document.querySelector("#main .qr"); if (!q) return; q.style.cssText = qrVars(); q.dataset.shine = QRS.shine ? 1 : 0; q.dataset.score = QRS.score ? 1 : 0; q.dataset.row = QRS.row ? 1 : 0; q.dataset.mg = QRS.mg ? 1 : 0; { const a = q.querySelector(".qr-arm"); if (a) a.dataset.on = QRS.arm ? 1 : 0; } q.dataset.tpos = QRS.tpos; q.dataset.reveal = QRS.reveal ? 1 : 0;
+function qrApply(){ const q = document.querySelector("#main .qr"); if (!q) return; q.style.cssText = qrVars(); q.dataset.shine = QRS.shine ? 1 : 0; q.dataset.score = QRS.score ? 1 : 0; q.dataset.row = QRS.row ? 1 : 0; q.dataset.mg = QRS.mg ? 1 : 0; q.dataset.tg = QRS.tg ? 1 : 0; { const a = q.querySelector(".qr-arm"); if (a) a.dataset.on = QRS.arm ? 1 : 0; } q.dataset.tpos = QRS.tpos; q.dataset.reveal = QRS.reveal ? 1 : 0;
   const tk = q.querySelector(".qr-tick-t"); if (tk && tk.dataset.v !== QRS.tick) { tk.dataset.v = QRS.tick; tk.innerHTML = qrTickHtml(); tk.parentNode.setAttribute("aria-label", qrTickParts().join(". ")); }
   const c = q.querySelector(".qr-cta"); if (c) { c.dataset.st = QRS.btn; c.querySelector("span").textContent = QRS.text || "Book now"; } }
 let qrDb = null, qrSaveT = 0;
@@ -3671,7 +3683,8 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
 <label>Sparkle sweep, every <output data-o="speed"></output></label><input type="range" data-k="speed" min="2" max="12" step="0.5" aria-label="Sparkle speed">
 <div class="qre-ft"><button type="button" data-t="shine"></button><button type="button" data-t="reveal"></button><button type="button" data-replay>Replay</button></div></div>
 <div class="qre-h"><label>Move left / right <output data-o="hx"></output></label><input type="range" data-k="hx" min="-120" max="120" step="1" aria-label="Title left or right">
-<label>Move up / down <output data-o="hy"></output></label><input type="range" data-k="hy" min="-120" max="120" step="1" aria-label="Title up or down"></div>
+<label>Move up / down <output data-o="hy"></output></label><input type="range" data-k="hy" min="-120" max="120" step="1" aria-label="Title up or down">
+<div class="qre-ft"><button type="button" data-t="tg"></button></div></div>
 <div class="qre-b"><div class="qre-lb">Style</div><div class="qre-chips">${ST.map((t,i) => `<button type="button" data-st="${i+1}">${i+1}. ${t}</button>`).join("")}</div>
 <label for="qreT">Wording</label><input type="text" id="qreT" data-k="text" maxlength="28" autocomplete="off">
 <label>Text size <output data-o="size"></output></label><input type="range" data-k="size" min="16" max="36" step="1" aria-label="Text size">
@@ -3691,7 +3704,7 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
       p.querySelector('[data-o="tsize"]').textContent = QRS.tsize + "px"; p.querySelector('[data-o="tspeed"]').textContent = QRS.tspeed + "s";
       p.querySelector('[data-o="logo"]').textContent = QRS.logo + "%"; p.querySelector('[data-o="glow"]').textContent = QRS.glow + "%"; p.querySelector('[data-o="speed"]').textContent = QRS.speed + "s"; p.querySelector('[data-o="size"]').textContent = QRS.size + "px";
       p.querySelector('[data-o="asz"]').textContent = QRS.asz + "%";
-      [["arm","Hand"],["mg","Feedback contact"]].forEach(([k,l]) => { const x = p.querySelector(`[data-t="${k}"]`); x.textContent = l + " " + (QRS[k] ? "on" : "off"); x.setAttribute("aria-pressed", !!QRS[k]); });
+      [["arm","Hand"],["mg","Feedback contact"],["tg","Grain"]].forEach(([k,l]) => { const x = p.querySelector(`[data-t="${k}"]`); x.textContent = l + " " + (QRS[k] ? "on" : "off"); x.setAttribute("aria-pressed", !!QRS[k]); });
       ["lx","ly","hx","hy","ty","ax","ay"].forEach(k => { p.querySelector(`[data-o="${k}"]`).textContent = (QRS[k] > 0 ? "+" : "") + QRS[k]; }); p.querySelectorAll("[data-tp]").forEach(x => x.setAttribute("aria-pressed", x.dataset.tp === QRS.tpos));
       { const rw = p.querySelector('[data-t="row"]'); rw.textContent = "Call & directions " + (QRS.row ? "on" : "off"); rw.setAttribute("aria-pressed", !!QRS.row); }
       { const sc = p.querySelector('[data-t="score"]'); sc.textContent = "4.8 score " + (QRS.score ? "on" : "off"); sc.setAttribute("aria-pressed", !!QRS.score); }
