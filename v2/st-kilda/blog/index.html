@@ -2493,12 +2493,26 @@ body.qr-mode #main{padding-top:0!important}
 .qr-foot{margin-top:auto;padding-top:clamp(14px,2.4svh,26px);display:flex;flex-direction:column;align-items:center;gap:9px;font:600 12px/1 var(--cond);letter-spacing:.22em;text-transform:uppercase;color:#9a968e}
 .qr-foot i{font-style:normal;color:var(--gold);padding:0 .35em}
 .qr[data-row="0"] .qr-row{display:none}
+.qr>.qr-arm{order:60}.qr>.qr-mgmt{order:80}
+.qr-arm{width:calc(min(76vw,340px,15svh * 2.72) * var(--qr-asz,1));max-width:100%;margin:clamp(4px,1.2svh,14px) 0 0;translate:var(--qr-ax,0px) var(--qr-ay,0px)}
+.qr-arm.cstage{display:block!important}
+.qr-arm .arm{width:100%!important;margin:0!important;grid-column:auto!important;grid-row:auto!important}
+.qr-arm[data-on="0"]{display:none}
+.qr-mgmt{margin:clamp(10px,2svh,24px) 0 0;display:flex;flex-direction:column;align-items:center}
+.qr[data-mg="0"] .qr-mgmt{display:none}
+.qr-mgmt-h{margin:0;font-size:clamp(17px,2.5svh,21px)!important;letter-spacing:.06em!important;color:#efe9da;line-height:1.1!important}
+.qr-mgmt p{margin:5px 0 0;color:var(--grey);font-size:13.5px}
+.qr-mgmt-r{display:flex;gap:10px;margin-top:10px}
+.qr-mgmt-r a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(216,178,74,.45);background:rgba(216,178,74,.06);color:#efe9da;text-decoration:none;font:700 12.5px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase}
+.qr-mgmt-r a svg{color:var(--gold)}
+.qr-mgmt-r a:active{background:rgba(216,178,74,.2)}
+.qr-mgmt-r a:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .qr>*{order:50}.qr>.qr-logo{order:10}.qr>.qr-h{order:20}.qr>.qr-tick{order:30}.qr>.qr-cta{order:40}.qr>.qr-note{order:45}.qr>.qr-foot{order:90}.qr>.qr-site{order:100}
 .qr[data-tpos="top"]>.qr-tick{order:5;margin-top:0}.qr[data-tpos="below"]>.qr-tick{order:47}.qr[data-tpos="low"]>.qr-tick{order:95;margin-top:clamp(14px,2.4svh,24px)}
 .qr-logo.logo-wrap{translate:var(--qr-lx,0px) var(--qr-ly,0px)}.qr-h{translate:var(--qr-hx,0px) var(--qr-hy,0px)}.qr-tick{translate:0 var(--qr-ty,0px)}
 html:not(.prod) .qr-site{margin-bottom:58px} /* preview only: clear the preview tool buttons */
 @media (prefers-reduced-motion:reduce){.qr-logo.logo-wrap{opacity:1!important;animation:none!important}}
-.qr-h{margin:0;padding:.06em 0 .04em;font-size:clamp(30px,min(11.5vw,6.2svh),64px);line-height:.95;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.1 -.4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/160px 160px,linear-gradient(180deg,#ffffff 8%,#f3eee1 44%,#c2bbab 74%,#8f887a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55))}
+.qr-h{margin:0;padding:.06em 0 .04em;font-size:clamp(30px,min(11.5vw,6.2svh),64px);line-height:.95;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .7 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/160px 160px,linear-gradient(180deg,#ffffff 8%,#f3eee1 44%,#c2bbab 74%,#8f887a 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55))}
 .qr-ad{margin:12px 0 0;color:var(--grey);font-size:16px}
 .qr-cta{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;justify-content:center;width:min(100%,420px);min-height:clamp(56px,8.4svh,72px);padding:8px 22px;margin-top:clamp(12px,2.2svh,24px);border-radius:999px;background:#c9a23c url(/v2/images/gold-leaf.webp) center/cover;color:var(--qr-color,#0b0b0c);line-height:1.1;text-decoration:none;font-family:var(--cond);font-weight:700;font-size:min(var(--qr-size,24px),8.4vw);letter-spacing:.2em;text-transform:uppercase;box-shadow:0 0 0 1px rgba(243,215,126,.65),0 0 0 5px rgba(216,178,74,.12),0 18px 44px -14px rgba(0,0,0,.85),0 0 46px -8px rgba(216,178,74,.5),inset 0 1px 0 rgba(255,246,214,.55),inset 0 -10px 18px -10px rgba(90,62,8,.55);transition:transform .2s ease,box-shadow .3s ease;-webkit-tap-highlight-color:transparent}
 .qr-cta span{position:relative;z-index:1;padding-left:.2em}
@@ -2534,7 +2548,7 @@ body:not(.qr-mode) .qr-tg,body:not(.qr-mode) .qre,body.qr-mode .iadj-tg{display:
 .qre button[aria-pressed="true"],.qre .qre-done{background:var(--gold);border-color:var(--gold);color:#0b0b0c}
 .qre-tabs{display:flex;gap:5px;margin-bottom:6px}.qre-tabs button{flex:1;padding:0 4px;letter-spacing:.1em}
 .qre-ft{flex-wrap:wrap}
-.qre:not([data-tab="logo"]) .qre-l,.qre:not([data-tab="title"]) .qre-h,.qre:not([data-tab="btn"]) .qre-b,.qre:not([data-tab="tick"]) .qre-t{display:none}
+.qre:not([data-tab="logo"]) .qre-l,.qre:not([data-tab="hand"]) .qre-a,.qre:not([data-tab="title"]) .qre-h,.qre:not([data-tab="btn"]) .qre-b,.qre:not([data-tab="tick"]) .qre-t{display:none}
 .qre-t p{margin:8px 0 0;color:#8f8b84;font-size:12.5px}
 .qre textarea{width:100%;margin-top:8px;min-height:92px;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.05);color:#fff;font:16px/1.35 var(--sans,system-ui);resize:vertical}
 .qre label,.qre .qre-lb{display:flex;align-items:center;justify-content:space-between;margin-top:12px;font:700 11px/1 var(--cond);letter-spacing:.14em;text-transform:uppercase;color:#a9a59e}
@@ -3233,7 +3247,7 @@ const VIEWS = {
   locations:(S,D) => vLocPage(S,D),
   faq:(S,D) => vFaqPage(S,D),
   /* QR landing page: one screen, one job (book). No header, no footer. */
-  qr:(S,D) => `<section class="qr" aria-labelledby="h1" style="${qrVars()}" data-shine="${QRS.shine?1:0}" data-score="${QRS.score?1:0}" data-row="${QRS.row?1:0}" data-tpos="${QRS.tpos}" data-reveal="${QRS.reveal?1:0}">
+  qr:(S,D) => `<section class="qr" aria-labelledby="h1" style="${qrVars()}" data-shine="${QRS.shine?1:0}" data-score="${QRS.score?1:0}" data-row="${QRS.row?1:0}" data-mg="${QRS.mg?1:0}" data-tpos="${QRS.tpos}" data-reveal="${QRS.reveal?1:0}">
     <div class="logo-wrap qr-logo"><img src="/v2/images/edward-scissorhands-barber-shop-logo.webp" alt="Edward Scissorhands Barber Shop, est. 1991" width="900" height="530"><span class="shine" aria-hidden="true"></span></div>
     <h1 id="h1" class="qr-h">${S.name}</h1>
     <div class="qr-tick" role="note" aria-label="${esc(qrTickParts().join(". "))}"><div class="qr-tick-t" aria-hidden="true">${qrTickHtml()}</div></div>
@@ -3242,6 +3256,10 @@ const VIEWS = {
     <div class="qr-row"><a href="${S.tel}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.300-1.300a2 2 0 0 1 2.100-.5c.9.3 1.800.6 2.800.7a2 2 0 0 1 1.700 2z"/></svg>Call</a>
       <a href="${S.dir}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.800-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Directions</a></div>
     <div class="rscore go qr-rate" aria-label="Rated 4.8 out of 5 on Google, ${esc(S.count)}"><div class="big" aria-hidden="true">4.8</div><div class="rline" aria-hidden="true"><svg class="g-logo lg" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30.5" fill="none" stroke="url(#gg9)" stroke-width="1.4"/><defs><linearGradient id="gg9" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3dd95"/><stop offset=".5" stop-color="#d8b24a"/><stop offset="1" stop-color="#8a6a17"/></linearGradient></defs><g transform="translate(16 16) scale(.6667)" fill="url(#gg9)"><path d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path d="M24 48c6.48 0 11.930-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.920 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></g></svg><span class="stars3">${[0,1,2,3,4].map(k => `<span class="st" style="--i:${k}">★<i>★</i></span>`).join("")}</span></div><p class="qr-count">${esc(S.count)}</p></div>
+    <div class="cstage go qr-arm" data-on="${QRS.arm?1:0}">${armHTML("q")}</div>
+    <div class="qr-mgmt"><h2 class="qr-mgmt-h">Feedback or a complaint?</h2><p>Talk directly to management.</p>
+      <div class="qr-mgmt-r"><a href="tel:0403185329" aria-label="Call management on 0403 185 329"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span>Call</span></a>
+      <a href="mailto:${EMAIL}?subject=${encodeURIComponent("Feedback: South Melbourne")}" aria-label="Email management"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg><span>Email</span></a></div></div>
     <footer class="qr-foot"><span>Open 7 days</span><span>Mon–Fri 9–7 <i>·</i> Sat–Sun 9–5</span><span>Sat, Sun & Public Holidays <i>·</i> +10%</span></footer>
     <a class="qr-site" data-go="home" href="#">Visit the full website</a>
   </section>`,
@@ -3320,6 +3338,7 @@ function reveals(){
     setTimeout(() => { if (!figs[0].classList.contains("in") && team.getBoundingClientRect().top < innerHeight * .8) go(); }, 6000);
   }
   mark(".perk, .brand, .line, .yr, .trust > *, .svcs, .sub, .faq, .rev > div", "rv-c", 4);
+  document.querySelectorAll("#main .qr-arm .arm-svg .d").forEach((d, k) => d.style.setProperty("--k", k));
   const cs = document.getElementById("cstage");
   if (cs) { cs.querySelectorAll(".arm-svg .d").forEach((d, k) => d.style.setProperty("--k", k));
     if (cs.getBoundingClientRect().top < vh * .9) cs.classList.add("go");
@@ -3617,10 +3636,10 @@ const iadjId = k => k.replace(/[^A-Za-z0-9_-]/g, "_").slice(0, 140);
 let iadjDb = null, iadjSaveT = {};
 /* preview only: positions are shared through the artifact's own store so everyone sees them and Claude can build them in */
 /* QR page settings: adjustable in the preview (shared through the artifact store); Claude builds the chosen values into the live page */
-const QR_DEF = { logo:100, glow:30, shine:1, speed:4.5, reveal:1, score:0, row:0, tpos:"above", lx:0, ly:0, hx:0, hy:0, ty:0, btn:1, color:"", size:24, text:"Book now", tsize:13, tspeed:26, tick:"Walk-ins welcome | Tap Book now to lock in your spot | Or ask our staff at reception to book you in" };
+const QR_DEF = { logo:100, glow:30, shine:1, speed:4.5, reveal:1, score:0, row:0, arm:1, mg:1, asz:100, ax:0, ay:0, tpos:"above", lx:0, ly:0, hx:0, hy:0, ty:0, btn:1, color:"", size:24, text:"Book now", tsize:13, tspeed:26, tick:"Walk-ins welcome | Tap Book now to lock in your spot | Or ask our staff at reception to book you in" };
 const QR_BAKED = {};
 const qrClean = v => { const o = {}, n = (k,a,b) => { const x = +v[k]; if (isFinite(x) && v[k] !== "" && v[k] != null) o[k] = Math.min(b, Math.max(a, x)); };
-  if (!v || typeof v !== "object") return o; n("logo",50,160); n("glow",0,100); n("speed",2,12); n("size",14,40); n("tsize",9,24); ["lx","ly","hx","hy","ty"].forEach(k => n(k,-150,150)); if (["top","above","below","low"].includes(v.tpos)) o.tpos = v.tpos; if ("row" in v) o.row = v.row ? 1 : 0; n("tspeed",8,70); n("btn",1,4); if (o.btn) o.btn = Math.round(o.btn);
+  if (!v || typeof v !== "object") return o; n("logo",50,160); n("glow",0,100); n("speed",2,12); n("size",14,40); n("tsize",9,24); ["lx","ly","hx","hy","ty","ax","ay"].forEach(k => n(k,-150,150)); n("asz",40,160); if ("arm" in v) o.arm = v.arm ? 1 : 0; if ("mg" in v) o.mg = v.mg ? 1 : 0; if (["top","above","below","low"].includes(v.tpos)) o.tpos = v.tpos; if ("row" in v) o.row = v.row ? 1 : 0; n("tspeed",8,70); n("btn",1,4); if (o.btn) o.btn = Math.round(o.btn);
   if ("shine" in v) o.shine = v.shine ? 1 : 0; if ("score" in v) o.score = v.score ? 1 : 0; if ("reveal" in v) o.reveal = v.reveal ? 1 : 0;
   if (typeof v.color === "string" && (v.color === "" || /^#[0-9a-f]{6}$/i.test(v.color))) o.color = v.color;
   if (typeof v.tick === "string") o.tick = v.tick.replace(/[ \t]+/g, " ").replace(/\n+/g, " | ").trim().slice(0, 240);
@@ -3629,8 +3648,9 @@ let QRS = { ...QR_DEF, ...qrClean(QR_BAKED) };
 if (!PROD) { try { Object.assign(QRS, qrClean(JSON.parse(localStorage.getItem("esQr1") || "{}"))); } catch(e) {} }
 const qrTickParts = () => { const a = (QRS.tick || "").split("|").map(x => x.trim()).filter(Boolean); return a.length ? a : QR_DEF.tick.split(" | "); };
 function qrTickHtml(){ const a = qrTickParts(), one = d => a.map(t => `<span${d}>${esc(t)}</span><i${d}>✦</i>`).join(""), n = Math.max(1, Math.ceil(4 / a.length)); return one("") + one(' class="dup"').repeat(2 * n - 1); }
-function qrVars(){ return `--qr-lx:${QRS.lx}px;--qr-ly:${QRS.ly}px;--qr-hx:${QRS.hx}px;--qr-hy:${QRS.hy}px;--qr-ty:${QRS.ty}px;--qr-tsize:${QRS.tsize}px;--qr-tspeed:${QRS.tspeed}s;--qr-logo:${QRS.logo/100};--qr-glow:${QRS.glow};--qr-speed:${QRS.speed}s;--qr-size:${QRS.size}px;${QRS.color ? `--qr-color:${QRS.color};` : ""}`; }
-function qrApply(){ const q = document.querySelector("#main .qr"); if (!q) return; q.style.cssText = qrVars(); q.dataset.shine = QRS.shine ? 1 : 0; q.dataset.score = QRS.score ? 1 : 0; q.dataset.row = QRS.row ? 1 : 0; q.dataset.tpos = QRS.tpos; q.dataset.reveal = QRS.reveal ? 1 : 0;
+function qrArmReplay(){ const a = document.querySelector("#main .qr-arm"); if (!a) return; a.classList.remove("go"); void a.offsetWidth; a.classList.add("go"); }
+function qrVars(){ return `--qr-asz:${QRS.asz/100};--qr-ax:${QRS.ax}px;--qr-ay:${QRS.ay}px;--qr-lx:${QRS.lx}px;--qr-ly:${QRS.ly}px;--qr-hx:${QRS.hx}px;--qr-hy:${QRS.hy}px;--qr-ty:${QRS.ty}px;--qr-tsize:${QRS.tsize}px;--qr-tspeed:${QRS.tspeed}s;--qr-logo:${QRS.logo/100};--qr-glow:${QRS.glow};--qr-speed:${QRS.speed}s;--qr-size:${QRS.size}px;${QRS.color ? `--qr-color:${QRS.color};` : ""}`; }
+function qrApply(){ const q = document.querySelector("#main .qr"); if (!q) return; q.style.cssText = qrVars(); q.dataset.shine = QRS.shine ? 1 : 0; q.dataset.score = QRS.score ? 1 : 0; q.dataset.row = QRS.row ? 1 : 0; q.dataset.mg = QRS.mg ? 1 : 0; { const a = q.querySelector(".qr-arm"); if (a) a.dataset.on = QRS.arm ? 1 : 0; } q.dataset.tpos = QRS.tpos; q.dataset.reveal = QRS.reveal ? 1 : 0;
   const tk = q.querySelector(".qr-tick-t"); if (tk && tk.dataset.v !== QRS.tick) { tk.dataset.v = QRS.tick; tk.innerHTML = qrTickHtml(); tk.parentNode.setAttribute("aria-label", qrTickParts().join(". ")); }
   const c = q.querySelector(".qr-cta"); if (c) { c.dataset.st = QRS.btn; c.querySelector("span").textContent = QRS.text || "Book now"; } }
 let qrDb = null, qrSaveT = 0;
@@ -3642,7 +3662,7 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
     const SW = [["#0b0b0c","Black"],["#ffffff","White"],["#d8b24a","Gold"],["#f3e7c4","Cream"],["#3a2a06","Dark bronze"]], ST = ["Gold leaf","Cream","Gold outline","Solid gold"];
     const p = document.createElement("div"); p.className = "qre"; p.dataset.tab = "logo"; p.setAttribute("role", "dialog"); p.setAttribute("aria-label", "Edit QR page");
     p.innerHTML = `<div class="qre-hd"><b>Edit QR page</b><small></small><button type="button" class="qre-done">Done</button></div>
-<div class="qre-tabs"><button type="button" data-tab="logo" aria-pressed="true">Logo</button><button type="button" data-tab="title" aria-pressed="false">Title</button><button type="button" data-tab="btn" aria-pressed="false">Button</button><button type="button" data-tab="tick" aria-pressed="false">Scroller</button></div>
+<div class="qre-tabs"><button type="button" data-tab="logo" aria-pressed="true">Logo</button><button type="button" data-tab="title" aria-pressed="false">Title</button><button type="button" data-tab="btn" aria-pressed="false">Button</button><button type="button" data-tab="tick" aria-pressed="false">Scroller</button><button type="button" data-tab="hand" aria-pressed="false">Hand</button></div>
 <div class="qre-l"><label>Size <output data-o="logo"></output></label><input type="range" data-k="logo" min="60" max="150" step="1" aria-label="Logo size">
 <label>Move left / right <output data-o="lx"></output></label><input type="range" data-k="lx" min="-120" max="120" step="1" aria-label="Logo left or right">
 <label>Move up / down <output data-o="ly"></output></label><input type="range" data-k="ly" min="-120" max="120" step="1" aria-label="Logo up or down">
@@ -3655,17 +3675,23 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
 <label for="qreT">Wording</label><input type="text" id="qreT" data-k="text" maxlength="28" autocomplete="off">
 <label>Text size <output data-o="size"></output></label><input type="range" data-k="size" min="16" max="36" step="1" aria-label="Text size">
 <div class="qre-lb">Text colour</div><div class="qre-sw"><button type="button" class="auto" data-c="">Auto</button>${SW.map(c => `<button type="button" data-c="${c[0]}" style="--c:${c[0]}" aria-label="${c[1]}" title="${c[1]}"></button>`).join("")}<input type="color" aria-label="Custom colour" title="Custom colour"></div></div>
+<div class="qre-a"><label>Size <output data-o="asz"></output></label><input type="range" data-k="asz" min="50" max="150" step="1" aria-label="Hand size">
+<label>Move left / right <output data-o="ax"></output></label><input type="range" data-k="ax" min="-120" max="120" step="1" aria-label="Hand left or right">
+<label>Move up / down <output data-o="ay"></output></label><input type="range" data-k="ay" min="-120" max="120" step="1" aria-label="Hand up or down">
+<div class="qre-ft"><button type="button" data-t="arm"></button><button type="button" data-replay-arm>Replay</button></div></div>
 <div class="qre-t"><div class="qre-lb">Where it sits</div><div class="qre-chips">${[["top","Top of page"],["above","Above button"],["below","Below button"],["low","Bottom"]].map(c => `<button type="button" data-tp="${c[0]}">${c[1]}</button>`).join("")}</div>
 <label>Nudge up / down <output data-o="ty"></output></label><input type="range" data-k="ty" min="-120" max="120" step="1" aria-label="Scroller up or down">
 <label>Text size <output data-o="tsize"></output></label><input type="range" data-k="tsize" min="10" max="22" step="1" aria-label="Scroller text size">
 <label>Speed, one loop in <output data-o="tspeed"></output></label><input type="range" data-k="tspeed" min="10" max="60" step="1" aria-label="Scroller speed">
 <label for="qreK">Wording</label><textarea id="qreK" data-k="tick" maxlength="240" autocomplete="off"></textarea><p>Put each phrase on its own line. A gold star goes between them.</p></div>
-<div class="qre-ft"><button type="button" data-t="score"></button><button type="button" data-t="row"></button><button type="button" data-reset>Reset all to default</button></div>`;
+<div class="qre-ft"><button type="button" data-t="score"></button><button type="button" data-t="row"></button><button type="button" data-t="mg"></button><button type="button" data-reset>Reset all to default</button></div>`;
     document.body.appendChild(p);
     const sync = () => { p.querySelectorAll("[data-k]").forEach(i => { if (document.activeElement !== i || !/^text/.test(i.type)) i.value = i.dataset.k === "tick" ? qrTickParts().join("\n") : QRS[i.dataset.k]; });
       p.querySelector('[data-o="tsize"]').textContent = QRS.tsize + "px"; p.querySelector('[data-o="tspeed"]').textContent = QRS.tspeed + "s";
       p.querySelector('[data-o="logo"]').textContent = QRS.logo + "%"; p.querySelector('[data-o="glow"]').textContent = QRS.glow + "%"; p.querySelector('[data-o="speed"]').textContent = QRS.speed + "s"; p.querySelector('[data-o="size"]').textContent = QRS.size + "px";
-      ["lx","ly","hx","hy","ty"].forEach(k => { p.querySelector(`[data-o="${k}"]`).textContent = (QRS[k] > 0 ? "+" : "") + QRS[k]; }); p.querySelectorAll("[data-tp]").forEach(x => x.setAttribute("aria-pressed", x.dataset.tp === QRS.tpos));
+      p.querySelector('[data-o="asz"]').textContent = QRS.asz + "%";
+      [["arm","Hand"],["mg","Feedback contact"]].forEach(([k,l]) => { const x = p.querySelector(`[data-t="${k}"]`); x.textContent = l + " " + (QRS[k] ? "on" : "off"); x.setAttribute("aria-pressed", !!QRS[k]); });
+      ["lx","ly","hx","hy","ty","ax","ay"].forEach(k => { p.querySelector(`[data-o="${k}"]`).textContent = (QRS[k] > 0 ? "+" : "") + QRS[k]; }); p.querySelectorAll("[data-tp]").forEach(x => x.setAttribute("aria-pressed", x.dataset.tp === QRS.tpos));
       { const rw = p.querySelector('[data-t="row"]'); rw.textContent = "Call & directions " + (QRS.row ? "on" : "off"); rw.setAttribute("aria-pressed", !!QRS.row); }
       { const sc = p.querySelector('[data-t="score"]'); sc.textContent = "4.8 score " + (QRS.score ? "on" : "off"); sc.setAttribute("aria-pressed", !!QRS.score); }
       const sh = p.querySelector('[data-t="shine"]'), rv = p.querySelector('[data-t="reveal"]'); sh.textContent = "Sparkle " + (QRS.shine ? "on" : "off"); sh.setAttribute("aria-pressed", !!QRS.shine); rv.textContent = "Fade-in " + (QRS.reveal ? "on" : "off"); rv.setAttribute("aria-pressed", !!QRS.reveal);
@@ -3676,7 +3702,8 @@ function qrEditor(){ if (PROD || document.querySelector(".qr-tg")) return; const
     p.addEventListener("input", e => { const i = e.target; if (i.dataset.k) set(i.dataset.k, /^text/.test(i.type) ? i.value : +i.value); else if (i.type === "color") set("color", i.value); });
     p.addEventListener("click", e => { const t = e.target.closest("button"); if (!t) return;
       if (t.dataset.tab) { p.dataset.tab = t.dataset.tab; p.querySelectorAll("[data-tab]").forEach(x => x.tagName === "BUTTON" && x.setAttribute("aria-pressed", x === t)); }
-      else if (t.dataset.t) { set(t.dataset.t, QRS[t.dataset.t] ? 0 : 1); if (QRS[t.dataset.t] && !/score|row/.test(t.dataset.t)) replay(); }
+      else if (t.dataset.t) { set(t.dataset.t, QRS[t.dataset.t] ? 0 : 1); if (QRS[t.dataset.t] && /shine|reveal/.test(t.dataset.t)) replay(); if (t.dataset.t === "arm" && QRS.arm) qrArmReplay(); }
+      else if ("replayArm" in t.dataset) qrArmReplay();
       else if (t.dataset.tp) set("tpos", t.dataset.tp);
       else if (t.dataset.st) set("btn", +t.dataset.st); else if ("c" in t.dataset) set("color", t.dataset.c);
       else if ("replay" in t.dataset) replay(); else if ("reset" in t.dataset) { QRS = { ...QR_DEF, ...qrClean(QR_BAKED) }; qrApply(); sync(); qrSave(); replay(); }
