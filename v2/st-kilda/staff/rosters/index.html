@@ -2451,6 +2451,7 @@ body.iadj-mode .ohero .hero-adj{border-color:var(--gold);color:var(--gold)}
 .ohero.iadj-guide::before{content:"";position:absolute;top:50%;left:0;right:0;border-top:1px dashed rgba(216,178,74,.4);z-index:5;pointer-events:none}
 /* QR landing page */
 body.qr-mode .top{display:none!important}
+body.qr-mode::before{background:transparent!important} /* no header on the QR page, so no black strip under the phone status bar */
 body.qr-mode #main{padding-top:0!important}
 .qr{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:max(18px,env(safe-area-inset-top)) 22px max(6px,env(safe-area-inset-bottom));gap:0;overflow-x:clip}
 .qr-logo.logo-wrap{width:calc(min(56vw,240px,29svh) * var(--qr-logo,1));max-width:100%;aspect-ratio:900/530;margin:clamp(0px,2.5svh,36px) 0 clamp(8px,1.6svh,20px);opacity:0;animation:logoReveal 2.2s cubic-bezier(.22,.61,.36,1) .05s both,logoFade 1.2s cubic-bezier(.4,0,.2,1) .05s both}
