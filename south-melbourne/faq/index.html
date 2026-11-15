@@ -2510,15 +2510,15 @@ i.qs{display:inline-block;flex:none;font-style:normal;font-size:1em!important;co
 .qr[data-row="0"] .qr-row{display:none}
 .qr[data-tg="0"] .qr-h{background-image:linear-gradient(180deg,#ffffff 8%,#f3eee1 44%,#c2bbab 74%,#8f887a 100%);background-size:auto}
 .qr>.qr-arm{order:60}.qr>.qr-mgmt{order:80}
-.qr-arm{width:calc(min(76vw,340px,15svh * 2.72) * var(--qr-asz,1));max-width:100%;margin:auto 0 0;padding-top:clamp(10px,2svh,24px);translate:var(--qr-ax,0px) var(--qr-ay,0px)}
+.qr-arm{will-change:transform;width:calc(min(76vw,340px,15svh * 2.72) * var(--qr-asz,1));max-width:100%;margin:auto 0 0;padding-top:clamp(10px,2svh,24px);translate:var(--qr-ax,0px) var(--qr-ay,0px)}
 .qr-arm.cstage{display:block!important}
 .qr-arm .arm{width:100%!important;margin:0!important;grid-column:auto!important;grid-row:auto!important}
 .qr-arm[data-on="0"]{display:none}
 .qr-mgmt{margin:clamp(8px,1.6svh,18px) 0 0;display:flex;flex-direction:column;align-items:center}
 .qr[data-mg="0"] .qr-mgmt{display:none}
 .qr-mgmt-t{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 14px;border:0;background:none;color:#b3ad9f;font:700 12px/1 var(--cond);letter-spacing:.18em;text-transform:uppercase;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.qr-mgmt-t svg{color:var(--gold);transition:transform .45s cubic-bezier(.22,.61,.36,1)}
-.qr-mgmt[data-open="1"] .qr-mgmt-t svg{transform:rotate(180deg)}
+.qr-mgmt-t svg{color:var(--gold);transform:rotate(-90deg);transition:transform .45s cubic-bezier(.22,.61,.36,1)}
+.qr-mgmt[data-open="1"] .qr-mgmt-t svg{transform:rotate(0deg)}
 .qr-mgmt-t:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:999px}
 .qr-mgmt-p{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.22,.61,.36,1)}
 .qr-mgmt-p>div{min-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;visibility:hidden;transition:visibility 0s .5s}
@@ -2534,7 +2534,7 @@ i.qs{display:inline-block;flex:none;font-style:normal;font-size:1em!important;co
 .qr-mgmt-r a:active{background:rgba(216,178,74,.2)}
 .qr-mgmt-r a:focus-visible{outline:2px solid #fff;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.qr-mgmt-p,.qr-mgmt-p>div,.qr-mgmt p,.qr-mgmt-r a,.qr-mgmt-t svg{transition:none!important}}
-.qr>*{order:50}.qr>.qr-logo{order:10}.qr>.qr-h{order:20}.qr>.qr-tick{order:30}.qr>.qr-cta{order:40}.qr>.qr-note{order:45}.qr>.qr-foot{order:90}.qr>.qr-site{order:100}
+.qr>*{order:50}.qr>.qr-logo{order:10}.qr>.qr-h{order:20}.qr>.qr-tick{order:30}.qr>.qr-cta-w{order:40}.qr>.qr-note{order:45}.qr>.qr-foot{order:90}.qr>.qr-site{order:100}
 .qr[data-tpos="top"]>.qr-tick{order:5;margin-top:0}.qr[data-tpos="below"]>.qr-tick{order:47}.qr[data-tpos="low"]>.qr-tick{order:95;margin-top:clamp(14px,2.4svh,24px)}
 .qr-logo.logo-wrap{translate:var(--qr-lx,0px) var(--qr-ly,0px)}.qr-h{translate:var(--qr-hx,0px) var(--qr-hy,0px)}.qr-tick{translate:0 var(--qr-ty,0px)}
 .qr-rate{translate:var(--qr-rx,0px) var(--qr-ry,0px)}.qr-mgmt{translate:var(--qr-mx,0px) var(--qr-my,0px)}.qr-badge{translate:var(--qr-bx,0px) var(--qr-by,0px)}
@@ -2544,7 +2544,7 @@ i.qs{display:inline-block;flex:none;font-style:normal;font-size:1em!important;co
 .qr-note[data-ns="2"]{color:#efe9da}
 .qr-note[data-ns="3"]{color:var(--gold)}
 .qr-note[data-ns="4"]{color:var(--gold);font-family:var(--cond);font-weight:700;font-size:calc(12px * var(--qr-nsz,1))!important;letter-spacing:.18em;text-transform:uppercase}
-.qr-cta{translate:var(--qr-cx,0px) var(--qr-cy,0px)}.qr-note{translate:var(--qr-nx,0px) var(--qr-ny,0px)}
+.qr-cta-w{translate:var(--qr-cx,0px) var(--qr-cy,0px)}.qr-note{translate:var(--qr-nx,0px) var(--qr-ny,0px)}
 .qr-badge{display:inline-flex;align-items:center;gap:.8em;margin:clamp(8px,1.4svh,14px) 0 0;padding:.6em 1.2em;border-radius:999px;border:1px solid rgba(216,178,74,.5);background:rgba(216,178,74,.08);color:#efe3bf;font:700 calc(11.5px * var(--qr-bsz,1))/1.15 var(--cond);letter-spacing:.16em;text-transform:uppercase;max-width:100%}
 .qr-badge i{font-style:normal;color:var(--gold);font-size:.78em}
 .qr-badge[data-bs="5"]{border-color:#c9a23c;background:radial-gradient(120% 160% at 50% -30%,#2a261d,#0b0b0c 70%);color:transparent;box-shadow:0 0 18px -6px rgba(216,178,74,.5),inset 0 1px 0 rgba(255,236,180,.14)}
@@ -2558,7 +2558,7 @@ i.qs{display:inline-block;flex:none;font-style:normal;font-size:1em!important;co
 .qr-badge[data-bs="4"]{border-color:rgba(255,245,220,.22);background:linear-gradient(180deg,rgba(255,250,235,.16),rgba(255,250,235,.03) 50%,rgba(216,178,74,.16)),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/140px 140px,rgba(216,178,74,.12);color:#fbf6e9;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 rgba(255,246,220,.3)}
 .qr-badge[data-on="0"]{display:none}
 /* preview only: drag items while the editor is open */
-body.qre-on .qr :is(.qr-cta,.qr-note,.qr-logo,.qr-h,.qr-tick,.qr-badge,.qr-rate,.qr-arm,.qr-mgmt){outline:1px dashed rgba(216,178,74,.5);outline-offset:4px;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none}
+body.qre-on .qr :is(.qr-cta-w,.qr-note,.qr-logo,.qr-h,.qr-tick,.qr-badge,.qr-rate,.qr-arm,.qr-mgmt){outline:1px dashed rgba(216,178,74,.5);outline-offset:4px;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none}
 body.qre-on .qr img{-webkit-user-drag:none}
 body.qre-on .qr .qr-dragging{outline:1.5px solid #f3dd95!important;cursor:grabbing}
 body.qr-mode .qr-tg{top:max(10px,env(safe-area-inset-top));bottom:auto;left:10px;width:40px;height:40px;padding:0;font-size:0;letter-spacing:0;display:grid;place-items:center}
@@ -2584,19 +2584,23 @@ body.qr-mode .mp-toggle{top:10px!important;bottom:auto!important;right:10px!impo
 @keyframes qrSheen2{0%{transform:translateX(-62%);opacity:0}8%{opacity:1}36%{transform:translateX(62%);opacity:.9}44%,100%{transform:translateX(62%);opacity:0}}
 /* gold leaf: lit from above, a thin pressed edge underneath, engraved lettering */
 .qr-cta span{z-index:2}
-.qr-cta[data-st="1"]{color:var(--qr-color,#1a1408);text-shadow:0 1px 0 rgba(255,238,190,.5);box-shadow:0 0 0 1px rgba(243,215,126,.7),0 3px 0 0 #8a6a1c,0 5px 0 0 #4e3a0d,0 20px 36px -12px rgba(0,0,0,.9),0 0 48px -10px rgba(216,178,74,.45),inset 0 1.5px 0 rgba(255,248,220,.85),inset 0 -5px 12px -3px rgba(72,46,4,.6),inset 0 0 0 1px rgba(255,232,160,.3);transition:transform .25s cubic-bezier(.22,.61,.36,1),box-shadow .25s ease}
+.qr-cta[data-st="1"]{color:var(--qr-color,#1a1408);text-shadow:0 1px 0 rgba(255,238,190,.5);box-shadow:0 0 0 1px rgba(243,215,126,.7),0 3px 0 0 #8a6a1c,0 5px 0 0 #4e3a0d,0 10px 18px -10px rgba(0,0,0,.8),0 0 48px -10px rgba(216,178,74,.45),inset 0 1.5px 0 rgba(255,248,220,.85),inset 0 -5px 12px -3px rgba(72,46,4,.6),inset 0 0 0 1px rgba(255,232,160,.3);transition:transform .25s cubic-bezier(.22,.61,.36,1),box-shadow .25s ease}
 .qr-cta[data-st="1"]::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:1;pointer-events:none;background:radial-gradient(90% 120% at 50% -25%,rgba(255,251,232,.5),rgba(255,251,232,.08) 48%,transparent 62%),linear-gradient(180deg,transparent 52%,rgba(60,38,4,.32) 100%)}
 .qr-cta[data-st="1"]:active{box-shadow:0 0 0 1px rgba(243,215,126,.7),0 1px 0 0 #8a6a1c,0 2px 0 0 #4e3a0d,0 10px 22px -10px rgba(0,0,0,.9),0 0 40px -10px rgba(216,178,74,.4),inset 0 1.5px 0 rgba(255,248,220,.7),inset 0 -3px 10px -3px rgba(72,46,4,.6),inset 0 0 0 1px rgba(255,232,160,.3)}
 /* Book now lettering pressed into the gold: darkened metal in the letters, a dark upper lip and a light lower edge */
 .qr[data-tc="0"] .qr-cta:is([data-st="1"],[data-st="4"]):not([data-ko="1"]) span{color:transparent;-webkit-text-fill-color:transparent;text-shadow:none;background:linear-gradient(rgba(36,23,2,.8),rgba(36,23,2,.8)),#c9a23c url(/images/gold-leaf.webp) center/cover;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 1px 0 rgba(255,241,200,.62)) drop-shadow(0 -1px 0 rgba(0,0,0,.42))}
-/* the button floats a few pixels, its shadow softening as it rises */
-.qr-cta{animation:qrFloat 5.2s ease-in-out 1.5s infinite}
-@keyframes qrFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.qr-cta[data-st="1"]{animation:qrFloat 5.2s ease-in-out 1.5s infinite,qrFloatSh 5.2s ease-in-out 1.5s infinite}
-@keyframes qrFloatSh{0%,100%{box-shadow:0 0 0 1px rgba(243,215,126,.7),0 3px 0 0 #8a6a1c,0 5px 0 0 #4e3a0d,0 20px 36px -12px rgba(0,0,0,.9),0 0 48px -10px rgba(216,178,74,.45),inset 0 1.5px 0 rgba(255,248,220,.85),inset 0 -5px 12px -3px rgba(72,46,4,.6),inset 0 0 0 1px rgba(255,232,160,.3)}50%{box-shadow:0 0 0 1px rgba(243,215,126,.7),0 3px 0 0 #8a6a1c,0 5px 0 0 #4e3a0d,0 30px 44px -16px rgba(0,0,0,.7),0 0 56px -10px rgba(216,178,74,.5),inset 0 1.5px 0 rgba(255,248,220,.85),inset 0 -5px 12px -3px rgba(72,46,4,.6),inset 0 0 0 1px rgba(255,232,160,.3)}}
+/* the button floats a few pixels; only transform and opacity move, so the phone's GPU slides the finished button
+   instead of repainting the lettering every frame. A separate soft shadow on the "ground" shrinks and fades as it rises */
+.qr-cta-w{position:relative;width:min(100%,420px);margin-top:clamp(12px,2.2svh,24px);isolation:isolate}
+.qr-cta-w>.qr-cta{width:100%!important;margin-top:0!important}
+.qr-cta-gnd{position:absolute;left:9%;right:9%;bottom:-16px;height:26px;border-radius:50%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(0,0,0,.62),rgba(0,0,0,.28) 55%,transparent);transform-origin:50% 50%;animation:qrGnd 5.2s ease-in-out 1.5s infinite;will-change:transform,opacity}
+@keyframes qrGnd{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.88,.8);opacity:.62}}
+.qr-cta{animation:qrFloat 5.2s ease-in-out 1.5s infinite;will-change:transform;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+@keyframes qrFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-4px,0)}}
 .qr-cta:active{animation-play-state:paused;scale:.985}
-@media (prefers-reduced-motion:reduce){.qr-cta,.qr-cta[data-st="1"]{animation:none}}
-@media (hover:hover){.qr-cta:hover{transform:translateY(-2px)}}
+.qr-cta-w:has(.qr-cta:active) .qr-cta-gnd{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.qr-cta,.qr-cta-gnd{animation:none}}
+
 .qr-cta:focus-visible{outline:3px solid #fff;outline-offset:4px}
 .qr-note{margin:clamp(8px,1.5svh,14px) 0 0;color:var(--grey);font-size:14.5px}
 .qr-sur{margin:auto 0 0;padding-top:clamp(14px,2.4svh,26px);color:#a9a59e;font-size:13.5px}
@@ -2622,7 +2626,7 @@ body.qr-mode .mp-toggle{top:10px!important;bottom:auto!important;right:10px!impo
 .qr[data-ti="0"] .qr-h{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;padding:0;margin:0}
 /* preview only: QR page editor */
 .qr-tg{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:2147483001;padding:10px 16px;border-radius:999px;border:1px solid rgba(216,178,74,.55);background:rgba(10,10,10,.75);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#f2f0eb;font:700 12px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
-body:not(.qr-mode) .qr-tg,body:not(.qr-mode) .qre,body.qr-mode .iadj-tg{display:none!important}
+body:has(.mp-stage) .qr-tg,body:has(.mp-stage) .qre,body:not(.qr-mode) .qr-tg,body:not(.qr-mode) .qre,body.qr-mode .iadj-tg{display:none!important}
 .qre{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));max-width:400px;max-height:42svh;overflow:auto;overscroll-behavior:contain;z-index:2147483002;padding:14px 16px 16px;border-radius:20px;border:1px solid rgba(216,178,74,.4);background:rgba(14,14,15,.94);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);color:#f2f0eb;font:14px/1.3 var(--sans,system-ui);text-align:left;box-shadow:0 24px 60px -18px #000}
 @media (min-width:900px){.qre{left:auto;right:20px;bottom:20px;width:360px;max-height:80vh}}
 .qre-hd{display:flex;align-items:center;gap:10px;margin:-14px -16px 10px;padding:12px 16px 10px;position:sticky;top:-14px;z-index:2;background:rgba(14,14,15,.97);border-radius:20px 20px 0 0}.qre-hd b{font:700 13px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase;margin-right:auto}
@@ -3339,7 +3343,7 @@ const VIEWS = {
     <div class="logo-wrap qr-logo"><img src="/images/edward-scissorhands-barber-shop-logo.webp" alt="Edward Scissorhands Barber Shop, est. 1991" width="900" height="530"><span class="shine" aria-hidden="true"></span></div>
     <h1 id="h1" class="qr-h">${S.name}</h1>
     <div class="qr-tick" data-sep="${QRS.tsep}" role="note" aria-label="${esc(qrTickParts().join(". "))}"><div class="qr-tick-t" aria-hidden="true" data-mode="${QRS.tmode}">${qrTickHtml()}</div></div>
-    <a class="qr-cta js-book" data-st="${QRS.btn}" data-ko="${qrKo()?1:0}" href="${D.book}" target="_blank" rel="noopener">${qrCtaInner()}</a>
+    <div class="qr-cta-w"><span class="qr-cta-gnd" aria-hidden="true"></span><a class="qr-cta js-book" data-st="${QRS.btn}" data-ko="${qrKo()?1:0}" href="${D.book}" target="_blank" rel="noopener">${qrCtaInner()}</a></div>
     <p class="qr-note" data-on="${QRS.note?1:0}" data-ns="${QRS.ns}">${esc(QRS.ntxt)}</p>
     <p class="qr-badge" data-on="${QRS.badge?1:0}" data-bs="${QRS.bs}" data-sep="${QRS.bsep}"><i class="qs" aria-hidden="true"></i><span>${esc(QRS.btxt)}</span><i class="qs" aria-hidden="true"></i></p>
     <div class="qr-row"><a href="${S.tel}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.300-1.300a2 2 0 0 1 2.100-.5c.9.3 1.800.6 2.800.7a2 2 0 0 1 1.700 2z"/></svg>Call</a>
@@ -3348,7 +3352,7 @@ const VIEWS = {
     <div class="cstage go qr-arm" data-on="${QRS.arm?1:0}">${armHTML("q")}</div>
     <div class="qr-mgmt" data-open="0"><button type="button" class="qr-mgmt-t" aria-expanded="false" aria-controls="qrMg">Feedback or a complaint?<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="qr-mgmt-p" id="qrMg"><div><p>Talk directly to management.</p><div class="qr-mgmt-r"><a href="tel:0403185329" aria-label="Call management on 0403 185 329"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span>Call</span></a><a href="sms:0403185329" aria-label="Text management on 0403 185 329"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.4 7.6L3 21l1.5-5.2A8.5 8.5 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01" stroke-width="2.4"/></svg><span>SMS</span></a></div></div></div></div>
-    <footer class="qr-foot"><span>Sat, Sun & Public Holidays <i>·</i> +10%</span></footer>
+    <footer class="qr-foot"><span>Sat, Sun & Public Holidays +10%</span></footer>
     <a class="qr-site" data-go="home" href="#">Visit the full website</a>
   </section>`,
   blog:(S,D) => vJournal(S,D),
@@ -3744,7 +3748,7 @@ function qrTickRun(){ clearTimeout(qrTickT); const t = document.querySelector('#
 function qrTickScroll(a){ const one = d => a.map(t => `<span${d}>${esc(t)}</span><i class="qs${d ? " dup" : ""}"></i>`).join(""), n = Math.max(1, Math.ceil(4 / a.length)); return one("") + one(' class="dup"').repeat(2 * n - 1); }
 document.addEventListener("click", e => { const t = e.target.closest && e.target.closest(".qr-mgmt-t"); if (!t) return; const m = t.closest(".qr-mgmt"), o = m.dataset.open !== "1"; m.dataset.open = o ? 1 : 0; t.setAttribute("aria-expanded", o); });
 let qrSync = null;
-const QR_DRAG = [[".qr-cta","cx","cy"],[".qr-note","nx","ny"],[".qr-logo","lx","ly"],[".qr-h","hx","hy"],[".qr-tick",null,"ty"],[".qr-badge","bx","by"],[".qr-rate","rx","ry"],[".qr-arm","ax","ay"],[".qr-mgmt","mx","my"]];
+const QR_DRAG = [[".qr-cta-w","cx","cy"],[".qr-note","nx","ny"],[".qr-logo","lx","ly"],[".qr-h","hx","hy"],[".qr-tick",null,"ty"],[".qr-badge","bx","by"],[".qr-rate","rx","ry"],[".qr-arm","ax","ay"],[".qr-mgmt","mx","my"]];
 function qrDragWire(){ if (qrDragWire.on) return; qrDragWire.on = 1; let d = null, moved = false;
   document.addEventListener("pointerdown", e => { if (!document.body.classList.contains("qre-on") || e.button > 0 || !e.target.closest || e.target.closest(".qre, .qr-tg")) return;
     for (const [sel, kx, ky] of QR_DRAG) { const el = e.target.closest("#main .qr " + sel); if (!el) continue;
