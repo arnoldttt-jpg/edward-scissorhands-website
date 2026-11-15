@@ -2468,8 +2468,8 @@ body.iadj-mode .ohero .hero-adj{border-color:var(--gold);color:var(--gold)}
 /* QR landing page */
 body.qr-mode .top{display:none!important}
 body.qr-mode #main{padding-top:0!important}
-.qr{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:max(18px,env(safe-area-inset-top)) 22px max(18px,env(safe-area-inset-bottom));gap:0;overflow-x:clip}
-.qr-logo.logo-wrap{width:calc(min(56vw,240px,29svh) * var(--qr-logo,1));max-width:100%;aspect-ratio:900/530;margin:auto 0 clamp(8px,1.6svh,20px);opacity:0;animation:logoReveal 2.2s cubic-bezier(.22,.61,.36,1) .05s both,logoFade 1.2s cubic-bezier(.4,0,.2,1) .05s both}
+.qr{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:max(18px,env(safe-area-inset-top)) 22px max(10px,env(safe-area-inset-bottom));gap:0;overflow-x:clip}
+.qr-logo.logo-wrap{width:calc(min(56vw,240px,29svh) * var(--qr-logo,1));max-width:100%;aspect-ratio:900/530;margin:clamp(0px,2.5svh,36px) 0 clamp(8px,1.6svh,20px);opacity:0;animation:logoReveal 2.2s cubic-bezier(.22,.61,.36,1) .05s both,logoFade 1.2s cubic-bezier(.4,0,.2,1) .05s both}
 .qr-logo.logo-wrap img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 14px 30px rgba(0,0,0,.55)) drop-shadow(0 0 calc(var(--qr-glow,30) * .45px) rgba(216,178,74,calc(var(--qr-glow,30) / 130)))}
 .qr-logo .shine{animation:logoGlint var(--qr-speed,4.5s) cubic-bezier(.45,0,.55,1) 2.2s infinite}
 .qr[data-shine="0"] .qr-logo .shine{display:none}
@@ -2490,12 +2490,12 @@ body.qr-mode #main{padding-top:0!important}
 .qr[data-score="0"] .qr-rate{grid-template-columns:auto;justify-items:center;text-align:center}
 .qr[data-score="0"] .qr-rate .rline,.qr[data-score="0"] .qr-count{grid-column:1!important}
 .qr-count{margin:0;grid-area:2/2/3/3!important;align-self:start;color:var(--grey);font-size:14px}
-.qr-foot{margin-top:auto;padding-top:clamp(14px,2.4svh,26px);display:flex;flex-direction:column;align-items:center;gap:9px;font:600 12px/1 var(--cond);letter-spacing:.22em;text-transform:uppercase;color:#9a968e}
+.qr-foot{margin-top:0;padding-top:clamp(12px,2svh,20px);display:flex;flex-direction:column;align-items:center;gap:9px;font:600 12px/1 var(--cond);letter-spacing:.22em;text-transform:uppercase;color:#9a968e}
 .qr-foot i{font-style:normal;color:var(--gold);padding:0 .35em}
 .qr[data-row="0"] .qr-row{display:none}
 .qr[data-tg="0"] .qr-h{background-image:linear-gradient(180deg,#ffffff 8%,#f3eee1 44%,#c2bbab 74%,#8f887a 100%);background-size:auto}
 .qr>.qr-arm{order:60}.qr>.qr-mgmt{order:80}
-.qr-arm{width:calc(min(76vw,340px,15svh * 2.72) * var(--qr-asz,1));max-width:100%;margin:clamp(4px,1.2svh,14px) 0 0;translate:var(--qr-ax,0px) var(--qr-ay,0px)}
+.qr-arm{width:calc(min(76vw,340px,15svh * 2.72) * var(--qr-asz,1));max-width:100%;margin:auto 0 0;padding-top:clamp(10px,2svh,24px);translate:var(--qr-ax,0px) var(--qr-ay,0px)}
 .qr-arm.cstage{display:block!important}
 .qr-arm .arm{width:100%!important;margin:0!important;grid-column:auto!important;grid-row:auto!important}
 .qr-arm[data-on="0"]{display:none}
@@ -2542,7 +2542,7 @@ html:not(.prod) .qr-site{margin-bottom:58px} /* preview only: clear the preview 
 .qr-meta b{color:var(--gold);font-family:var(--cond);font-size:22px;letter-spacing:.02em}
 .qr-st{color:var(--gold);letter-spacing:.12em;font-size:15px}
 .qr-hrs{margin:8px 0 0;color:var(--grey);font-size:14.5px}
-.qr-site{margin-top:clamp(12px,2svh,20px);color:var(--white);font-size:14.5px;text-underline-offset:4px}
+.qr-site{margin-top:clamp(12px,2svh,20px);padding:6px 0 2px;color:var(--white);font-size:14.5px;text-underline-offset:4px}
 @media (prefers-reduced-motion:reduce){.qr-cta::after{animation:none}}
 /* Book now button styles 2-4 (1 = gold leaf) */
 .qr-cta[data-st="2"]{background:linear-gradient(180deg,#fbf7ec,#e2d8c0);box-shadow:0 0 0 1.5px #d8b24a,0 0 0 6px rgba(216,178,74,.12),0 18px 44px -14px rgba(0,0,0,.85),0 0 40px -10px rgba(216,178,74,.45),inset 0 1px 0 #fff,inset 0 -8px 14px -10px rgba(120,96,40,.5)}
@@ -3356,7 +3356,7 @@ const VIEWS = {
     <div class="cstage go qr-arm" data-on="${QRS.arm?1:0}">${armHTML("q")}</div>
     <div class="qr-mgmt" data-open="0"><button type="button" class="qr-mgmt-t" aria-expanded="false" aria-controls="qrMg">Feedback or a complaint?<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <div class="qr-mgmt-p" id="qrMg"><div><p>Talk directly to management.</p><div class="qr-mgmt-r"><a href="tel:0403185329" aria-label="Call management on 0403 185 329"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span>Call</span></a><a href="sms:0403185329" aria-label="Text management on 0403 185 329"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8.5 8.5 0 0 1-12.4 7.6L3 21l1.5-5.2A8.5 8.5 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01" stroke-width="2.4"/></svg><span>SMS</span></a></div></div></div></div>
-    <footer class="qr-foot"><span>Open 7 days</span><span>Mon–Fri 9–7 <i>·</i> Sat–Sun 9–5</span><span>Sat, Sun & Public Holidays <i>·</i> +10%</span></footer>
+    <footer class="qr-foot"><span>Sat, Sun & Public Holidays <i>·</i> +10%</span></footer>
     <a class="qr-site" data-go="home" href="#">Visit the full website</a>
   </section>`,
   blog:(S,D) => vJournal(S,D),
