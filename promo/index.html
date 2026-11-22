@@ -497,6 +497,11 @@ button,input{font:inherit;color:inherit}
 .b-tkt:hover>span,.b-tkt:focus-visible>span{transform:scale(1.26)}
 @media (prefers-reduced-motion:reduce){.b-tkt:hover>span{transform:none}}
 
+/* razor icon: a little larger and brighter so its outline reads clearly on dark */
+.rz{width:1.45em!important;height:1.05em!important;background:linear-gradient(110deg,#e2bd55 0%,#f0d27a 30%,#fff6d8 45%,#f0d27a 60%,#e2bd55 100%) 100% 0/300% 100%;filter:drop-shadow(0 0 .5px #f6dc8c) drop-shadow(0 0 .5px #f6dc8c) drop-shadow(0 0 .4px #f6dc8c) drop-shadow(0 0 7px rgba(216,178,74,.45))!important}
+.b-razor .rz{width:44px!important;height:32px!important}
+.tk-row .tick.st-solid .rz,.tick.solid .rz{background:#0d0c0a!important;filter:none!important;width:1.6em!important;height:1.1em!important}
+
 @media print{body *{visibility:hidden}.printing,.printing *{visibility:visible}.printing{position:fixed;inset:0;margin:auto;width:190mm;border-radius:0;box-shadow:none}body::after{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
