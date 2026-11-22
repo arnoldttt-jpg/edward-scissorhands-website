@@ -21,6 +21,8 @@
   --script:"Herr Von Muellerhoff",cursive;
   --leaf:url(../images/gold-leaf.webp) center/cover;
   --pad:clamp(16px,4vw,64px);
+  --grainw:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .24 0 0 0 0 .24 0 0 0 0 .24 0 0 0 .8 -.08'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  --leaf-img:url(../images/gold-leaf.webp);
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -181,10 +183,19 @@ button,input{font:inherit;color:inherit}
 .b-run::after{content:"";position:absolute;inset:1px;border-radius:inherit;z-index:-1;background:var(--night)}
 @property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
 @keyframes run{to{--a:360deg}}
-.b-tkt{display:inline-grid;grid-template-columns:auto auto;align-items:stretch;border-radius:10px;overflow:hidden;border:0;padding:0;cursor:pointer;background:none;box-shadow:0 0 0 1px rgba(216,178,74,.5)}
-.b-tkt>span{display:flex;align-items:center;padding:0 18px;min-height:52px;font:700 14px var(--cond);letter-spacing:.14em;text-transform:uppercase;background:#16130f}
-.b-tkt b{text-transform:uppercase;display:block;line-height:52px;white-space:nowrap;padding:0 14px;border-left:2px dashed rgba(11,11,12,.6);background:var(--leaf);color:var(--night);font:400 20px var(--disp)}
-.b-tkt:hover>span{background:#211c15}
+.b-tkt{position:relative;display:inline-grid;grid-template-columns:1fr 1fr;align-items:stretch;min-width:240px;border-radius:12px;overflow:hidden;border:0;padding:0;cursor:pointer;background:#16130f;box-shadow:0 0 0 1px rgba(216,178,74,.55),0 10px 24px -12px rgba(0,0,0,.8);isolation:isolate}
+.b-tkt::before{content:"";position:absolute;top:0;bottom:0;left:0;width:50%;z-index:-1;background:var(--leaf);box-shadow:inset 0 1px 0 rgba(255,246,210,.5),inset 0 -1px 0 rgba(60,40,5,.4);transform:translateX(100%);transition:transform .7s cubic-bezier(.65,0,.35,1)}
+.b-tkt::after{content:"";position:absolute;left:50%;top:7px;bottom:7px;width:2px;margin-left:-1px;background:radial-gradient(circle,rgba(216,178,74,.75) 0 1px,transparent 1.5px) 50% 0/2px 7px repeat-y}
+.b-tkt>span,.b-tkt b{position:relative;display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 18px;white-space:nowrap;transition:color .5s ease .1s}
+.b-tkt>span{font:700 14px var(--cond);letter-spacing:.14em;text-transform:uppercase;color:#f2f0eb}
+.b-tkt b{font:400 21px/1 var(--disp);text-transform:uppercase;letter-spacing:.02em;color:#0d0c0a}
+.b-tkt b{display:block;line-height:52px;text-align:center}
+.b-tkt b::before,.b-tkt b::after{content:"";position:absolute;left:-8px;width:14px;height:14px;border-radius:50%;background:var(--night);box-shadow:inset 0 0 0 1px rgba(216,178,74,.55)}
+.b-tkt b::before{top:-8px}.b-tkt b::after{bottom:-8px}
+.b-tkt.alt::before,.b-tkt:hover::before,.b-tkt:focus-visible::before{transform:none}
+.b-tkt.alt>span,.b-tkt:hover>span,.b-tkt:focus-visible>span{color:#0d0c0a}
+.b-tkt.alt b,.b-tkt:hover b,.b-tkt:focus-visible b{color:#f2f0eb}
+.b-tkt.alt:hover::before{transform:translateX(100%)}.b-tkt.alt:hover>span{color:#f2f0eb}.b-tkt.alt:hover b{color:#0d0c0a}
 .b-razor{display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 26px 0 22px;border-radius:999px;border:1px solid rgba(216,178,74,.55);background:none;color:var(--bone);font:700 14px var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;overflow:hidden}
 .b-razor .rz{transition:transform .5s cubic-bezier(.22,.8,.2,1)}
 .b-razor:hover .rz{transform:translateX(6px) rotate(-12deg)}
@@ -272,10 +283,160 @@ button,input{font:inherit;color:inherit}
 /* The % sign sits smaller, top-aligned to the numbers, so the number leads */
 .pc{font-size:.56em;vertical-align:.34em;line-height:0;margin-left:.02em;letter-spacing:0}
 /* Grain on white, as on the site: display type gets fine grain inside the letters, white buttons get warm paper grain */
-.hero h1,.sec h2,.ticket .tl b,.frame .ht,.po-b h4,.sq-a .in>span,.sq-b h4,.sq-c h4,.slide:not(.s4) h5:not(.gold),.idea h3,.reel+.cap~h3,#social>h3,.tick:not(.solid):not(.outline)>div>span{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .24 0 0 0 0 .24 0 0 0 0 .24 0 0 0 .8 -.08'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/120px 120px repeat,#fff;-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1,.sec h2,.ticket .tl b,.frame .ht,.po-b h4,.sq-a .in>span,.sq-b h4,.sq-c h4,.slide:not(.s4) h5:not(.gold),.idea h3,.reel+.cap~h3,#social>h3{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .24 0 0 0 0 .24 0 0 0 0 .24 0 0 0 .8 -.08'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/120px 120px repeat,#fff;-webkit-background-clip:text;background-clip:text;color:transparent}
 .pill.fill,.b-glow,.frame .hd i{background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.15) 48%,transparent 54%,rgba(120,96,50,.1)),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/140px 140px repeat,#f2efe7;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -3px 8px rgba(110,88,45,.16),0 10px 24px -12px rgba(0,0,0,.75)}
 .pill.fill:hover{background:var(--leaf);color:var(--night)}
 @media (max-width:560px){.frame .ht{font-size:22px}.frame.tk .ht{top:54px}.stamp{transform:scale(.78);transform-origin:100% 100%}.v-ribbon>span:nth-child(2){display:none}.v-ribbon{gap:7px;letter-spacing:.12em}}
+
+/* ---------- Editable tickers ---------- */
+.tickstack{display:grid;gap:18px;margin-top:clamp(28px,4vw,48px)}
+.tk-row{position:relative}
+.tk-row .tick{--fs:40px;--py:14px;--sp:26s;--ls:.04em;padding:var(--py) 0}
+.tk-row .tick>div{animation-duration:var(--sp)}
+.tk-row .tick>div>span{font-size:var(--fs);letter-spacing:var(--ls);gap:calc(var(--fs)*.65);padding-right:calc(var(--fs)*.65)}
+.tk-row .tick.st-white>div>span{color:#f2f0eb}
+.tk-row .tick.st-white.grain>div>span{background:var(--grainw) 0 0/120px 120px repeat,#fff;-webkit-background-clip:text;background-clip:text;color:transparent}
+.tk-row .tick.st-gold>div>span{background:var(--leaf);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tk-row .tick.st-outline>div>span{color:transparent;-webkit-text-stroke:max(1.2px,calc(var(--fs)*.035)) #e9e4d6;paint-order:stroke}
+.tk-row .tick.st-outline .rz{filter:none}
+.tk-row .tick.st-solid{border:0;background:linear-gradient(180deg,rgba(255,248,220,.35),transparent 45%,rgba(80,58,10,.25)),linear-gradient(100deg,#b38d2a,#d8b24a 25%,#ecd48a 50%,#d8b24a 75%,#b38d2a);box-shadow:inset 0 1px 0 rgba(255,246,210,.6),inset 0 -1px 0 rgba(60,40,5,.5)}
+.tk-row .tick.st-solid>div>span{color:#0d0c0a;text-shadow:0 1px 0 rgba(255,245,210,.35)}
+.tk-row .tick.st-solid .rz{width:1.6em;height:1.1em;background:#0d0c0a;animation:none;filter:none}
+.tk-row .tick.st-dark{background:#0b0b0c;border-color:rgba(216,178,74,.5)}
+.tk-row .tick.st-dark>div>span{color:#f2f0eb}
+.tk-row .tick.rev>div{animation-direction:reverse}
+.tk-row .tick.paused>div{animation-play-state:paused}
+/* effects */
+.ch{display:inline-block;white-space:pre}
+.fx-wave .ch{animation:chWave var(--wd,2.8s) ease-in-out calc(var(--i)*70ms) infinite}
+@keyframes chWave{0%,18%,100%{color:inherit;text-shadow:none;-webkit-text-fill-color:currentColor}8%{color:#fff3c4;-webkit-text-fill-color:#fff3c4;text-shadow:0 0 .25em rgba(255,214,110,.95),0 0 .6em rgba(216,178,74,.7)}}
+.fx-wave.st-outline .ch{animation-name:chWaveO}
+@keyframes chWaveO{0%,18%,100%{-webkit-text-fill-color:transparent}8%{-webkit-text-fill-color:#f3d77e;text-shadow:0 0 .4em rgba(216,178,74,.8)}}
+.fx-flicker .ch{animation:chFlick 4s steps(1) calc(var(--r)*1s) infinite}
+@keyframes chFlick{0%,100%{opacity:1}2%{opacity:.25}4%{opacity:1}6%{opacity:.4}8%{opacity:1}}
+.fx-shine>div>span{background-image:linear-gradient(100deg,transparent 40%,rgba(255,250,225,.95) 50%,transparent 60%),var(--leaf-img,none)!important;background-size:250% 100%,cover!important;-webkit-background-clip:text!important;background-clip:text!important;color:rgba(242,240,235,.85)!important;-webkit-text-fill-color:transparent;animation:shineTxt 3.2s linear infinite}
+@keyframes shineTxt{from{background-position:150% 0,center}to{background-position:-50% 0,center}}
+.fx-shine.st-solid>div>span{color:#0d0c0a!important}
+.fx-bounce .ch{animation:chBounce 2.4s cubic-bezier(.3,1.6,.5,1) calc(var(--i)*55ms) infinite}
+@keyframes chBounce{0%,24%,100%{transform:none}10%{transform:translateY(-.14em)}}
+.tk-edit{position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:3}
+.tk-pop,.po-pop{display:none;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px 18px;margin:10px 0 0;padding:16px;border-radius:16px;border:1px solid rgba(216,178,74,.3);background:#141210}
+.tk-pop.on,.po-pop.on{display:grid}
+.ctl{display:grid;gap:6px;font:600 13px var(--body);color:var(--smoke)}
+.ctl output{color:var(--bone);font-weight:500}
+.ctl input[type=range]{accent-color:var(--gold);width:100%}
+.ctl input[type=text]{height:38px;border-radius:9px;border:1px solid var(--hair);background:rgba(0,0,0,.35);padding:0 10px;color:var(--bone);font:15px var(--body)}
+.ctl input[type=text]:focus{border-color:var(--gold);outline:none}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{min-height:32px;padding:0 12px;border-radius:99px;border:1px solid var(--hair);background:none;color:var(--smoke);font:700 11px var(--cond);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--bone);color:var(--night);border-color:var(--bone)}
+.ctl-wide{grid-column:1/-1}
+.pop-foot{grid-column:1/-1;display:flex;justify-content:flex-end;gap:8px}
+@media (max-width:560px){.tk-edit{top:auto;bottom:-46px;transform:none;right:0}.tk-row{margin-bottom:44px}}
+
+/* ---------- Poster slides ---------- */
+.po-wrap{position:relative}
+.po-nav{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.po-nav .arr{width:40px;height:40px;border-radius:50%;border:1px solid var(--hair);background:none;color:var(--bone);font-size:20px;cursor:pointer}
+.po-nav .arr:hover{border-color:var(--gold)}
+.po-nav span{font:700 12px var(--cond);letter-spacing:.16em;color:var(--smoke)}
+.poster{--ns:1;--hs:1;--dy:0;--tr:0em;--ta:center;--ai:center}
+.poster .bg,.poster .deco{position:absolute;inset:0}
+.poster .pp{position:absolute;inset:0;display:flex;flex-direction:column;padding:8cqw}
+.poster .stack{display:flex;flex-direction:column;align-items:var(--ai);text-align:var(--ta);transform:translateY(calc(var(--dy)*1cqw));gap:2.4cqw;width:100%}
+.poster .eb,.poster .bd,.poster .num,.poster .nl,.poster .hd,.poster .sb,.poster .ls,.poster .ft,.poster .scr{display:none}
+.poster .eb{font:700 3.8cqw/1.2 var(--cond);letter-spacing:calc(.3em + var(--tr));text-transform:uppercase}
+.poster .num{font:400 calc(var(--nb,40)*var(--ns)*1cqw)/.82 var(--disp);letter-spacing:calc(.005em + var(--tr))}
+.poster .nl{font:400 calc(var(--lb,8)*var(--hs)*1cqw)/1 var(--disp);text-transform:uppercase;letter-spacing:calc(.03em + var(--tr))}
+.poster .hd{font:400 calc(var(--hb,13)*var(--hs)*1cqw)/.98 var(--disp);text-transform:uppercase;letter-spacing:calc(.01em + var(--tr));max-width:100%}
+.poster .sb{font:500 3.5cqw/1.4 var(--body);max-width:62cqw}
+.poster .ft{margin-top:auto;font:700 3.3cqw/1.5 var(--cond);letter-spacing:.2em;text-transform:uppercase;text-align:var(--ta)}
+.poster .scr{font:400 12cqw/1 var(--script)}
+.poster .bd{width:40cqw;height:auto}
+.poster .ls{list-style:none;margin:0;padding:0;font:400 7cqw/1.25 var(--disp);text-transform:uppercase}
+.poster .ls li{display:flex;align-items:center;gap:3cqw;justify-content:var(--ai)}
+.poster .ls .rz{width:7cqw;height:5cqw}
+/* families */
+.fam-night{background:radial-gradient(70% 45% at 50% 30%,rgba(216,178,74,.18),transparent 70%),var(--night)}
+.fam-night .num,.fam-photo .num{background:var(--leaf);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fam-night .nl,.fam-night .eb,.fam-photo .eb,.fam-photo .nl{color:var(--gold)}
+.fam-night .hd,.fam-photo .hd,.fam-night .ls,.fam-photo .ls{background:var(--grainw) 0 0/120px 120px repeat,#fff;-webkit-background-clip:text;background-clip:text;color:transparent}
+.fam-night .sb,.fam-photo .sb{color:var(--smoke)}
+.fam-night .ft,.fam-photo .ft{color:var(--smoke)}
+.fam-night .scr,.fam-photo .scr{color:var(--gold)}
+.fam-photo .bg{background:var(--ph) center 25%/cover;filter:grayscale(1) contrast(1.1) brightness(.9)}
+.fam-photo .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(11,11,12,.25),rgba(11,11,12,.15) 35%,rgba(11,11,12,.88) 72%,var(--night))}
+.fam-gold{background:var(--leaf)}
+.fam-gold .pp{color:#0d0c0a}
+.fam-gold .num{color:#0d0c0a}
+.fam-gold .rz{background:#0d0c0a;animation:none;filter:none}
+/* layouts */
+.lay-crest .stack{margin:auto 0}.lay-crest .bd,.lay-crest .num,.lay-crest .nl,.lay-crest .sb{display:block}.lay-crest{--nb:42;--lb:8.4}
+.lay-crest .sb{font:700 3.8cqw/1.5 var(--cond);letter-spacing:.2em;text-transform:uppercase;margin-top:3cqw}
+.lay-cut .stack{margin-top:auto}.lay-cut .hd,.lay-cut .sb,.lay-cut .ft{display:block}.lay-cut{--hb:14;--ta:left;--ai:flex-start}
+.lay-cut .ft{margin-top:5cqw;padding-top:4cqw;border-top:1px solid rgba(216,178,74,.5);width:100%}
+.lay-voucher .stack{margin:auto 0}.lay-voucher .eb,.lay-voucher .nl,.lay-voucher .scr,.lay-voucher .ft{display:block}.lay-voucher{--lb:17}
+.lay-voucher .ft{border-top:2px dashed currentColor;padding-top:4cqw;opacity:.85}
+.lay-voucher .pp>.eb{display:block}
+.lay-bleed .num{display:block;position:absolute;right:-6cqw;bottom:-10cqw;opacity:.95}.lay-bleed{--nb:78;--hb:12;--ta:left;--ai:flex-start}
+.lay-bleed .eb,.lay-bleed .hd,.lay-bleed .sb{display:block}
+.lay-vertical .num{display:block;position:absolute;left:-2cqw;bottom:6cqw;transform-origin:0 100%;transform:rotate(-90deg) translate(0,100%);white-space:nowrap}.lay-vertical{--nb:44;--hb:11;--lb:7;--ta:left;--ai:flex-start}
+.lay-vertical .stack{padding-left:34cqw;margin-top:auto}.lay-vertical .eb,.lay-vertical .hd,.lay-vertical .nl,.lay-vertical .sb{display:block}
+.lay-framed .deco{inset:4cqw;border:1px solid rgba(216,178,74,.7);outline:1px solid rgba(216,178,74,.35);outline-offset:-2.2cqw}.lay-framed{--nb:40;--lb:8}
+.lay-framed .stack{margin:auto 0}.lay-framed .eb,.lay-framed .num,.lay-framed .nl,.lay-framed .sb,.lay-framed .ft{display:block}
+.lay-framed .ft{margin-top:0;padding-bottom:2cqw}
+.fam-gold.lay-framed .deco{border-color:rgba(13,12,10,.7);outline-color:rgba(13,12,10,.35)}
+.lay-seal .stack{margin:auto 0}.lay-seal{--nb:24;--hb:10}
+.lay-seal .num{display:grid;place-items:center;width:62cqw;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 .7cqw rgba(216,178,74,.85),0 0 0 2.6cqw rgba(216,178,74,.18);background-clip:text}
+.fam-gold.lay-seal .num{box-shadow:0 0 0 .7cqw #0d0c0a,0 0 0 2.6cqw rgba(13,12,10,.15)}
+.lay-seal .eb,.lay-seal .hd,.lay-seal .sb{display:block}.lay-seal .hd{margin-top:5cqw}
+.lay-band .stack{margin:auto 0}.lay-band .num,.lay-band .hd,.lay-band .eb,.lay-band .ft{display:block}.lay-band{--nb:46;--hb:9}
+.lay-band .hd{width:130cqw;margin:2cqw -20cqw;padding:3cqw 0;transform:rotate(-7deg);background:var(--leaf)!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:#0d0c0a!important}
+.fam-gold.lay-band .hd{background:#0d0c0a!important;color:#f2f0eb!important}
+.lay-split .bg{bottom:46%}.lay-split{--nb:30;--hb:11}
+.fam-night.lay-split .bg{background:var(--leaf)}.fam-gold.lay-split .bg{background:#0d0c0a}
+.lay-split .stack{margin-top:auto}.lay-split .num,.lay-split .hd,.lay-split .sb{display:block}
+.lay-ticket .stack{margin:auto 0;padding:7cqw 6cqw;border-radius:4cqw;border:1px solid rgba(216,178,74,.6);background:rgba(11,11,12,.55);position:relative;box-shadow:0 0 0 1.6cqw rgba(216,178,74,.08)}.lay-ticket{--nb:34;--lb:7}
+.fam-gold.lay-ticket .stack{border-color:#0d0c0a;background:rgba(255,240,200,.18)}
+.lay-ticket .stack::before{content:"";position:absolute;left:4cqw;right:4cqw;bottom:13cqw;border-top:.5cqw dashed currentColor;opacity:.5}
+.lay-ticket .eb,.lay-ticket .num,.lay-ticket .nl,.lay-ticket .sb{display:block}.lay-ticket .sb{margin-top:6cqw}
+.lay-minimal .eb{display:block}.lay-minimal .stack{margin-top:auto}.lay-minimal{--hb:17;--nb:12;--ta:left;--ai:flex-start}
+.lay-minimal .hd,.lay-minimal .ft{display:block}.lay-minimal .ft{margin-top:4cqw}
+.lay-minimal .num{display:grid;place-items:center;position:absolute;right:7cqw;top:7cqw;width:26cqw;aspect-ratio:1;border-radius:50%;border:.5cqw solid rgba(216,178,74,.8)}
+.lay-list .stack{margin:auto 0}.lay-list .hd,.lay-list .ls,.lay-list .num,.lay-list .nl{display:block}.lay-list{--hb:10;--nb:30;--lb:6}
+.lay-list .ls{margin:3cqw 0}
+.lay-stripes .deco{display:flex;flex-direction:column;justify-content:space-around;overflow:hidden;font:400 13cqw/1 var(--disp);text-transform:uppercase;white-space:nowrap;color:transparent;-webkit-text-stroke:1px rgba(216,178,74,.28)}
+.fam-gold.lay-stripes .deco{-webkit-text-stroke-color:rgba(13,12,10,.3)}
+.lay-stripes .stack{margin:auto 0}.lay-stripes .num,.lay-stripes .nl,.lay-stripes .ft{display:block}.lay-stripes{--nb:50;--lb:8}
+.lay-stripes .num{filter:drop-shadow(0 1cqw 3cqw rgba(0,0,0,.6))}
+
+/* ---------- Fixes ---------- */
+/* Gold and grain words are painted through the letters; give the paint room above and below so tall capitals are never clipped */
+.hero h1,.sec h2,.ticket .tl b,.frame .ht,.sq-b h4,.sq-c h4,.slide h5,.idea h3,#social>h3,.poster .hd,.poster .ls,.poster .num>span,.poster .nl,.gold,.sq-a .in>span,.sq-a b,.tk-row .tick>div>span,.po-b h4{padding-top:.14em;margin-top:-.14em;padding-bottom:.08em;margin-bottom:-.08em}
+.hero h1{line-height:.94}
+/* layouts with a number placed against the whole poster */
+.lay-bleed .stack,.lay-vertical .stack,.lay-minimal .stack,.lay-split .stack{transform:none}
+.lay-bleed .pp,.lay-vertical .pp,.lay-minimal .pp,.lay-split .pp{padding-top:calc(8cqw + var(--dy)*1cqw)}
+.lay-bleed .num{right:-4cqw;bottom:-8cqw;opacity:.9}
+.lay-bleed .stack{max-width:86cqw}
+.lay-vertical .num{left:5cqw;bottom:7cqw;top:auto;transform-origin:50% 50%;transform:rotate(180deg);writing-mode:vertical-rl;line-height:.84}
+.lay-vertical .stack{padding-left:40cqw}
+.lay-split .num{position:absolute;left:0;right:0;top:13cqw;text-align:center}
+.fam-night.lay-split .num{background:none;color:#0d0c0a}
+.fam-gold.lay-split .num{background:var(--leaf);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lay-seal .num>span,.lay-minimal .num>span{padding:0;margin:0}
+/* ticker editor: never wider than the page, controls line up at the top */
+.tickstack{grid-template-columns:minmax(0,1fr)}
+.tk-row{min-width:0}
+.tk-pop{align-items:start;margin-inline:clamp(16px,4vw,64px)}
+.ctl{align-content:start}
+
+/* razor button: a larger razor in full gold shine, clear against the dark pill */
+.b-razor{gap:14px;padding:0 28px 0 20px}
+.b-razor .rz{width:34px;height:25px;filter:drop-shadow(0 0 5px rgba(216,178,74,.55)) brightness(1.15)}
+.b-razor:hover{border-color:var(--gold)}
+
+.lay-ticket .stack::before{display:none}.lay-ticket .sb{border-top:.5cqw dashed currentColor;padding-top:4cqw;margin-top:3cqw;width:100%;max-width:none;opacity:.85}
 @media print{body *{visibility:hidden}.printing,.printing *{visibility:visible}.printing{position:fixed;inset:0;margin:auto;width:190mm;border-radius:0;box-shadow:none}body::after{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -341,7 +502,7 @@ button,input{font:inherit;color:inherit}
   <div class="btnboard">
     <div class="bcell"><button class="b-shine" type="button" data-t="btn"></button><p>Gold leaf with a light sweep on hover.</p></div>
     <div class="bcell"><button class="b-run" type="button" data-t="btn"></button><p>A spark of gold running round the edge.</p></div>
-    <div class="bcell"><button class="b-tkt" type="button"><span data-t="btn"></span><b data-t="pctoff"></b></button><p>A ticket stub with a torn line.</p></div>
+    <div class="bcell"><button class="b-tkt" type="button"><span data-t="btn"></span><b data-t="pctoff"></b></button><p>A ticket stub. The gold slides across every few seconds, and on hover.</p></div>
     <div class="bcell"><button class="b-razor" type="button"><i class="rz"></i><span data-t="btn"></span></button><p>The razor leans in as you hover.</p></div>
     <div class="bcell"><button class="b-glow" type="button" data-t="btn"></button><p>A gentle gold pulse for the one button that matters.</p></div>
     <div class="bcell"><button class="b-seal" type="button"><span><b data-t="pct"></b><i>Off</i></span></button><p>A round seal that tilts on hover.</p></div>
@@ -350,25 +511,14 @@ button,input{font:inherit;color:inherit}
 
 <section class="sec wrap" id="tickers" aria-labelledby="tkH">
   <h2 id="tkH">Tickers.</h2>
-  <p class="lead">Scrolling strips for the website, a shop screen or a reel background.</p>
+  <p class="lead">Scrolling strips for the website, a shop screen or a reel background. Tap Edit on any strip to change its words, size, height, speed and animation.</p>
 </section>
-<div class="tickstack">
-  <div class="tick big"><div><span><em data-t="pctoff"></em><b data-t="short"></b><i class="rz"></i></span><span><em data-t="pctoff"></em><b data-t="short"></b><i class="rz"></i></span></div></div>
-  <div class="tick outline rev"><div><span>Walk-ins welcome<i class="rz"></i>St Kilda since 1991<i class="rz"></i><em>New clients</em><i class="rz"></i></span><span>Walk-ins welcome<i class="rz"></i>St Kilda since 1991<i class="rz"></i><em>New clients</em><i class="rz"></i></span></div></div>
-  <div class="tick solid"><div><span><b data-t="head"></b><i class="rz"></i>Book online<i class="rz"></i></span><span><b data-t="head"></b><i class="rz"></i>Book online<i class="rz"></i></span></div></div>
-</div>
+<div class="tickstack" id="tickers2"></div>
 
 <section class="sec wrap" id="posters" aria-labelledby="poH" style="margin-top:clamp(40px,6vw,80px)">
   <h2 id="poH">Posters.</h2>
-  <p class="lead">A4 posters for the window, mirror or counter. Print one on its own with its button.</p>
-  <div class="board b3">
-    <article class="piece"><div class="poster po-a" id="pA"><div class="pp"><img src="../images/edward-scissorhands-badge-gold.webp" alt="" width="240" height="240"><div class="big gold"><span data-t="pct"></span><small>Off your first visit</small></div><p data-t="sub"></p></div></div>
-      <h3>The big number</h3><p class="note">For the front window. Readable from across the street.</p><div class="acts"><button class="pill sm" type="button" data-print="pA">Print poster</button></div></article>
-    <article class="piece"><div class="poster po-b" id="pB"><div class="ph"></div><div class="pp"><h4 data-t="head"></h4><p data-t="sub"></p><div class="bar"><span>Scan or ask at the counter</span><b class="gold" data-t="pctoff"></b></div></div></div>
-      <h3>The cut</h3><p class="note">Photo-led, for inside the shop where people already are.</p><div class="acts"><button class="pill sm" type="button" data-print="pB">Print poster</button></div></article>
-    <article class="piece"><div class="poster po-c" id="pC"><div class="pp"><div class="top">New client offer</div><div><h4><span data-t="pctoff"></span><br>first service</h4><div class="scr">Welcome in</div></div><div class="cut">Edward Scissorhands<br>Barber Shop · Est. 1991</div></div></div>
-      <h3>Gold voucher</h3><p class="note">All gold leaf with a tear-off line. Works as a flyer too.</p><div class="acts"><button class="pill sm" type="button" data-print="pC">Print poster</button></div></article>
-  </div>
+  <p class="lead">A4 posters for the window, mirror or counter. Each box has eleven designs to flick through. Edit moves and resizes the words on the design you are looking at; Print prints that one on its own.</p>
+  <div class="board b3" id="posterBoard"></div>
 </section>
 
 <section class="sec wrap" id="social" aria-labelledby="soH">
@@ -384,7 +534,7 @@ button,input{font:inherit;color:inherit}
     <div class="slide s1"><span class="t">1 · Hook</span><div class="in" style="position:absolute;z-index:1"><h5>Due for<br>a cut?</h5><p>2 seconds. Clippers sound.</p></div></div>
     <div class="slide s2"><span class="t">2 · Offer</span><div class="in"><h5 class="gold" data-t="pct"></h5><p data-t="short"></p></div></div>
     <div class="slide s3"><span class="t">3 · Proof</span><div class="in" style="position:absolute;z-index:1"><h5>Since<br>1991</h5><p>Two shops, 1,380+ Google reviews.</p></div></div>
-    <div class="slide s4"><span class="t">4 · How</span><div class="in"><h5>Book<br>online</h5><p>Pick any barber and choose "New client" at checkout.</p></div></div>
+    <div class="slide s4"><span class="t">4 · How</span><div class="in"><h5>Book<br>online</h5><p>Choose "New client" when you book.</p></div></div>
     <div class="slide s5"><span class="t">5 · Sign-off</span><div class="in"><img src="../images/edward-scissorhands-badge-gold.webp" alt="" width="240" height="240"><p>Link in bio.</p></div></div>
   </div>
   <div class="cap"><p id="capText"></p><button class="pill sm" type="button" id="copyCap">Copy caption</button></div>
@@ -432,24 +582,118 @@ button,input{font:inherit;color:inherit}
   $("#lock").addEventListener("click", () => { try { sessionStorage.removeItem("esPromo"); } catch(e) {} entry = ""; dots(); $("#gateErr").textContent = ""; app.hidden = true; gate.hidden = false; scrollTo(0, 0); });
 
   /* The offer */
-  const DEF = { pct: 20, head: "Grab {pct}% off your first service", sub: "New clients only. Book online and choose any barber.", btn: "Book now" };
+  const DEF = { pct: 20, head: "Grab {pct}% off your first service", sub: "New clients only. Book online or walk in.", btn: "Book now" };
   let O = { ...DEF }; try { O = { ...DEF, ...JSON.parse(store.get("esPromoOffer") || "{}") }; } catch(e) {}
+  if (/any barber/i.test(O.sub || "")) O.sub = DEF.sub;  /* older saved wording */
   const fill = s => String(s).replace(/\{pct\}/g, O.pct);
+  const hooks = [];
   const render = () => {
     const T = { pct: O.pct + "%", pctoff: O.pct + "% off", head: fill(O.head), sub: fill(O.sub), btn: fill(O.btn), tag: "New client offer", short: "your first service" };
     const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" })[c]);
     $$("[data-t]").forEach(el => { const v = T[el.dataset.t]; if (v == null) return; if (el.tagName === "TEXTAREA" || el.tagName === "INPUT") el.value = v; else el.innerHTML = esc(v).replace(/(\d)%/g, '$1<span class="pc">%</span>'); });
     $("#oPct").innerHTML = O.pct + '<span class="pc">%</span>';
     $("#capText").textContent = `New here? ${fill(O.head)}.\n${fill(O.sub)}\nEdward Scissorhands Barber Shop, St Kilda and South Melbourne. Since 1991.\nTap the link in bio to book.`;
+    hooks.forEach(f => f());
   };
   $("#fPct").value = O.pct; $("#fHead").value = O.head; $("#fSub").value = O.sub; $("#fBtn").value = O.btn;
   const save = () => { O = { pct: +$("#fPct").value, head: $("#fHead").value || DEF.head, sub: $("#fSub").value, btn: $("#fBtn").value || DEF.btn }; store.set("esPromoOffer", JSON.stringify(O)); render(); };
   ["#fPct", "#fHead", "#fSub", "#fBtn"].forEach(s => $(s).addEventListener("input", save));
   $("#reset").addEventListener("click", () => { $("#fHead").value = DEF.head; $("#fSub").value = DEF.sub; $("#fBtn").value = DEF.btn; save(); toast("Wording reset"); });
+  /* ---------- Editable tickers ---------- */
+  const TK_DEF = [
+    { text: "{pct}% off * your first service *", style: "white", grain: 1, fx: "none", fs: 64, py: 16, sp: 26, ls: 4, rev: 0 },
+    { text: "Walk-ins welcome * St Kilda since 1991 * New clients *", style: "outline", grain: 0, fx: "wave", fs: 28, py: 14, sp: 30, ls: 6, rev: 1 },
+    { text: "Grab {pct}% off your first service * Book online *", style: "solid", grain: 0, fx: "none", fs: 30, py: 16, sp: 28, ls: 5, rev: 0 },
+    { text: "Since 1991 * Two shops * One standard *", style: "gold", grain: 0, fx: "shine", fs: 44, py: 14, sp: 34, ls: 4, rev: 1 }
+  ];
+  let TK = TK_DEF.map(t => ({ ...t })); try { const v = JSON.parse(store.get("esPromoTk") || "null"); if (Array.isArray(v)) TK = TK_DEF.map((d, i) => ({ ...d, ...(v[i] || {}) })); } catch(e) {}
+  const tkSave = () => store.set("esPromoTk", JSON.stringify(TK));
+  const escH = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" })[c]);
+  const chars = (txt, k) => [...txt].map((c, n) => `<span class="ch" style="--i:${k.n++};--r:${(Math.random()*4).toFixed(2)}">${escH(c)}</span>`).join("");
+  const tkRun = (t, split) => { const k = { n: 0 }; return fill(t.text).split("*").map(x => x.trim()).filter(Boolean).map(part => {
+      const pc = part.match(/^(\d+%)(.*)$/); let h;
+      if (split) h = chars(part, k); else h = escH(part).replace(/(\d)%/g, '$1<span class="pc">%</span>');
+      return `<b>${h}</b><i class="rz"></i>`; }).join(""); };
+  const tkHTML = (t, i) => { const split = t.fx === "wave" || t.fx === "flicker" || t.fx === "bounce"; const run = tkRun(t, split);
+    return `<div class="tk-row" data-tk="${i}"><div class="tick st-${t.style}${t.grain ? " grain" : ""} fx-${t.fx}${t.rev ? " rev" : ""}" style="--fs:${t.fs}px;--py:${t.py}px;--sp:${t.sp}s;--ls:${(t.ls/100).toFixed(2)}em"><div><span>${run}</span><span aria-hidden="true">${run}</span></div></div>
+      <button type="button" class="pill sm tk-edit" data-tke="${i}">Edit</button>
+      <div class="tk-pop" id="tkp${i}">
+        <label class="ctl ctl-wide">Words, with * between phrases<input type="text" data-k="text" value="${escH(t.text)}"></label>
+        <label class="ctl">Text size <output>${t.fs}px</output><input type="range" min="14" max="120" data-k="fs" value="${t.fs}"></label>
+        <label class="ctl">Strip height <output>${t.py}px</output><input type="range" min="4" max="48" data-k="py" value="${t.py}"></label>
+        <label class="ctl">Speed, seconds per loop <output>${t.sp}s</output><input type="range" min="6" max="80" data-k="sp" value="${t.sp}"></label>
+        <label class="ctl">Letter spacing <output>${t.ls}</output><input type="range" min="-2" max="30" data-k="ls" value="${t.ls}"></label>
+        <div class="ctl">Style<div class="seg" data-seg="style">${[["white","White"],["gold","Gold leaf"],["outline","Outline"],["solid","Gold strip"],["dark","Dark strip"]].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${t.style===v}">${l}</button>`).join("")}</div></div>
+        <div class="ctl">Animation<div class="seg" data-seg="fx">${[["none","Scroll only"],["wave","Letters light up"],["shine","Gold shine"],["flicker","Neon flicker"],["bounce","Letter bounce"]].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${t.fx===v}">${l}</button>`).join("")}</div></div>
+        <div class="ctl">Extras<div class="seg"><button type="button" data-flag="grain" aria-pressed="${!!t.grain}">Grain on white</button><button type="button" data-flag="rev" aria-pressed="${!!t.rev}">Reverse direction</button></div></div>
+        <div class="pop-foot"><button type="button" class="pill sm" data-tkreset="${i}">Reset this strip</button><button type="button" class="pill sm fill" data-tke="${i}">Done</button></div>
+      </div></div>`; };
+  const tkBox = $("#tickers2"); let tkOpen = -1;
+  const tkRender = () => { tkBox.innerHTML = TK.map(tkHTML).join(""); if (tkOpen > -1) { const p = $("#tkp" + tkOpen); if (p) p.classList.add("on"); } };
+  const tkUpdate = i => { const row = tkBox.querySelector(`[data-tk="${i}"]`), t = TK[i]; if (!row) return; const tmp = document.createElement("div"); tmp.innerHTML = tkHTML(t, i); row.replaceChild(tmp.querySelector(".tick"), row.querySelector(".tick")); };
+  tkBox.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; const row = b.closest("[data-tk]"); const i = row ? +row.dataset.tk : -1;
+    if (b.dataset.tke != null) { const p = $("#tkp" + b.dataset.tke), on = !p.classList.contains("on"); $$(".tk-pop.on").forEach(x => x.classList.remove("on")); p.classList.toggle("on", on); tkOpen = on ? +b.dataset.tke : -1; return; }
+    if (b.dataset.tkreset != null) { TK[i] = { ...TK_DEF[i] }; tkSave(); tkRender(); return; }
+    const seg = b.closest("[data-seg]"); if (seg) { TK[i][seg.dataset.seg] = b.dataset.v; seg.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); tkSave(); tkUpdate(i); return; }
+    if (b.dataset.flag) { TK[i][b.dataset.flag] = TK[i][b.dataset.flag] ? 0 : 1; b.setAttribute("aria-pressed", String(!!TK[i][b.dataset.flag])); tkSave(); tkUpdate(i); } });
+  tkBox.addEventListener("input", e => { const el = e.target, k = el.dataset.k; if (!k) return; const i = +el.closest("[data-tk]").dataset.tk;
+    TK[i][k] = el.type === "range" ? +el.value : el.value; const o = el.parentElement.querySelector("output"); if (o) o.textContent = el.value + (k === "fs" || k === "py" ? "px" : k === "sp" ? "s" : ""); tkSave(); tkUpdate(i); });
+
+  /* ---------- Poster slides ---------- */
+  const PH = ["st-kilda-swept-back-scissor-cut-fade","inside-edward-scissorhands-barber-shop-st-kilda","high-skin-fade-textured-crop-haircut","low-taper-fade-pompadour-haircut","barber-knuckle-tattoos-scissors","barber-shop-floor-edward-scissorhands","st-kilda-crop-skin-fade-haircut","tim-barber-clipper-over-comb-south-melbourne","st-kilda-slick-back-flow-taper-scissor-cut","edward-scissorhands-barber-shop-st-kilda","edward-scissorhands-barber-shop-clarendon-centre-south-melbourne"];
+  const LAYS = { crest:"The crest", cut:"The cut", voucher:"Gold voucher", bleed:"Big bleed", vertical:"Side number", framed:"Framed", seal:"The seal", band:"Gold band", split:"Split", ticket:"The ticket", minimal:"Minimal", list:"The menu", stripes:"Name stripes" };
+  const OTHERS = ["bleed","vertical","framed","seal","band","split","ticket","minimal","list","stripes"];
+  const BOXES = [
+    { fam: "night", title: "Night", note: "Dark ground, gold number. For the front window.", lays: ["crest", ...OTHERS] },
+    { fam: "photo", title: "Photo", note: "Real cuts and the shop, in black and white. For inside the shop.", lays: ["cut", ...OTHERS] },
+    { fam: "gold", title: "Gold", note: "All gold leaf. Works as a flyer or a counter card.", lays: ["voucher", ...OTHERS] }
+  ];
+  let PS = {}; try { PS = JSON.parse(store.get("esPromoPosters") || "{}") || {}; } catch(e) { PS = {}; }
+  const psSave = () => store.set("esPromoPosters", JSON.stringify(PS));
+  const cur = BOXES.map((b, i) => { const v = +(PS["cur" + i] || 0); return v >= 0 && v < b.lays.length ? v : 0; });
+  const pc = t => escH(t).replace(/(\d)%/g, '$1<span class="pc">%</span>');
+  const posterHTML = (bi, li) => { const B = BOXES[bi], lay = B.lays[li], key = bi + "-" + li, E = PS[key] || {};
+    const head = E.head != null && E.head !== "" ? E.head : fill(O.head), nl = E.nl != null && E.nl !== "" ? E.nl : (lay === "voucher" ? O.pct + "% off first service" : "Off your first service");
+    const sub = E.sub != null && E.sub !== "" ? E.sub : fill(O.sub);
+    const ph = B.fam === "photo" ? `--ph:url('../images/${PH[li % PH.length]}.webp');` : "";
+    const ta = E.ta || "", ai = ta === "left" ? "flex-start" : ta === "right" ? "flex-end" : ta === "center" ? "center" : "";
+    const vars = `${ph}${E.ns ? `--ns:${E.ns/100};` : ""}${E.hs ? `--hs:${E.hs/100};` : ""}${E.dy ? `--dy:${E.dy};` : ""}${E.tr ? `--tr:${(E.tr/100).toFixed(2)}em;` : ""}${ta ? `--ta:${ta};--ai:${ai};` : ""}`;
+    const deco = lay === "stripes" ? Array(9).fill('<span>Edward Scissorhands Edward Scissorhands</span>').join("") : "";
+    return `<div class="poster fam-${B.fam} lay-${lay}" id="po${bi}" style="${vars}"><div class="bg"></div><div class="deco">${deco}</div><div class="pp">
+      <div class="stack"><div class="eb">New client offer</div><img class="bd" src="../images/edward-scissorhands-badge-gold.webp" alt="" width="240" height="240"><div class="num"><span>${pc(O.pct + "%")}</span></div><div class="nl">${pc(nl)}</div><div class="hd">${pc(head)}</div>
+      <ul class="ls"><li><i class="rz"></i>Cuts</li><li><i class="rz"></i>Fades</li><li><i class="rz"></i>Beards</li><li><i class="rz"></i>Hot towel shaves</li></ul><div class="scr">Welcome in</div><div class="sb">${pc(sub)}</div></div>
+      <div class="ft">Edward Scissorhands<br>Barber Shop · Est. 1991</div></div></div>`; };
+  const popHTML = (bi) => { const li = cur[bi], E = PS[bi + "-" + li] || {}, lay = BOXES[bi].lays[li];
+    const r = (k, l, min, max, def, unit) => `<label class="ctl">${l} <output>${E[k] != null ? E[k] : def}${unit}</output><input type="range" min="${min}" max="${max}" data-pk="${k}" value="${E[k] != null ? E[k] : def}"></label>`;
+    return `<div class="po-pop" id="pop${bi}">
+      ${r("ns","Number size",40,170,100,"%")}${r("hs","Words size",40,170,100,"%")}${r("dy","Move up or down",-40,40,0,"")}${r("tr","Letter spacing",-4,30,0,"")}
+      <div class="ctl ctl-wide">Line up<div class="seg" data-pseg="ta">${[["","Design default"],["left","Left"],["center","Centre"],["right","Right"]].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${(E.ta || "") === v}">${l}</button>`).join("")}</div></div>
+      <label class="ctl ctl-wide">Headline<input type="text" data-pk="head" placeholder="${escH(fill(O.head))}" value="${escH(E.head || "")}"></label>
+      <label class="ctl ctl-wide">Line under the number<input type="text" data-pk="nl" placeholder="Off your first service" value="${escH(E.nl || "")}"></label>
+      <label class="ctl ctl-wide">Small line<input type="text" data-pk="sub" placeholder="${escH(fill(O.sub))}" value="${escH(E.sub || "")}"></label>
+      <div class="pop-foot"><button type="button" class="pill sm" data-preset="${bi}">Reset this design</button><button type="button" class="pill sm fill" data-pedit="${bi}">Done</button></div></div>`; };
+  const board = $("#posterBoard"); const popOpen = [false, false, false];
+  const boxHTML = bi => { const B = BOXES[bi], li = cur[bi];
+    return `<article class="piece" data-box="${bi}"><div class="po-wrap">${posterHTML(bi, li)}</div>
+      <div class="po-nav"><button type="button" class="arr" data-pmove="-1" aria-label="Previous design">&#8249;</button><span>${li + 1} / ${B.lays.length}</span><button type="button" class="arr" data-pmove="1" aria-label="Next design">&#8250;</button></div>
+      <h3>${B.title}: ${LAYS[B.lays[li]]}</h3><p class="note">${B.note}</p>
+      <div class="acts"><button class="pill sm" type="button" data-pedit="${bi}">Edit</button><button class="pill sm" type="button" data-pprint="${bi}">Print poster</button></div>${popHTML(bi)}</article>`; };
+  const boxRender = bi => { const el = board.querySelector(`[data-box="${bi}"]`), tmp = document.createElement("div"); tmp.innerHTML = boxHTML(bi); const n = tmp.firstElementChild; if (el) el.replaceWith(n); else board.appendChild(n); if (popOpen[bi]) n.querySelector(".po-pop").classList.add("on"); };
+  const posterOnly = bi => { const w = board.querySelector(`[data-box="${bi}"] .po-wrap`); w.innerHTML = posterHTML(bi, cur[bi]); };
+  const poRender = () => BOXES.forEach((_, bi) => boxRender(bi));
+  board.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; const bi = +b.closest("[data-box]").dataset.box;
+    if (b.dataset.pmove) { cur[bi] = (cur[bi] + +b.dataset.pmove + BOXES[bi].lays.length) % BOXES[bi].lays.length; PS["cur" + bi] = cur[bi]; psSave(); boxRender(bi); return; }
+    if (b.dataset.pedit != null) { popOpen[bi] = !popOpen[bi]; board.querySelector(`[data-box="${bi}"] .po-pop`).classList.toggle("on", popOpen[bi]); return; }
+    if (b.dataset.preset != null) { delete PS[bi + "-" + cur[bi]]; psSave(); boxRender(bi); return; }
+    if (b.dataset.pprint != null) { const p = document.getElementById("po" + bi); p.classList.add("printing"); setTimeout(() => { print(); p.classList.remove("printing"); }, 50); return; }
+    const seg = b.closest("[data-pseg]"); if (seg) { const k = bi + "-" + cur[bi]; PS[k] = { ...(PS[k] || {}), [seg.dataset.pseg]: b.dataset.v }; seg.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); psSave(); posterOnly(bi); } });
+  board.addEventListener("input", e => { const el = e.target, k = el.dataset.pk; if (!k) return; const bi = +el.closest("[data-box]").dataset.box, key = bi + "-" + cur[bi];
+    PS[key] = { ...(PS[key] || {}), [k]: el.type === "range" ? +el.value : el.value }; const o = el.parentElement.querySelector("output"); if (o) o.textContent = el.value + (k === "ns" || k === "hs" ? "%" : ""); psSave(); posterOnly(bi); });
+  /* ticket button: the gold side swaps every few seconds unless a hand is on it */
+  setInterval(() => $$(".b-tkt").forEach(b => { if (!b.matches(":hover")) b.classList.toggle("alt"); }), 3200);
+  hooks.push(() => { if (!board.querySelector("input:focus")) poRender(); else BOXES.forEach((_, bi) => posterOnly(bi)); if (!tkBox.querySelector("input:focus")) tkRender(); else TK.forEach((_, i) => tkUpdate(i)); });
   render();
 
-  /* Print one poster */
-  $$("[data-print]").forEach(b => b.addEventListener("click", () => { const p = document.getElementById(b.dataset.print); p.classList.add("printing"); setTimeout(() => { print(); p.classList.remove("printing"); }, 50); }));
   $("#copyCap").addEventListener("click", () => { const t = $("#capText").textContent; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Caption copied"), () => toast("Select the caption to copy it")); });
 })();
 </script>
