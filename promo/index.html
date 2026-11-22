@@ -195,7 +195,7 @@ button,input{font:inherit;color:inherit}
 .b-tkt.alt::before,.b-tkt:hover::before,.b-tkt:focus-visible::before{transform:none}
 .b-tkt.alt>span,.b-tkt:hover>span,.b-tkt:focus-visible>span{color:#0d0c0a}
 .b-tkt.alt b,.b-tkt:hover b,.b-tkt:focus-visible b{color:#f2f0eb}
-.b-tkt.alt:hover::before{transform:translateX(100%)}.b-tkt.alt:hover>span{color:#f2f0eb}.b-tkt.alt:hover b{color:#0d0c0a}
+
 .b-razor{display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 26px 0 22px;border-radius:999px;border:1px solid rgba(216,178,74,.55);background:none;color:var(--bone);font:700 14px var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;overflow:hidden}
 .b-razor .rz{transition:transform .5s cubic-bezier(.22,.8,.2,1)}
 .b-razor:hover .rz{transform:translateX(6px) rotate(-12deg)}
@@ -448,6 +448,37 @@ button,input{font:inherit;color:inherit}
 .slow-n{margin:12px 0 0;color:var(--ash);font-size:13px}
 .slow-note{margin:24px 0 0;color:var(--smoke);font-size:14px;max-width:62ch}
 
+/* round 3 */
+.b-tkt>span{transition:color .5s ease .1s,transform .7s cubic-bezier(.22,.8,.2,1)}
+.b-tkt:hover>span,.b-tkt:focus-visible>span{transform:scale(1.14);font-weight:700}
+.tk-row .tick.st-outline>div>span{-webkit-text-stroke:1px rgba(233,228,214,.85)}
+.fx-wave .ch{animation:chWave var(--wd,7s) cubic-bezier(.45,0,.55,1) calc(var(--i)*110ms) infinite}
+@keyframes chWave{0%,26%,100%{color:inherit;-webkit-text-fill-color:currentColor;text-shadow:none}10%,14%{color:#f3dfa0;-webkit-text-fill-color:#f3dfa0;text-shadow:0 0 .14em rgba(216,178,74,.35)}}
+.fx-wave.st-outline .ch{animation-name:chWaveO}
+@keyframes chWaveO{0%,26%,100%{-webkit-text-fill-color:transparent;text-shadow:none}10%,14%{-webkit-text-fill-color:rgba(243,215,126,.92);text-shadow:0 0 .12em rgba(216,178,74,.3)}}
+.sq-a b{margin-top:auto;padding-top:0;line-height:.86}
+.sq-a small{font-size:4.6cqw;letter-spacing:.24em;line-height:1.3}
+
+/* page editor */
+.ed-mode .ed-hov{outline:1.5px dashed rgba(216,178,74,.8);outline-offset:3px;cursor:pointer}
+.ed-sel{outline:2px solid var(--gold)!important;outline-offset:3px}
+.ed-text{outline:2px solid #fff!important;cursor:text}
+.ed-mode #app a{pointer-events:auto}
+.ed-bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:260;width:min(760px,calc(100% - 24px));max-height:min(60vh,460px);overflow:auto;padding:14px 16px;border-radius:18px;background:rgba(20,18,16,.96);border:1px solid rgba(216,178,74,.45);box-shadow:0 24px 60px -20px rgba(0,0,0,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.ed-bar[hidden]{display:none}
+.ed-h{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-bottom:10px}
+.ed-h b{font:400 20px/1.2 var(--disp);text-transform:uppercase;padding-top:.1em}
+.ed-h span{color:var(--smoke);font-size:13px}
+.ed-ctl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 16px}
+.ed-ctl[hidden]{display:none}
+.ed-ph,.ed-acts{grid-column:1/-1}
+.ed-thumbs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.ed-thumbs button{flex:none;width:58px;height:58px;border-radius:9px;border:1px solid var(--hair);background:center/cover;cursor:pointer}
+.ed-thumbs button:hover{border-color:var(--gold)}
+.ed-acts,.ed-foot{display:flex;flex-wrap:wrap;gap:8px}
+.ed-foot{justify-content:flex-end;margin-top:12px;padding-top:10px;border-top:1px solid var(--hair)}
+@media (max-width:560px){.ed-ctl{grid-template-columns:minmax(0,1fr)}}
+
 @media print{body *{visibility:hidden}.printing,.printing *{visibility:visible}.printing{position:fixed;inset:0;margin:auto;width:190mm;border-radius:0;box-shadow:none}body::after{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -474,7 +505,7 @@ button,input{font:inherit;color:inherit}
 <div class="ptop wrap">
   <a class="pmark" href="#top"><b>Edward Scissorhands</b><span>Promotions</span></a>
   <nav class="pnav" aria-label="Sections"><a href="#banners">Site banners</a><a href="#buttons">Buttons</a><a href="#tickers">Tickers</a><a href="#posters">Posters</a><a href="#social">Social</a><a href="#ideas">Ideas</a><a href="#slow">Slow periods</a></nav>
-  <div class="r"><a class="pill sm" href="https://claude.ai/artifact/WEvzkVL8iEUTDpna7mReZW" data-site="../brand/" target="_blank" rel="noopener">Brand guide</a><button type="button" class="pill sm" id="lock">Lock</button></div>
+  <div class="r"><a class="pill sm" href="https://claude.ai/artifact/WEvzkVL8iEUTDpna7mReZW" data-site="../brand/" target="_blank" rel="noopener">Brand guide</a><button type="button" class="pill sm" id="edBtn">Edit page</button><button type="button" class="pill sm" id="lock">Lock</button></div>
 </div>
 
 <header class="hero wrap" id="top">
@@ -566,7 +597,7 @@ button,input{font:inherit;color:inherit}
   </div>
 
   <h3 class="slow-h" id="slow">Slow periods</h3>
-  <p class="lead">From the Timesheets dashboard: the six full weeks it holds (5 Oct to 15 Nov 2026), both shops' Fresha sales together, and the barber hours rostered on each day of the week.</p>
+  <p class="lead">From the Timesheets dashboard: the six full weeks it holds (5 Oct to 15 Nov 2026), both shops together, compared with the best week, and the barber hours rostered on each day of the week.</p>
   <div class="slow">
     <div class="slow-col"><h4>Quietest days</h4><ol class="slow-list">
       <li><b>Sunday</b><span>83 barber hours a day</span></li>
@@ -575,11 +606,11 @@ button,input{font:inherit;color:inherit}
       <li><b>Wednesday</b><span>105 hours</span></li>
     </ol><p class="slow-n">Busiest for comparison: Friday 151, Thursday 139, Saturday 131.</p></div>
     <div class="slow-col"><h4>Quietest weeks so far</h4><ol class="slow-list">
-      <li><b>2 to 8 Nov</b><span>$52.4k, Melbourne Cup week</span></li>
-      <li><b>9 to 15 Nov</b><span>$55.1k</span></li>
-      <li><b>5 to 11 Oct</b><span>$55.3k</span></li>
-      <li><b>12 to 18 Oct</b><span>$56.5k</span></li>
-    </ol><p class="slow-n">Best week: 26 Oct to 1 Nov, $60.3k.</p></div>
+      <li><b>2 to 8 Nov</b><span>13% below the best week · Melbourne Cup</span></li>
+      <li><b>9 to 15 Nov</b><span>9% below</span></li>
+      <li><b>5 to 11 Oct</b><span>8% below</span></li>
+      <li><b>12 to 18 Oct</b><span>6% below</span></li>
+    </ol><p class="slow-n">Best week: 26 Oct to 1 Nov.</p></div>
   </div>
   <p class="slow-note">The dashboard only goes back to October, so this can't show the slowest weeks of the whole year yet. A year of weekly sales from Fresha would fill it in.</p>
   <p class="lead" style="margin-top:36px">Design references these pieces draw on:</p>
@@ -721,6 +752,60 @@ button,input{font:inherit;color:inherit}
   /* ticket button: the gold side swaps every few seconds unless a hand is on it */
   setInterval(() => $$(".b-tkt").forEach(b => { if (!b.matches(":hover")) b.classList.toggle("alt"); }), 3200);
   hooks.push(() => { if (!board.querySelector("input:focus")) poRender(); else BOXES.forEach((_, bi) => posterOnly(bi)); if (!tkBox.querySelector("input:focus")) tkRender(); else TK.forEach((_, i) => tkUpdate(i)); });
+  /* ---------- Page editor: select any piece, then resize, move, hide, retype or swap its photo ---------- */
+  const PHOTOS = ["st-kilda-swept-back-scissor-cut-fade","inside-edward-scissorhands-barber-shop-st-kilda","high-skin-fade-textured-crop-haircut","low-taper-fade-pompadour-haircut","barber-knuckle-tattoos-scissors","barber-shop-floor-edward-scissorhands","st-kilda-crop-skin-fade-haircut","tim-barber-clipper-over-comb-south-melbourne","st-kilda-slick-back-flow-taper-scissor-cut","edward-scissorhands-barber-shop-st-kilda","edward-scissorhands-barber-shop-clarendon-centre-south-melbourne"];
+  let ED = {}; try { ED = JSON.parse(store.get("esPromoEd") || "{}") || {}; } catch(e) { ED = {}; }
+  const edSave = () => store.set("esPromoEd", JSON.stringify(ED));
+  const appEl = $("#app");
+  const PICK = "h1,h2,h3,h4,h5,p,small,li,img,.piece,.poster,.sq,.slide,.bcell,.idea,.frame,.ticket,.stamp,.v-ribbon,.tk-row,.num,.nl,.hd,.eb,.sb,.ft,.scr,.cap,.slow-col,.lead,b,em,.pill,button.b-shine,button.b-run,button.b-tkt,button.b-razor,button.b-glow,button.b-seal";
+  const NOPICK = ".ptop,.ptop *,.ed-bar,.ed-bar *,.editor,.editor *,.tk-pop,.tk-pop *,.po-pop,.po-pop *,.po-nav,.po-nav *,.ch,.pc";
+  const pathOf = el => { const parts = []; while (el && el !== appEl) { const p = el.parentElement; if (!p) return null; parts.unshift(el.tagName.toLowerCase() + [...p.children].indexOf(el)); el = p; } return parts.join(">"); };
+  const byPath = path => { let el = appEl; for (const seg of path.split(">")) { const i = +seg.replace(/^[a-z0-9]*?(\d+)$/, "$1"); const m = seg.match(/^([a-z]+[0-9]?)(\d+)$/); el = el && el.children[m ? +m[2] : i]; if (!el) return null; } return el; };
+  const photoHost = el => el.tagName === "IMG" ? el : el.closest(".sq-b,.slide.s1,.slide.s3,.frame,.poster.fam-photo") || null;
+  const setPhoto = (el, name) => { const h = photoHost(el); if (!h) return; const u = `../images/${name}.webp`;
+    if (h.tagName === "IMG") h.src = u; else if (h.classList.contains("poster")) h.style.setProperty("--ph", `url('${u}')`); else h.style.backgroundImage = `url('${u}')`; };
+  const edApply = () => { for (const [path, e] of Object.entries(ED)) { const el = byPath(path); if (!el) continue;
+      if (e.txt != null && !el.querySelector("img,input,button,.rz")) { el.textContent = e.txt; el.innerHTML = el.innerHTML.replace(/(\d)%/g, '$1<span class="pc">%</span>'); }
+      el.style.scale = e.s && e.s !== 100 ? String(e.s / 100) : ""; el.style.translate = e.x || e.y ? `${e.x || 0}px ${e.y || 0}px` : "";
+      el.style.visibility = e.h ? "hidden" : ""; if (e.img) setPhoto(el, e.img); } };
+  hooks.push(() => setTimeout(edApply, 0));
+  const bar = document.createElement("div"); bar.className = "ed-bar"; bar.hidden = true;
+  bar.innerHTML = `<div class="ed-h"><b id="edName">Nothing selected</b><span>Tap any piece of the page to select it.</span></div>
+    <div class="ed-ctl" id="edCtl" hidden>
+      <label class="ctl">Size <output id="edSo">100%</output><input type="range" id="edS" min="40" max="220" value="100"></label>
+      <label class="ctl">Left / right <output id="edXo">0</output><input type="range" id="edX" min="-300" max="300" value="0"></label>
+      <label class="ctl">Up / down <output id="edYo">0</output><input type="range" id="edY" min="-300" max="300" value="0"></label>
+      <div class="ctl ed-ph" id="edPh" hidden>Photo<div class="ed-thumbs">${PHOTOS.map(n => `<button type="button" data-ph="${n}" style="background-image:url('../images/${n}.webp')" aria-label="${n.replace(/-/g, " ")}"></button>`).join("")}</div></div>
+      <div class="ed-acts"><button type="button" class="pill sm" id="edText">Edit words</button><button type="button" class="pill sm" id="edHide">Hide</button><button type="button" class="pill sm" id="edReset">Reset piece</button></div>
+    </div>
+    <div class="ed-foot"><button type="button" class="pill sm" id="edAll">Reset all edits</button><button type="button" class="pill sm fill" id="edDone">Done editing</button></div>`;
+  document.body.appendChild(bar);
+  let edOn = false, sel = null, selPath = "";
+  const NAMES = { IMG: "Picture", H1: "Title", H2: "Heading", H3: "Heading", H4: "Headline", H5: "Slide words", P: "Text", LI: "List line", SMALL: "Small text", B: "Words", EM: "Words" };
+  const nameOf = el => { for (const [c, n] of [["poster","Poster"],["sq","Square post"],["slide","Reel slide"],["piece","Card"],["bcell","Button card"],["idea","Idea"],["frame","Site banner"],["ticket","Voucher ticket"],["stamp","Seal"],["v-ribbon","Ribbon"],["tk-row","Ticker"],["num","Big number"],["slow-col","Slow periods list"],["pill","Button"]]) if (el.classList.contains(c)) return n; return NAMES[el.tagName] || "Piece"; };
+  const cur$ = () => ED[selPath] || (ED[selPath] = {});
+  const edSelect = el => { if (sel) sel.classList.remove("ed-sel"); sel = el; selPath = pathOf(el); el.classList.add("ed-sel");
+    const e = ED[selPath] || {}; $("#edName").textContent = nameOf(el); $("#edCtl").hidden = false;
+    $("#edS").value = e.s || 100; $("#edSo").textContent = (e.s || 100) + "%"; $("#edX").value = e.x || 0; $("#edXo").textContent = e.x || 0; $("#edY").value = e.y || 0; $("#edYo").textContent = e.y || 0;
+    $("#edHide").textContent = e.h ? "Show" : "Hide"; $("#edPh").hidden = !photoHost(el); $("#edText").hidden = !!el.querySelector("img,button,.rz,.poster,.ticket") || !el.textContent.trim(); };
+  appEl.addEventListener("mouseover", e => { if (!edOn) return; const t = e.target.closest(PICK); $$(".ed-hov").forEach(x => x.classList.remove("ed-hov")); if (t && !t.matches(NOPICK) && appEl.contains(t)) t.classList.add("ed-hov"); });
+  appEl.addEventListener("click", e => { if (!edOn) return; if (e.target.closest(NOPICK) && !e.target.closest(".ed-text")) return; if (e.target.closest("[contenteditable=true]")) return;
+    const t = e.target.closest(PICK); if (!t || t.matches(NOPICK)) return; e.preventDefault(); e.stopPropagation(); edSelect(e.altKey && t.parentElement.closest(PICK) ? t.parentElement.closest(PICK) : t); }, true);
+  const edUpd = (k, v) => { cur$()[k] = v; edSave(); edApply(); };
+  $("#edS").addEventListener("input", e => { $("#edSo").textContent = e.target.value + "%"; edUpd("s", +e.target.value); });
+  $("#edX").addEventListener("input", e => { $("#edXo").textContent = e.target.value; edUpd("x", +e.target.value); });
+  $("#edY").addEventListener("input", e => { $("#edYo").textContent = e.target.value; edUpd("y", +e.target.value); });
+  $("#edHide").addEventListener("click", () => { const h = !cur$().h; edUpd("h", h); $("#edHide").textContent = h ? "Show" : "Hide"; });
+  $("#edReset").addEventListener("click", () => { if (!sel) return; delete ED[selPath]; edSave(); sel.style.scale = sel.style.translate = sel.style.visibility = ""; render(); edSelect(byPath(selPath) || sel); toast("Piece reset"); });
+  $("#edAll").addEventListener("click", () => { ED = {}; edSave(); $$("#app [style]").forEach(x => { x.style.scale = ""; x.style.translate = ""; x.style.visibility = ""; }); render(); toast("All edits reset"); });
+  $("#edPh").addEventListener("click", e => { const b = e.target.closest("[data-ph]"); if (b && sel) edUpd("img", b.dataset.ph); });
+  $("#edText").addEventListener("click", () => { if (!sel) return; const el = sel; el.contentEditable = "true"; el.classList.add("ed-text"); el.focus();
+    const r = document.createRange(); r.selectNodeContents(el); const s2 = getSelection(); s2.removeAllRanges(); s2.addRange(r);
+    const fin = () => { el.contentEditable = "false"; el.classList.remove("ed-text"); cur$().txt = el.textContent.replace(/\s+/g, " ").trim(); edSave(); edApply(); el.removeEventListener("blur", fin); };
+    el.addEventListener("blur", fin); el.addEventListener("keydown", k => { if (k.key === "Enter") { k.preventDefault(); el.blur(); } }); });
+  const edToggle = on => { edOn = on; bar.hidden = !on; document.body.classList.toggle("ed-mode", on); $("#edBtn").textContent = on ? "Editing" : "Edit page"; if (!on && sel) { sel.classList.remove("ed-sel"); sel = null; $("#edCtl").hidden = true; $("#edName").textContent = "Nothing selected"; } };
+  $("#edBtn").addEventListener("click", () => edToggle(!edOn)); $("#edDone").addEventListener("click", () => edToggle(false));
+  addEventListener("keydown", e => { if (edOn && e.key === "Escape" && !document.activeElement.isContentEditable) edToggle(false); });
   render();
 
   $("#copyCap").addEventListener("click", () => { const t = $("#capText").textContent; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Caption copied"), () => toast("Select the caption to copy it")); });
