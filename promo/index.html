@@ -138,10 +138,10 @@ button,input{font:inherit;color:inherit}
 .frame .ticket .pill{min-height:26px;padding:0 10px;font-size:10px}
 .frame.tk .ht{bottom:auto;top:62px}
 /* 3 stamp */
-.stamp{position:absolute;right:18px;bottom:18px;width:132px;height:132px;display:grid;place-items:center;filter:drop-shadow(0 10px 22px rgba(0,0,0,.6))}
+.stamp{position:absolute;right:18px;bottom:18px;width:144px;height:144px;display:grid;place-items:center;filter:drop-shadow(0 10px 22px rgba(0,0,0,.6))}
 .stamp svg{position:absolute;inset:0;width:100%;height:100%}
 .stamp .ring{transform-origin:50% 50%;animation:spin 24s linear infinite}
-.stamp text{font:700 13.5px var(--cond);fill:var(--gold);text-transform:uppercase}
+.stamp text{font:700 12.5px var(--cond);letter-spacing:.06em;fill:var(--gold);text-transform:uppercase}
 .stamp .core{position:relative;width:54%;height:54%;border-radius:50%;display:grid;place-items:center;text-align:center;background:var(--leaf);color:var(--night);box-shadow:inset 0 0 0 1.5px rgba(11,11,12,.35),inset 0 -6px 12px rgba(80,58,10,.25)}
 .stamp .core div{display:flex;flex-direction:column;align-items:center;transform:translateY(1px)}
 .stamp .core b{display:block;font:400 25px/.85 var(--disp);letter-spacing:.01em}
@@ -437,6 +437,17 @@ button,input{font:inherit;color:inherit}
 .b-razor:hover{border-color:var(--gold)}
 
 .lay-ticket .stack::before{display:none}.lay-ticket .sb{border-top:.5cqw dashed currentColor;padding-top:4cqw;margin-top:3cqw;width:100%;max-width:none;opacity:.85}
+.slow-h{margin:clamp(48px,6vw,80px) 0 0;font:400 clamp(30px,4vw,52px)/1.05 var(--disp);text-transform:uppercase}
+.slow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,4vw,60px);margin-top:24px}
+@media (max-width:760px){.slow{grid-template-columns:minmax(0,1fr)}}
+.slow-col h4{margin:0 0 10px;font:700 14px/1.2 var(--cond);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.slow-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair)}
+.slow-list li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--hair)}
+.slow-list b{font:400 24px/1.1 var(--disp);text-transform:uppercase;padding-top:.1em}
+.slow-list span{color:var(--smoke);font-size:14px;text-align:right}
+.slow-n{margin:12px 0 0;color:var(--ash);font-size:13px}
+.slow-note{margin:24px 0 0;color:var(--smoke);font-size:14px;max-width:62ch}
+
 @media print{body *{visibility:hidden}.printing,.printing *{visibility:visible}.printing{position:fixed;inset:0;margin:auto;width:190mm;border-radius:0;box-shadow:none}body::after{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -462,7 +473,7 @@ button,input{font:inherit;color:inherit}
 <div id="app" hidden>
 <div class="ptop wrap">
   <a class="pmark" href="#top"><b>Edward Scissorhands</b><span>Promotions</span></a>
-  <nav class="pnav" aria-label="Sections"><a href="#banners">Site banners</a><a href="#buttons">Buttons</a><a href="#tickers">Tickers</a><a href="#posters">Posters</a><a href="#social">Social</a><a href="#ideas">Ideas</a></nav>
+  <nav class="pnav" aria-label="Sections"><a href="#banners">Site banners</a><a href="#buttons">Buttons</a><a href="#tickers">Tickers</a><a href="#posters">Posters</a><a href="#social">Social</a><a href="#ideas">Ideas</a><a href="#slow">Slow periods</a></nav>
   <div class="r"><a class="pill sm" href="https://claude.ai/artifact/WEvzkVL8iEUTDpna7mReZW" data-site="../brand/" target="_blank" rel="noopener">Brand guide</a><button type="button" class="pill sm" id="lock">Lock</button></div>
 </div>
 
@@ -489,7 +500,7 @@ button,input{font:inherit;color:inherit}
       <h3>Gold ribbon</h3><p class="note">A thin gold-leaf strip above the header with a slow light sweep. Always visible, never in the way, closes with one tap.</p></article>
     <article class="piece"><div class="frame tk"><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div><div class="ticket"><div class="tl"><small data-t="tag"></small><b data-t="head"></b><span class="pill fill" data-t="btn"></span></div><div class="tr"><span class="gold" data-t="pctoff"></span></div></div></div>
       <h3>Voucher ticket</h3><p class="note">The gift-voucher card, floating bottom-left after a few seconds. Feels like being handed something. Best for a short campaign.</p></article>
-    <article class="piece"><div class="frame"><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div><div class="stamp"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="98" fill="rgba(11,11,12,.78)"/><circle cx="100" cy="100" r="96" fill="none" stroke="rgba(216,178,74,.7)" stroke-width="1.2"/><circle cx="100" cy="100" r="62" fill="none" stroke="rgba(216,178,74,.55)" stroke-width="1"/><g class="ring"><defs><path id="sp" d="M100,100 m-79,0 a79,79 0 1,1 158,0 a79,79 0 1,1 -158,0"/></defs><text dominant-baseline="central" textLength="496" lengthAdjust="spacing"><textPath href="#sp">New clients • First visit • New clients • First visit •</textPath></text></g></svg><div class="core"><div><b data-t="pct"></b><em>Off</em></div></div></div></div>
+    <article class="piece"><div class="frame"><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div><div class="stamp"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="98" fill="rgba(11,11,12,.78)"/><circle cx="100" cy="100" r="96" fill="none" stroke="rgba(216,178,74,.7)" stroke-width="1.2"/><circle cx="100" cy="100" r="62" fill="none" stroke="rgba(216,178,74,.55)" stroke-width="1"/><g class="ring"><defs><path id="sp" d="M100,100 m-79,0 a79,79 0 1,1 158,0 a79,79 0 1,1 -158,0"/></defs><text dominant-baseline="central" textLength="490" lengthAdjust="spacing" style="white-space:pre"><textPath href="#sp">New clients  •  First visit  •  New clients  •  First visit  •  </textPath></text></g></svg><div class="core"><div><b data-t="pct"></b><em>Off</em></div></div></div></div>
       <h3>Wax-seal stamp</h3><p class="note">A slowly turning gold seal pinned to the hero photo. Tapping it books. The most eye-catching option.</p></article>
     <article class="piece"><div class="frame tkr"><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div><div class="tick"><div><span><em data-t="pctoff"></em><b data-t="short"></b><i class="rz"></i>New clients welcome<i class="rz"></i></span><span><em data-t="pctoff"></em><b data-t="short"></b><i class="rz"></i>New clients welcome<i class="rz"></i></span></div></div></div>
       <h3>Gold ticker</h3><p class="note">A scrolling strip under the hero, using the razor icon from the brand marquee. Reads as part of the site rather than an ad.</p></article>
@@ -553,6 +564,24 @@ button,input{font:inherit;color:inherit}
     <div class="idea"><h3>Birthday month</h3><p>A free beard tidy or hot towel in the client's birthday month.</p><span class="when">All year</span></div>
     <div class="idea"><h3>Tenth cut</h3><p>Every tenth visit comes with a free upgrade. Simple to explain at the counter.</p><span class="when">All year</span></div>
   </div>
+
+  <h3 class="slow-h" id="slow">Slow periods</h3>
+  <p class="lead">From the Timesheets dashboard: the six full weeks it holds (5 Oct to 15 Nov 2026), both shops' Fresha sales together, and the barber hours rostered on each day of the week.</p>
+  <div class="slow">
+    <div class="slow-col"><h4>Quietest days</h4><ol class="slow-list">
+      <li><b>Sunday</b><span>83 barber hours a day</span></li>
+      <li><b>Tuesday</b><span>87 hours</span></li>
+      <li><b>Monday</b><span>97 hours</span></li>
+      <li><b>Wednesday</b><span>105 hours</span></li>
+    </ol><p class="slow-n">Busiest for comparison: Friday 151, Thursday 139, Saturday 131.</p></div>
+    <div class="slow-col"><h4>Quietest weeks so far</h4><ol class="slow-list">
+      <li><b>2 to 8 Nov</b><span>$52.4k, Melbourne Cup week</span></li>
+      <li><b>9 to 15 Nov</b><span>$55.1k</span></li>
+      <li><b>5 to 11 Oct</b><span>$55.3k</span></li>
+      <li><b>12 to 18 Oct</b><span>$56.5k</span></li>
+    </ol><p class="slow-n">Best week: 26 Oct to 1 Nov, $60.3k.</p></div>
+  </div>
+  <p class="slow-note">The dashboard only goes back to October, so this can't show the slowest weeks of the whole year yet. A year of weekly sales from Fresha would fill it in.</p>
   <p class="lead" style="margin-top:36px">Design references these pieces draw on:</p>
   <div class="refs"><a class="pill sm" href="https://uiverse.io/" target="_blank" rel="noopener">Uiverse</a><a class="pill sm" href="https://uiverse.io/ui/gradient-ui" target="_blank" rel="noopener">Gradients</a><a class="pill sm" href="https://reactbits.dev/" target="_blank" rel="noopener">React Bits</a><a class="pill sm" href="https://shaders.com/" target="_blank" rel="noopener">Shaders</a><a class="pill sm" href="https://21st.dev/" target="_blank" rel="noopener">21st.dev</a><a class="pill sm" href="https://www.supahero.io/" target="_blank" rel="noopener">Supahero</a></div>
 </section>
