@@ -479,6 +479,13 @@ button,input{font:inherit;color:inherit}
 .ed-foot{justify-content:flex-end;margin-top:12px;padding-top:10px;border-top:1px solid var(--hair)}
 @media (max-width:560px){.ed-ctl{grid-template-columns:minmax(0,1fr)}}
 
+.slow-yr{margin-top:24px}
+.slow-yr li{display:grid;grid-template-columns:minmax(0,1fr) 230px minmax(0,1.4fr);align-items:baseline;gap:6px 24px}
+.slow-yr .when{font:700 15px/1.3 var(--cond);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-align:left}
+.slow-yr .why{text-align:left}
+@media (max-width:760px){.slow-yr li{grid-template-columns:minmax(0,1fr) auto}.slow-yr .why{grid-column:1/-1}.slow-yr .when{text-align:right}}
+
+@media (max-width:560px){.ptop .r a.pill{display:none}.ptop .r{gap:6px}.pmark b{font-size:14px}}
 @media print{body *{visibility:hidden}.printing,.printing *{visibility:visible}.printing{position:fixed;inset:0;margin:auto;width:190mm;border-radius:0;box-shadow:none}body::after{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -597,22 +604,17 @@ button,input{font:inherit;color:inherit}
   </div>
 
   <h3 class="slow-h" id="slow">Slow periods</h3>
-  <p class="lead">From the Timesheets dashboard: the six full weeks it holds (5 Oct to 15 Nov 2026), both shops together, compared with the best week, and the barber hours rostered on each day of the week.</p>
-  <div class="slow">
-    <div class="slow-col"><h4>Quietest days</h4><ol class="slow-list">
-      <li><b>Sunday</b><span>83 barber hours a day</span></li>
-      <li><b>Tuesday</b><span>87 hours</span></li>
-      <li><b>Monday</b><span>97 hours</span></li>
-      <li><b>Wednesday</b><span>105 hours</span></li>
-    </ol><p class="slow-n">Busiest for comparison: Friday 151, Thursday 139, Saturday 131.</p></div>
-    <div class="slow-col"><h4>Quietest weeks so far</h4><ol class="slow-list">
-      <li><b>2 to 8 Nov</b><span>13% below the best week · Melbourne Cup</span></li>
-      <li><b>9 to 15 Nov</b><span>9% below</span></li>
-      <li><b>5 to 11 Oct</b><span>8% below</span></li>
-      <li><b>12 to 18 Oct</b><span>6% below</span></li>
-    </ol><p class="slow-n">Best week: 26 Oct to 1 Nov.</p></div>
-  </div>
-  <p class="slow-note">The dashboard only goes back to October, so this can't show the slowest weeks of the whole year yet. A year of weekly sales from Fresha would fill it in.</p>
+  <p class="lead">The usual quiet times of the year for a Melbourne barber, with rough dates. Good moments to switch an offer on.</p>
+  <ol class="slow-list slow-yr">
+    <li><b>After New Year</b><span class="when">2 to 20 Jan</span><span class="why">Christmas cuts are done and many people are away. The quietest stretch of the year.</span></li>
+    <li><b>Late summer</b><span class="when">Mid to late Feb</span><span class="why">Back to school and work; money is tight after the holidays.</span></li>
+    <li><b>Easter</b><span class="when">Week of Easter</span><span class="why">Long weekend and school holidays take people out of town.</span></li>
+    <li><b>Mid-winter</b><span class="when">Mid June to late July</span><span class="why">Cold, dark evenings and the July school holidays.</span></li>
+    <li><b>Grand Final week</b><span class="when">Last week of Sept</span><span class="why">Footy holiday and Grand Final weekend.</span></li>
+    <li><b>Melbourne Cup week</b><span class="when">First week of Nov</span><span class="why">Cup Day is a holiday. This one shows in your own figures as the quietest week since October.</span></li>
+    <li><b>Quiet days each week</b><span class="when">Sun, Mon and Tue</span><span class="why">The days the fewest barbers are rostered.</span></li>
+  </ol>
+  <p class="slow-note">These are typical for Melbourne, not yet checked against your own sales history. Only Melbourne Cup week and the quiet weekdays come from your dashboard so far.</p>
   <p class="lead" style="margin-top:36px">Design references these pieces draw on:</p>
   <div class="refs"><a class="pill sm" href="https://uiverse.io/" target="_blank" rel="noopener">Uiverse</a><a class="pill sm" href="https://uiverse.io/ui/gradient-ui" target="_blank" rel="noopener">Gradients</a><a class="pill sm" href="https://reactbits.dev/" target="_blank" rel="noopener">React Bits</a><a class="pill sm" href="https://shaders.com/" target="_blank" rel="noopener">Shaders</a><a class="pill sm" href="https://21st.dev/" target="_blank" rel="noopener">21st.dev</a><a class="pill sm" href="https://www.supahero.io/" target="_blank" rel="noopener">Supahero</a></div>
 </section>
