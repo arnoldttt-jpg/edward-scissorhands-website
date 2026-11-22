@@ -1,0 +1,11 @@
+{
+  // Static site served by Cloudflare Workers (assets only, no Worker code).
+  "name": "edward-scissorhands-website",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": ".",
+    "not_found_handling": "404-page"
+  },
+  // Lets Workers Builds make a preview link for every pull request.
+  "previews": {}
+}
