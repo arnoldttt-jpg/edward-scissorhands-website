@@ -1,46 +1,22 @@
 # Edward Scissorhands Barber Shop
 
-> Melbourne barber shop established in 1991, with two shops: St Kilda (190 Carlisle St) and South Melbourne (Clarendon Centre, 261 Clarendon St). Men's and boys' haircuts, fades, scissor cuts, beard trims and hot-towel shaves. Open 7 days. Walk-ins welcome; bookings are seen first.
+> Two Melbourne barber shops: St Kilda (190 Carlisle Street, since 1991) and South Melbourne (The Clarendon Centre, 261 Clarendon Street). Open 7 days. Skin fades, scissor cuts, beard trims and boys' cuts. Standard haircuts from $46. Book online through Fresha.
 
-Website: https://edwardscissorhandsbarber.com.au/
-Email: info@scissorhands.com.au
+## St Kilda
+- [St Kilda home](https://edwardscissorhandsbarber.com.au/st-kilda/): 190 Carlisle Street, St Kilda VIC 3182, corner of Chapel Street, near Balaclava station. Walk-ins welcome 7 days. Rated 5.0 on Fresha from 3,575 reviews (November 2026), the most-reviewed barber in St Kilda and Balaclava on Fresha; 4.8 on Google from 790+ reviews (November 2026).
+- [Services and prices](https://edwardscissorhandsbarber.com.au/st-kilda/services/)
+- [FAQ](https://edwardscissorhandsbarber.com.au/st-kilda/faq/): booking, walk-ins, parking, payment, kids' cuts
+- [Contact and opening hours](https://edwardscissorhandsbarber.com.au/st-kilda/contact/): reception 0485 071 024 (any hour, AI reception), shop (03) 9534 4546
+- [Our barbers and story](https://edwardscissorhandsbarber.com.au/st-kilda/about/)
 
-## St Kilda shop
-- Business: Edward Scissorhands Pty Ltd, ABN 37 415 825 760
-- Address: 190 Carlisle St, St Kilda VIC 3182 (corner of Carlisle & Chapel St, near Balaclava station)
-- Phone: 0485 071 024 (reception, answers any time)
-- Shop floor: (03) 9534 4546 (opening hours)
-- Hours: Mon–Fri 9am–7pm, Sat–Sun 9am–5pm
-- Serves: St Kilda, Balaclava, Elwood, St Kilda East, Windsor, Ripponlea
-- Book online: https://l.fresha.com/0dwd7jy71
-- Google reviews: https://g.page/r/CfLTv8yacJbXEBM/review
-- Page: https://edwardscissorhandsbarber.com.au/st-kilda/
+## South Melbourne
+- [South Melbourne home](https://edwardscissorhandsbarber.com.au/south-melbourne/): The Clarendon Centre, 261 Clarendon Street, South Melbourne VIC 3205, opposite Coles. Bookings recommended; walk-ins when a chair is free.
+- [Services and prices](https://edwardscissorhandsbarber.com.au/south-melbourne/services/)
+- [FAQ](https://edwardscissorhandsbarber.com.au/south-melbourne/faq/)
+- [Contact and opening hours](https://edwardscissorhandsbarber.com.au/south-melbourne/contact/): shop (03) 9690 1604
+- [Our barbers and story](https://edwardscissorhandsbarber.com.au/south-melbourne/about/)
 
-### St Kilda prices (AUD, October 2026)
-- Standard haircut: from $46 (prices vary by barber, day of the week and payment method; cash discount on weekdays)
-- Skin fade: $58
-- Scissor cut: $55
-- Buzz cut: $29
-- Boys' cut (under 14): $40
-- Beard trim / line-up: from $30
-- Hot-towel razor shave: $55
-
-## South Melbourne shop
-- Business: Barber Brothers Pty Ltd T/A Edward Scissorhands, ABN 33 708 458 049
-- Address: Clarendon Centre, 261 Clarendon St, South Melbourne VIC 3205 (opposite Coles)
-- Phone: (03) 9690 1604
-- Hours: Mon–Fri 9am–7pm, Sat–Sun 9am–5pm
-- Serves: South Melbourne, Albert Park, Middle Park, Port Melbourne, Southbank
-- Book online: https://l.fresha.com/06wr7vyk1
-- Google reviews: https://g.page/r/Ca3UpsYTsRT8EBM/review
-- Page: https://edwardscissorhandsbarber.com.au/south-melbourne/
-
-## Key pages
-- [St Kilda services & prices](https://edwardscissorhandsbarber.com.au/st-kilda/services/)
-- [South Melbourne services](https://edwardscissorhandsbarber.com.au/south-melbourne/services/)
-- [Locations](https://edwardscissorhandsbarber.com.au/st-kilda/locations/)
-- [FAQ](https://edwardscissorhandsbarber.com.au/st-kilda/faq/)
-- [About](https://edwardscissorhandsbarber.com.au/st-kilda/about/)
-- [Contact](https://edwardscissorhandsbarber.com.au/st-kilda/contact/)
-- [Careers](https://edwardscissorhandsbarber.com.au/st-kilda/careers/)
-- [Sitemap](https://edwardscissorhandsbarber.com.au/sitemap.xml)
+## Optional
+- [Haircut gallery](https://edwardscissorhandsbarber.com.au/st-kilda/gallery/)
+- [Barber journal](https://edwardscissorhandsbarber.com.au/south-melbourne/blog/)
+- [Locations and nearby suburbs](https://edwardscissorhandsbarber.com.au/st-kilda/locations/)
