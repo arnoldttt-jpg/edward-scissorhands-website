@@ -492,6 +492,11 @@ button,input{font:inherit;color:inherit}
 .lay-seal .num,.lay-minimal .num{padding:0;margin-top:0;margin-bottom:0}
 .lay-crest .bd{margin-bottom:3cqw}
 
+/* ticket button: on hover, Book now inflates smoothly as the gold slides under it */
+.b-tkt>span{transform-origin:50% 50%;will-change:transform;transition:color .5s ease .1s,transform .75s cubic-bezier(.34,1.45,.5,1),letter-spacing .75s cubic-bezier(.34,1.45,.5,1)}
+.b-tkt:hover>span,.b-tkt:focus-visible>span{transform:scale(1.26)}
+@media (prefers-reduced-motion:reduce){.b-tkt:hover>span{transform:none}}
+
 @media print{body *{visibility:hidden}.printing,.printing *{visibility:visible}.printing{position:fixed;inset:0;margin:auto;width:190mm;border-radius:0;box-shadow:none}body::after{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
