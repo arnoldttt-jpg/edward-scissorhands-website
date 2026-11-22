@@ -99,6 +99,16 @@ dl.kv dt{font:700 12px/1.6 var(--cond);letter-spacing:.14em;text-transform:upper
 dl.kv dd{margin:0;color:var(--smoke);font-size:14.5px}
 dl.kv dd b{color:var(--bone);font-weight:600}
 /* motifs */
+.tools-card{grid-column:1/-1}
+.tools-card .motif-stage{min-height:170px}
+.tools-card p{max-width:70ch}
+.tools{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:22px clamp(22px,4vw,56px);width:100%}
+.tools figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px}
+.tools .tl{display:block;height:56px;background:linear-gradient(110deg,#9c7a1c 0%,#d8b24a 30%,#fbecb8 45%,#d8b24a 60%,#9c7a1c 100%);background-size:300% 100%;background-position:100% 0;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;filter:drop-shadow(0 0 6px rgba(216,178,74,.35));animation:toolShine 6s cubic-bezier(.45,0,.55,1) var(--d,0s) infinite}
+.tools figcaption{font:600 11px/1 var(--cond);letter-spacing:.16em;text-transform:uppercase;color:var(--smoke)}
+@media (max-width:560px){.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 10px}.tools .tl{height:46px;justify-self:center}}
+@keyframes toolShine{0%,55%{background-position:100% 0}85%,100%{background-position:0% 0}}
+@media (prefers-reduced-motion:reduce){.tools .tl{animation:none}}
 .motif-stage{display:grid;place-items:center;background:var(--badge-field);border-radius:var(--rt);min-height:150px;margin-bottom:16px;padding:18px}
 .motif-stage img{max-width:70%;max-height:120px;object-fit:contain}
 .razor{width:120px;aspect-ratio:303/220;background:linear-gradient(110deg,#9c7a1c 0%,#d8b24a 30%,#fbecb8 45%,#d8b24a 60%,#9c7a1c 100%);-webkit-mask:url("../images/icon-straight-razor.webp") center/contain no-repeat;mask:url("../images/icon-straight-razor.webp") center/contain no-repeat;filter:drop-shadow(0 0 6px rgba(216,178,74,.35))}
@@ -457,6 +467,11 @@ body.qr-mode .totop,body.sheet-open .totop{opacity:0!important;visibility:hidden
   <div class="hdiv"><i></i><span>06 · Motifs</span></div>
   <h2>The tools are the ornaments.</h2>
   <div class="grid g3">
+    <div class="card tools-card">
+      <div class="motif-stage"><div class="tools"><figure><span class="tl" role="img" aria-label="Razor icon in gold" style="--m:url('../images/icon-straight-razor.webp');aspect-ratio:303/220;--d:0.00s"></span><figcaption>Razor</figcaption></figure><figure><span class="tl" role="img" aria-label="Scissors icon in gold" style="--m:url('../images/shears-icon.png');aspect-ratio:135/240;--d:0.35s"></span><figcaption>Scissors</figcaption></figure><figure><span class="tl" role="img" aria-label="Comb icon in gold" style="--m:url('../images/icon-comb.webp');aspect-ratio:241/220;--d:0.70s"></span><figcaption>Comb</figcaption></figure><figure><span class="tl" role="img" aria-label="Clippers icon in gold" style="--m:url('../images/icon-clippers.webp');aspect-ratio:203/240;--d:1.05s"></span><figcaption>Clippers</figcaption></figure><figure><span class="tl" role="img" aria-label="Hairdryer icon in gold" style="--m:url('../images/icon-hairdryer.webp');aspect-ratio:248/220;--d:1.40s"></span><figcaption>Hairdryer</figcaption></figure><figure><span class="tl" role="img" aria-label="Spray bottle icon in gold" style="--m:url('../images/icon-spray-bottle.webp');aspect-ratio:167/240;--d:1.75s"></span><figcaption>Spray bottle</figcaption></figure></div></div>
+      <h3>The tool set</h3>
+      <p>Six trade tools drawn in the same weight: razor, scissors, comb, clippers, hairdryer and spray bottle. Always gold with the shine passing through, one after another. Use them as list markers, perks and section ornaments; never recolour or outline them.</p>
+    </div>
     <div class="card">
       <div class="motif-stage"><span class="razor" role="img" aria-label="Straight razor icon in gold"></span></div>
       <h3>The razor</h3>

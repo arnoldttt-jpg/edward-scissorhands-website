@@ -27,7 +27,7 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--night);color:var(--bone);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:clip}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;opacity:.18;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-img{display:block;max-width:100%}
+img{display:block;max-width:100%;height:auto}
 a{color:inherit}
 button,input{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
@@ -93,7 +93,7 @@ button,input{font:inherit;color:inherit}
 .ticket .tl b{display:block;margin:12px 0 8px;font:400 clamp(26px,3.2vw,40px)/1 var(--disp);text-transform:uppercase}
 .ticket .tl p{margin:0 0 16px;color:var(--smoke);font-size:14px;max-width:34ch}
 .ticket .tr{position:relative;width:clamp(96px,11vw,140px);border-left:2px dashed rgba(216,178,74,.45);display:grid;place-items:center;background:linear-gradient(180deg,rgba(216,178,74,.09),transparent)}
-.ticket .tr span{transform:rotate(-90deg);white-space:nowrap;font:400 clamp(40px,5vw,62px)/1 var(--disp)}
+.ticket .tr>span{transform:rotate(-90deg);white-space:nowrap;font:400 clamp(34px,4vw,52px)/1 var(--disp);text-transform:uppercase;letter-spacing:.02em}
 .ticket .tr::before,.ticket .tr::after{content:"";position:absolute;left:-10px;width:18px;height:18px;border-radius:50%;background:var(--night)}
 .ticket .tr::before{top:-9px}.ticket .tr::after{bottom:-9px}
 .hero .ticket{transform:rotate(-2.5deg);animation:float 7s ease-in-out infinite}
@@ -117,7 +117,7 @@ button,input{font:inherit;color:inherit}
 .frame::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.25) 40%,rgba(0,0,0,.8));z-index:-1}
 .frame .hd{position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:rgba(11,11,12,.72);font:700 11px var(--cond);letter-spacing:.14em;text-transform:uppercase}
 .frame .hd i{font-style:normal;padding:5px 10px;border-radius:99px;background:var(--bone);color:var(--night)}
-.frame .ht{position:absolute;left:16px;bottom:18px;font:400 30px/.95 var(--disp);text-transform:uppercase}
+.frame .ht{position:absolute;left:16px;bottom:18px;font:400 30px/1.02 var(--disp);text-transform:uppercase}
 .frame.ribbon .hd{top:30px}
 /* 1 ribbon */
 .v-ribbon{position:absolute;inset:0 0 auto;height:30px;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--leaf);color:var(--night);font:700 11px/1 var(--cond);letter-spacing:.2em;text-transform:uppercase;overflow:hidden;white-space:nowrap}
@@ -132,16 +132,18 @@ button,input{font:inherit;color:inherit}
 .frame .ticket .tl b{font-size:18px;margin:6px 0 8px}
 .frame .ticket .tl p{display:none}
 .frame .ticket .tr{width:64px}
-.frame .ticket .tr span{font-size:26px}
+.frame .ticket .tr>span{font-size:26px}
 .frame .ticket .pill{min-height:26px;padding:0 10px;font-size:10px}
 .frame.tk .ht{bottom:auto;top:62px}
 /* 3 stamp */
-.stamp{position:absolute;right:16px;bottom:16px;width:112px;height:112px;display:grid;place-items:center}
-.stamp svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 18s linear infinite}
-.stamp text{font:700 10.5px var(--cond);letter-spacing:.3em;fill:var(--gold);text-transform:uppercase}
-.stamp .core{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;text-align:center;background:var(--leaf);color:var(--night);box-shadow:0 8px 22px rgba(0,0,0,.6)}
-.stamp .core b{display:block;font:400 22px/.9 var(--disp)}
-.stamp .core em{font:700 8px var(--cond);font-style:normal;letter-spacing:.2em}
+.stamp{position:absolute;right:18px;bottom:18px;width:132px;height:132px;display:grid;place-items:center;filter:drop-shadow(0 10px 22px rgba(0,0,0,.6))}
+.stamp svg{position:absolute;inset:0;width:100%;height:100%}
+.stamp .ring{transform-origin:50% 50%;animation:spin 24s linear infinite}
+.stamp text{font:700 13.5px var(--cond);fill:var(--gold);text-transform:uppercase}
+.stamp .core{position:relative;width:54%;height:54%;border-radius:50%;display:grid;place-items:center;text-align:center;background:var(--leaf);color:var(--night);box-shadow:inset 0 0 0 1.5px rgba(11,11,12,.35),inset 0 -6px 12px rgba(80,58,10,.25)}
+.stamp .core div{display:flex;flex-direction:column;align-items:center;transform:translateY(1px)}
+.stamp .core b{display:block;font:400 25px/.85 var(--disp);letter-spacing:.01em}
+.stamp .core em{display:block;margin-top:4px;padding:3px 0 0 .26em;border-top:1.5px solid rgba(11,11,12,.7);font:700 12px/1 var(--cond);font-style:normal;letter-spacing:.26em;text-transform:uppercase}
 @keyframes spin{to{transform:rotate(360deg)}}
 /* 4 ticker */
 .frame .tick{position:absolute;left:0;right:0;bottom:0}
@@ -150,17 +152,18 @@ button,input{font:inherit;color:inherit}
 /* Tickers */
 .tick{overflow:hidden;padding:12px 0;border-block:1px solid rgba(216,178,74,.35);background:rgba(216,178,74,.07)}
 .tick>div{display:flex;width:max-content;animation:marq 26s linear infinite}
-.tick span{display:flex;align-items:center;gap:26px;padding-right:26px;font:400 20px/1 var(--disp);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.tick>div>span{display:flex;align-items:center;gap:26px;padding-right:26px;font:400 20px/1 var(--disp);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
 .tick em{font-style:normal;background:var(--leaf);-webkit-background-clip:text;background-clip:text;color:transparent}
-.rz{display:inline-block;width:1.1em;height:.8em;background:var(--gold);-webkit-mask:url(../images/icon-straight-razor.webp) center/contain no-repeat;mask:url(../images/icon-straight-razor.webp) center/contain no-repeat}
+.rz{display:inline-block;width:1.1em;height:.8em;background:linear-gradient(110deg,#9c7a1c 0%,#d8b24a 30%,#fbecb8 45%,#d8b24a 60%,#9c7a1c 100%);background-size:300% 100%;background-position:100% 0;animation:razorShine 6s cubic-bezier(.45,0,.55,1) infinite;filter:drop-shadow(0 0 6px rgba(216,178,74,.35));-webkit-mask:url(../images/icon-straight-razor.webp) center/contain no-repeat;mask:url(../images/icon-straight-razor.webp) center/contain no-repeat}
+@keyframes razorShine{0%,55%{background-position:100% 0}85%,100%{background-position:0% 0}}
 @keyframes marq{to{transform:translateX(-50%)}}
-.tick.big span{font-size:clamp(38px,6vw,76px);gap:40px;padding-right:40px}
-.tick.outline span{-webkit-text-stroke:1px rgba(242,240,235,.55);color:transparent}
+.tick.big>div>span{font-size:clamp(38px,6vw,76px);gap:40px;padding-right:40px}
+.tick.outline>div>span{-webkit-text-stroke:1px rgba(242,240,235,.55);color:transparent}
 .tick.outline em{-webkit-text-stroke:0}
 .tick.rev>div{animation-direction:reverse}
-.tick.solid{background:var(--leaf);border:0}
-.tick.solid span{color:var(--night)}
-.tick.solid .rz{background:var(--night)}
+.tick.solid{border:0;padding:14px 0;background:linear-gradient(180deg,rgba(255,248,220,.35),transparent 45%,rgba(80,58,10,.25)),linear-gradient(100deg,#b38d2a,#d8b24a 25%,#ecd48a 50%,#d8b24a 75%,#b38d2a);box-shadow:inset 0 1px 0 rgba(255,246,210,.6),inset 0 -1px 0 rgba(60,40,5,.5)}
+.tick.solid>div>span{color:#0d0c0a;letter-spacing:.05em;text-shadow:0 1px 0 rgba(255,245,210,.35)}
+.tick.solid .rz{width:1.7em;height:1.15em;background:#0d0c0a;animation:none;filter:none}
 .tick.solid em{background:none;color:var(--night);-webkit-text-fill-color:var(--night)}
 .tickstack{display:grid;gap:14px;margin-top:clamp(28px,4vw,48px)}
 
@@ -179,18 +182,21 @@ button,input{font:inherit;color:inherit}
 @property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
 @keyframes run{to{--a:360deg}}
 .b-tkt{display:inline-grid;grid-template-columns:auto auto;align-items:stretch;border-radius:10px;overflow:hidden;border:0;padding:0;cursor:pointer;background:none;box-shadow:0 0 0 1px rgba(216,178,74,.5)}
-.b-tkt span{display:flex;align-items:center;padding:0 18px;min-height:52px;font:700 14px var(--cond);letter-spacing:.14em;text-transform:uppercase;background:#16130f}
-.b-tkt b{display:flex;align-items:center;padding:0 14px;border-left:2px dashed rgba(11,11,12,.6);background:var(--leaf);color:var(--night);font:400 20px var(--disp)}
-.b-tkt:hover span{background:#211c15}
+.b-tkt>span{display:flex;align-items:center;padding:0 18px;min-height:52px;font:700 14px var(--cond);letter-spacing:.14em;text-transform:uppercase;background:#16130f}
+.b-tkt b{text-transform:uppercase;display:block;line-height:52px;white-space:nowrap;padding:0 14px;border-left:2px dashed rgba(11,11,12,.6);background:var(--leaf);color:var(--night);font:400 20px var(--disp)}
+.b-tkt:hover>span{background:#211c15}
 .b-razor{display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 26px 0 22px;border-radius:999px;border:1px solid rgba(216,178,74,.55);background:none;color:var(--bone);font:700 14px var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;overflow:hidden}
 .b-razor .rz{transition:transform .5s cubic-bezier(.22,.8,.2,1)}
 .b-razor:hover .rz{transform:translateX(6px) rotate(-12deg)}
 .b-glow{min-height:52px;padding:0 28px;border-radius:999px;border:0;background:var(--bone);color:var(--night);font:700 14px var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;animation:glow 2.6s ease-in-out infinite}
 @keyframes glow{50%{box-shadow:0 0 0 8px rgba(216,178,74,.18),0 0 34px rgba(216,178,74,.5)}}
-.b-seal{width:96px;height:96px;border-radius:50%;border:0;cursor:pointer;background:var(--leaf);color:var(--night);display:grid;place-items:center;text-align:center;box-shadow:inset 0 0 0 4px rgba(0,0,0,.18),0 10px 26px rgba(0,0,0,.6);transition:transform .35s cubic-bezier(.22,.8,.2,1)}
-.b-seal:hover{transform:rotate(-10deg) scale(1.05)}
-.b-seal b{display:block;font:400 26px/.9 var(--disp)}
-.b-seal i{font:700 9px var(--cond);font-style:normal;letter-spacing:.2em;text-transform:uppercase}
+.b-seal{position:relative;width:112px;height:112px;border-radius:50%;border:0;padding:0;cursor:pointer;background:var(--leaf);color:var(--night);display:grid;place-items:center;text-align:center;
+ box-shadow:inset 0 0 0 5px rgba(255,240,200,.18),inset 0 0 0 6px rgba(11,11,12,.45),inset 0 -8px 14px rgba(80,58,10,.28),0 12px 28px rgba(0,0,0,.6);transition:transform .35s cubic-bezier(.22,.8,.2,1)}
+.b-seal::before{content:"";position:absolute;inset:11px;border-radius:50%;border:1px dashed rgba(11,11,12,.45)}
+.b-seal:hover{transform:rotate(-8deg) scale(1.05)}
+.b-seal>span{position:relative;display:flex;flex-direction:column;align-items:center}
+.b-seal b{display:block;font:400 34px/.85 var(--disp);letter-spacing:.01em}
+.b-seal i{display:block;margin-top:6px;padding:4px 0 0 .3em;border-top:1.5px solid rgba(11,11,12,.7);font:700 14px/1 var(--cond);font-style:normal;letter-spacing:.3em;text-transform:uppercase}
 
 /* Posters (A4, 1:1.414) */
 .poster{position:relative;aspect-ratio:1/1.414;border-radius:6px;overflow:hidden;color:var(--bone);background:var(--night);box-shadow:0 30px 60px -30px rgba(0,0,0,.9),0 0 0 1px var(--hair);container-type:inline-size}
@@ -198,12 +204,12 @@ button,input{font:inherit;color:inherit}
 .po-a{background:radial-gradient(70% 45% at 50% 30%,rgba(216,178,74,.18),transparent 70%),var(--night)}
 .po-a img{width:46cqw;margin:0 auto}
 .po-a .big{margin:auto 0 0;text-align:center;font:400 44cqw/.8 var(--disp)}
-.po-a .big small{display:block;font-size:13cqw;letter-spacing:.06em;margin-top:2cqw}
+.po-a .big small{display:block;font-size:8.4cqw;line-height:1;letter-spacing:.04em;text-transform:uppercase;margin-top:3cqw;white-space:nowrap}
 .po-a p{margin:5cqw 0 0;text-align:center;font:700 4.2cqw/1.3 var(--cond);letter-spacing:.24em;text-transform:uppercase;color:var(--smoke)}
 .po-b .ph{position:absolute;inset:0 0 38%;background:url(../images/st-kilda-swept-back-scissor-cut-fade.webp) center 25%/cover;filter:grayscale(1) contrast(1.1)}
 .po-b .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,var(--night))}
 .po-b .pp{justify-content:flex-end}
-.po-b h4{margin:0;font:400 15cqw/.86 var(--disp);text-transform:uppercase}
+.po-b h4{margin:0;font:400 14cqw/.98 var(--disp);text-transform:uppercase}
 .po-b p{margin:4cqw 0 6cqw;color:var(--smoke);font-size:3.6cqw}
 .po-b .bar{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(216,178,74,.5);padding-top:4cqw;font:700 3.4cqw var(--cond);letter-spacing:.2em;text-transform:uppercase}
 .po-b .bar b{font:400 9cqw/1 var(--disp);letter-spacing:0}
@@ -219,13 +225,13 @@ button,input{font:inherit;color:inherit}
 .sq .in{position:absolute;inset:0;padding:8cqw;display:flex;flex-direction:column}
 .sq-a{background:radial-gradient(60% 50% at 70% 20%,rgba(216,178,74,.25),transparent 70%),var(--night)}
 .sq-a b{margin-top:auto;font:400 40cqw/.8 var(--disp)}
-.sq-a span{font:400 9cqw/1 var(--disp);text-transform:uppercase;margin-top:3cqw}
+.sq-a .in>span{font:400 9cqw/1 var(--disp);text-transform:uppercase;margin-top:3cqw}
 .sq-a small{font:700 3.6cqw var(--cond);letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
 .sq-b{background:url(../images/edward-scissorhands-barber-shop-st-kilda.webp) center/cover}
-.sq-b::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.85))}
+.sq-b::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.15) 20%,rgba(0,0,0,.72) 55%,rgba(0,0,0,.92))}
 .sq-b .in{justify-content:flex-end}
-.sq-b h4{margin:0;font:400 13cqw/.9 var(--disp);text-transform:uppercase}
-.sq-b p{margin:3cqw 0 0;font:700 3.8cqw var(--cond);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.sq-b h4{margin:0;font:400 12cqw/1.02 var(--disp);letter-spacing:.01em;filter:drop-shadow(0 2px 10px rgba(0,0,0,.6));text-transform:uppercase}
+.sq-b p{margin:4cqw 0 0;font:700 3.8cqw var(--cond);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
 .sq-c{background:var(--night);display:grid;place-items:center}
 .sq-c .in{align-items:center;justify-content:center;text-align:center;gap:3cqw}
 .sq-c img{width:40cqw}
@@ -236,7 +242,7 @@ button,input{font:inherit;color:inherit}
 .slide{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;container-type:inline-size;scroll-snap-align:start;box-shadow:0 0 0 1px var(--hair);background:var(--night)}
 .slide .in{position:absolute;inset:0;padding:9cqw;display:flex;flex-direction:column;justify-content:flex-end}
 .slide .t{position:absolute;top:7cqw;left:9cqw;font:700 6cqw var(--cond);letter-spacing:.16em;color:var(--smoke)}
-.slide h5{margin:0;font:400 15cqw/.9 var(--disp);text-transform:uppercase}
+.slide h5{margin:0;font:400 15cqw/1 var(--disp);text-transform:uppercase}
 .slide p{margin:4cqw 0 0;font-size:6cqw;line-height:1.35;color:var(--smoke)}
 .s1{background:url(../images/st-kilda-swept-back-scissor-cut-fade.webp) center/cover}
 .s1::before,.s3::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.85))}
@@ -262,7 +268,14 @@ button,input{font:inherit;color:inherit}
 .foot{padding-block:40px 60px;border-top:1px solid var(--hair);color:var(--ash);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;z-index:250;padding:10px 18px;border-radius:99px;background:var(--bone);color:var(--night);font:600 14px var(--body);transition:opacity .25s,transform .25s;pointer-events:none}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-@media (max-width:560px){.frame .ht{font-size:22px}.frame.tk .ht{top:54px}.stamp{transform:scale(.8);transform-origin:100% 100%}.v-ribbon>span:nth-child(2){display:none}.v-ribbon{gap:7px;letter-spacing:.12em}}
+
+/* The % sign sits smaller, top-aligned to the numbers, so the number leads */
+.pc{font-size:.56em;vertical-align:.34em;line-height:0;margin-left:.02em;letter-spacing:0}
+/* Grain on white, as on the site: display type gets fine grain inside the letters, white buttons get warm paper grain */
+.hero h1,.sec h2,.ticket .tl b,.frame .ht,.po-b h4,.sq-a .in>span,.sq-b h4,.sq-c h4,.slide:not(.s4) h5:not(.gold),.idea h3,.reel+.cap~h3,#social>h3,.tick:not(.solid):not(.outline)>div>span{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .24 0 0 0 0 .24 0 0 0 0 .24 0 0 0 .8 -.08'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/120px 120px repeat,#fff;-webkit-background-clip:text;background-clip:text;color:transparent}
+.pill.fill,.b-glow,.frame .hd i{background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.15) 48%,transparent 54%,rgba(120,96,50,.1)),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/140px 140px repeat,#f2efe7;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -3px 8px rgba(110,88,45,.16),0 10px 24px -12px rgba(0,0,0,.75)}
+.pill.fill:hover{background:var(--leaf);color:var(--night)}
+@media (max-width:560px){.frame .ht{font-size:22px}.frame.tk .ht{top:54px}.stamp{transform:scale(.78);transform-origin:100% 100%}.v-ribbon>span:nth-child(2){display:none}.v-ribbon{gap:7px;letter-spacing:.12em}}
 @media print{body *{visibility:hidden}.printing,.printing *{visibility:visible}.printing{position:fixed;inset:0;margin:auto;width:190mm;border-radius:0;box-shadow:none}body::after{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -311,11 +324,11 @@ button,input{font:inherit;color:inherit}
   <h2 id="bH">Site banners.</h2>
   <p class="lead">Four ways to show the offer on the website. Each one can be switched on for a while and off again; the ribbon is the quietest, the stamp the most playful.</p>
   <div class="board b2">
-    <article class="piece"><div class="frame ribbon"><div class="v-ribbon"><span class="rz" style="background:var(--night)"></span><span>New clients</span><b data-t="pctoff"></b><span data-t="short"></span><u data-t="btn"></u></div><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div></div>
+    <article class="piece"><div class="frame ribbon"><div class="v-ribbon"><span class="rz" style="background:var(--night);animation:none;filter:none"></span><span>New clients</span><b data-t="pctoff"></b><span data-t="short"></span><u data-t="btn"></u></div><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div></div>
       <h3>Gold ribbon</h3><p class="note">A thin gold-leaf strip above the header with a slow light sweep. Always visible, never in the way, closes with one tap.</p></article>
     <article class="piece"><div class="frame tk"><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div><div class="ticket"><div class="tl"><small data-t="tag"></small><b data-t="head"></b><span class="pill fill" data-t="btn"></span></div><div class="tr"><span class="gold" data-t="pctoff"></span></div></div></div>
       <h3>Voucher ticket</h3><p class="note">The gift-voucher card, floating bottom-left after a few seconds. Feels like being handed something. Best for a short campaign.</p></article>
-    <article class="piece"><div class="frame"><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div><div class="stamp"><svg viewBox="0 0 112 112" aria-hidden="true"><defs><path id="sp" d="M56,56 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/></defs><text><textPath href="#sp">First visit · New clients · First visit ·</textPath></text></svg><div class="core"><div><b data-t="pct"></b><em>Off</em></div></div></div></div>
+    <article class="piece"><div class="frame"><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div><div class="stamp"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="98" fill="rgba(11,11,12,.78)"/><circle cx="100" cy="100" r="96" fill="none" stroke="rgba(216,178,74,.7)" stroke-width="1.2"/><circle cx="100" cy="100" r="62" fill="none" stroke="rgba(216,178,74,.55)" stroke-width="1"/><g class="ring"><defs><path id="sp" d="M100,100 m-79,0 a79,79 0 1,1 158,0 a79,79 0 1,1 -158,0"/></defs><text dominant-baseline="central" textLength="496" lengthAdjust="spacing"><textPath href="#sp">New clients • First visit • New clients • First visit •</textPath></text></g></svg><div class="core"><div><b data-t="pct"></b><em>Off</em></div></div></div></div>
       <h3>Wax-seal stamp</h3><p class="note">A slowly turning gold seal pinned to the hero photo. Tapping it books. The most eye-catching option.</p></article>
     <article class="piece"><div class="frame tkr"><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div><div class="tick"><div><span><em data-t="pctoff"></em><b data-t="short"></b><i class="rz"></i>New clients welcome<i class="rz"></i></span><span><em data-t="pctoff"></em><b data-t="short"></b><i class="rz"></i>New clients welcome<i class="rz"></i></span></div></div></div>
       <h3>Gold ticker</h3><p class="note">A scrolling strip under the hero, using the razor icon from the brand marquee. Reads as part of the site rather than an ad.</p></article>
@@ -424,8 +437,9 @@ button,input{font:inherit;color:inherit}
   const fill = s => String(s).replace(/\{pct\}/g, O.pct);
   const render = () => {
     const T = { pct: O.pct + "%", pctoff: O.pct + "% off", head: fill(O.head), sub: fill(O.sub), btn: fill(O.btn), tag: "New client offer", short: "your first service" };
-    $$("[data-t]").forEach(el => { const v = T[el.dataset.t]; if (v != null) el.textContent = v; });
-    $("#oPct").textContent = O.pct + "%";
+    const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" })[c]);
+    $$("[data-t]").forEach(el => { const v = T[el.dataset.t]; if (v == null) return; if (el.tagName === "TEXTAREA" || el.tagName === "INPUT") el.value = v; else el.innerHTML = esc(v).replace(/(\d)%/g, '$1<span class="pc">%</span>'); });
+    $("#oPct").innerHTML = O.pct + '<span class="pc">%</span>';
     $("#capText").textContent = `New here? ${fill(O.head)}.\n${fill(O.sub)}\nEdward Scissorhands Barber Shop, St Kilda and South Melbourne. Since 1991.\nTap the link in bio to book.`;
   };
   $("#fPct").value = O.pct; $("#fHead").value = O.head; $("#fSub").value = O.sub; $("#fBtn").value = O.btn;
