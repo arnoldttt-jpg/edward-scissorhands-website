@@ -11,4 +11,51 @@
 /qr                      /south-melbourne/qr/      302
 /QR                      /south-melbourne/qr/      302
 
+
+# shop pages typed with capitals, no hyphen or a short form go to the right shop (web addresses are case-sensitive)
+/stkilda                /st-kilda/          301
+/stkilda/*              /st-kilda/:splat    301
+/STKILDA                /st-kilda/          301
+/STKILDA/*              /st-kilda/:splat    301
+/StKilda                /st-kilda/          301
+/StKilda/*              /st-kilda/:splat    301
+/Stkilda                /st-kilda/          301
+/Stkilda/*              /st-kilda/:splat    301
+/ST-KILDA               /st-kilda/          301
+/ST-KILDA/*             /st-kilda/:splat    301
+/St-Kilda               /st-kilda/          301
+/St-Kilda/*             /st-kilda/:splat    301
+/St-kilda               /st-kilda/          301
+/St-kilda/*             /st-kilda/:splat    301
+/st_kilda               /st-kilda/          301
+/st_kilda/*             /st-kilda/:splat    301
+/ST_KILDA               /st-kilda/          301
+/ST_KILDA/*             /st-kilda/:splat    301
+/st.kilda               /st-kilda/          301
+/st.kilda/*             /st-kilda/:splat    301
+/southmelbourne         /south-melbourne/          301
+/southmelbourne/*       /south-melbourne/:splat    301
+/SOUTHMELBOURNE         /south-melbourne/          301
+/SOUTHMELBOURNE/*       /south-melbourne/:splat    301
+/SouthMelbourne         /south-melbourne/          301
+/SouthMelbourne/*       /south-melbourne/:splat    301
+/Southmelbourne         /south-melbourne/          301
+/Southmelbourne/*       /south-melbourne/:splat    301
+/SOUTH-MELBOURNE        /south-melbourne/          301
+/SOUTH-MELBOURNE/*      /south-melbourne/:splat    301
+/South-Melbourne        /south-melbourne/          301
+/South-Melbourne/*      /south-melbourne/:splat    301
+/South-melbourne        /south-melbourne/          301
+/South-melbourne/*      /south-melbourne/:splat    301
+/south_melbourne        /south-melbourne/          301
+/south_melbourne/*      /south-melbourne/:splat    301
+/sthmelb                /south-melbourne/          301
+/sthmelb/*              /south-melbourne/:splat    301
+/STHMELB                /south-melbourne/          301
+/STHMELB/*              /south-melbourne/:splat    301
+/sth-melb               /south-melbourne/          301
+/sth-melb/*             /south-melbourne/:splat    301
+/southmelb              /south-melbourne/          301
+/southmelb/*            /south-melbourne/:splat    301
+
 # every page is its own ready-made file; anything else gets the 404 page
