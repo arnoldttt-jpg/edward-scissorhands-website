@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Promotions — Edward Scissorhands Barber Shop</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&family=Herr+Von+Muellerhoff&display=swap">
+<style>
+/* Edward Scissorhands promotions: a private pin-up board for offers. One offer, typed once, shown on every piece. */
+:root{
+  --night:#0b0b0c; --coal:#141414; --field:#0c0a08;
+  --bone:#f2f0eb; --smoke:#a3a09a; --ash:#6f6c66;
+  --gold:#d8b24a; --gold-deep:#9c7a1c; --gold-hi:#fbecb8;
+  --hair:rgba(255,255,255,.1);
+  --disp:"Anton","Impact","Arial Narrow Bold",sans-serif;
+  --cond:"Barlow Condensed","Arial Narrow",sans-serif;
+  --body:"Inter","Helvetica Neue",Arial,sans-serif;
+  --script:"Herr Von Muellerhoff",cursive;
+  --leaf:url(../images/gold-leaf.webp) center/cover;
+  --pad:clamp(16px,4vw,64px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--night);color:var(--bone);font:16px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:clip}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;opacity:.18;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{padding-inline:max(var(--pad),env(safe-area-inset-left,0px))}
+.gold{background:var(--leaf);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid rgba(242,240,235,.35);background:none;color:var(--bone);font:700 13px/1 var(--cond);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.pill:hover{border-color:var(--bone)}
+.pill.fill{background:var(--bone);color:var(--night);border-color:var(--bone)}
+.pill.fill:hover{background:var(--gold);border-color:var(--gold)}
+.pill.sm{min-height:34px;padding:0 14px;font-size:12px}
+
+/* Gate */
+.gate{position:fixed;inset:0;z-index:300;display:grid;place-items:center;background:radial-gradient(60% 50% at 50% 35%,rgba(216,178,74,.14),transparent 70%),var(--night);padding:24px}
+.gate[hidden]{display:none}
+.gate-in{width:min(360px,100%);text-align:center}
+.gate img{width:120px;margin:0 auto 22px}
+.gate h1{font:400 34px/1 var(--disp);text-transform:uppercase;margin:0 0 8px}
+.gate p{margin:0 0 22px;color:var(--smoke);font-size:15px}
+.dots{display:flex;justify-content:center;gap:14px;margin-bottom:22px}
+.dots i{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(216,178,74,.6);transition:background .15s,transform .15s}
+.dots i.on{background:var(--gold);transform:scale(1.1)}
+.gate.bad .dots{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.keys{display:grid;grid-template-columns:repeat(3,72px);gap:12px;justify-content:center}
+.keys button{height:72px;border-radius:50%;border:1px solid var(--hair);background:rgba(255,255,255,.03);font:400 26px/1 var(--disp);cursor:pointer;transition:background .15s}
+.keys button:active{background:rgba(216,178,74,.2)}
+.keys .ghost{border:0;background:none;font:600 13px var(--body);color:var(--smoke)}
+.gate .err{min-height:22px;margin:16px 0 0;color:#e7a08a;font-size:14px}
+
+/* Top bar */
+.ptop{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:16px;justify-content:space-between;padding-block:12px;background:rgba(11,11,12,.7);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
+.pmark{text-decoration:none;line-height:1.05}
+.pmark b{display:block;font:700 16px var(--cond);letter-spacing:.16em;text-transform:uppercase}
+.pmark span{font:600 11px var(--cond);letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+.pnav{display:flex;gap:22px}
+.pnav a{font:700 13px var(--cond);letter-spacing:.12em;text-transform:uppercase;color:var(--smoke);text-decoration:none}
+.pnav a:hover{color:var(--bone)}
+.ptop .r{display:flex;gap:8px}
+@media (max-width:900px){.pnav{display:none}}
+
+/* Hero: the offer itself, typed once */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(30px,5vw,80px);align-items:center;padding-block:clamp(48px,7vw,96px)}
+.hero h1{font:400 clamp(44px,7.4vw,120px)/.88 var(--disp);text-transform:uppercase;margin:0;letter-spacing:.01em}
+.hero .sub{color:var(--smoke);max-width:44ch;margin:20px 0 28px;font-size:17px}
+.editor{display:grid;grid-template-columns:110px 1fr;gap:12px 14px;max-width:560px;padding:20px;border-radius:18px;border:1px solid rgba(216,178,74,.3);background:rgba(216,178,74,.05)}
+.editor label{display:contents}
+.editor span{align-self:center;font:600 14px var(--body);color:var(--smoke)}
+.editor input{width:100%;height:42px;border-radius:10px;border:1px solid var(--hair);background:rgba(0,0,0,.35);padding:0 12px;font-size:15px}
+.editor input:focus{border-color:var(--gold);outline:none}
+.editor .pct{display:flex;align-items:center;gap:10px}
+.editor .pct input[type=range]{accent-color:var(--gold);height:auto;border:0;background:none;padding:0}
+.editor .pct output{min-width:56px;font:400 26px/1 var(--disp)}
+.editor .row{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;align-items:center;margin-top:4px}
+.editor small{color:var(--ash);font-size:13px}
+@media (max-width:860px){.hero{grid-template-columns:minmax(0,1fr)}.hero h1{font-size:clamp(40px,12.5vw,96px)}.editor{grid-template-columns:minmax(0,1fr)}.editor span{margin-bottom:-6px}}
+
+/* The ticket: shared look for the voucher pieces */
+.ticket{position:relative;display:grid;grid-template-columns:1fr auto;border-radius:18px;overflow:hidden;color:var(--bone);text-decoration:none;
+  background:repeating-linear-gradient(94deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px),radial-gradient(80% 65% at 20% 10%,rgba(255,225,170,.08),transparent 60%),linear-gradient(160deg,#1d1a17,#141210 45%,#0b0a09);
+  box-shadow:0 0 0 1px rgba(216,178,74,.45),0 30px 60px -24px rgba(0,0,0,.95),0 0 46px -14px rgba(216,178,74,.35)}
+.ticket .tl{padding:clamp(18px,3vw,30px)}
+.ticket .tl small{display:block;font:700 12px/1 var(--cond);letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.ticket .tl b{display:block;margin:12px 0 8px;font:400 clamp(26px,3.2vw,40px)/1 var(--disp);text-transform:uppercase}
+.ticket .tl p{margin:0 0 16px;color:var(--smoke);font-size:14px;max-width:34ch}
+.ticket .tr{position:relative;width:clamp(96px,11vw,140px);border-left:2px dashed rgba(216,178,74,.45);display:grid;place-items:center;background:linear-gradient(180deg,rgba(216,178,74,.09),transparent)}
+.ticket .tr span{transform:rotate(-90deg);white-space:nowrap;font:400 clamp(40px,5vw,62px)/1 var(--disp)}
+.ticket .tr::before,.ticket .tr::after{content:"";position:absolute;left:-10px;width:18px;height:18px;border-radius:50%;background:var(--night)}
+.ticket .tr::before{top:-9px}.ticket .tr::after{bottom:-9px}
+.hero .ticket{transform:rotate(-2.5deg);animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:rotate(-1.2deg) translateY(-10px)}}
+
+/* Sections */
+.sec{padding-block:clamp(56px,8vw,110px);border-top:1px solid var(--hair)}
+.sec h2{font:400 clamp(40px,6vw,84px)/.92 var(--disp);text-transform:uppercase;margin:0}
+.sec .lead{color:var(--smoke);max-width:60ch;margin:14px 0 0}
+.board{display:grid;gap:clamp(16px,2vw,28px);margin-top:clamp(28px,4vw,48px)}
+.b2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.b3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:900px){.b2,.b3{grid-template-columns:1fr}}
+.piece{border:1px solid var(--hair);border-radius:20px;background:rgba(255,255,255,.02);padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.piece h3{margin:0;font:700 17px/1.2 var(--cond);letter-spacing:.06em;text-transform:uppercase}
+.piece p.note{margin:0;color:var(--smoke);font-size:14px}
+.piece .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+
+/* Site banner frames: a small browser window with the real site's header */
+.frame{position:relative;height:240px;border-radius:12px;overflow:hidden;background:#000 url(../images/edward-scissorhands-barber-shop-st-kilda.webp) center 30%/cover;isolation:isolate}
+.frame::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.25) 40%,rgba(0,0,0,.8));z-index:-1}
+.frame .hd{position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:rgba(11,11,12,.72);font:700 11px var(--cond);letter-spacing:.14em;text-transform:uppercase}
+.frame .hd i{font-style:normal;padding:5px 10px;border-radius:99px;background:var(--bone);color:var(--night)}
+.frame .ht{position:absolute;left:16px;bottom:18px;font:400 30px/.95 var(--disp);text-transform:uppercase}
+.frame.ribbon .hd{top:30px}
+/* 1 ribbon */
+.v-ribbon{position:absolute;inset:0 0 auto;height:30px;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--leaf);color:var(--night);font:700 11px/1 var(--cond);letter-spacing:.2em;text-transform:uppercase;overflow:hidden;white-space:nowrap}
+.v-ribbon b{font:400 15px/1 var(--disp);letter-spacing:.04em}
+.v-ribbon u{text-decoration:none;border-bottom:1.5px solid var(--night);padding-bottom:1px}
+.v-ribbon::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,250,225,.8) 50%,transparent 60%);background-size:300% 100%;animation:sweep 5s ease-in-out infinite}
+@keyframes sweep{0%,40%{background-position:120% 0}100%{background-position:-60% 0}}
+/* 2 corner ticket */
+.frame .ticket{position:absolute;left:12px;bottom:12px;width:min(300px,82%);border-radius:12px}
+.frame .ticket .tl{padding:12px 14px}
+.frame .ticket .tl small{font-size:9px}
+.frame .ticket .tl b{font-size:18px;margin:6px 0 8px}
+.frame .ticket .tl p{display:none}
+.frame .ticket .tr{width:64px}
+.frame .ticket .tr span{font-size:26px}
+.frame .ticket .pill{min-height:26px;padding:0 10px;font-size:10px}
+.frame.tk .ht{bottom:auto;top:62px}
+/* 3 stamp */
+.stamp{position:absolute;right:16px;bottom:16px;width:112px;height:112px;display:grid;place-items:center}
+.stamp svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 18s linear infinite}
+.stamp text{font:700 10.5px var(--cond);letter-spacing:.3em;fill:var(--gold);text-transform:uppercase}
+.stamp .core{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;text-align:center;background:var(--leaf);color:var(--night);box-shadow:0 8px 22px rgba(0,0,0,.6)}
+.stamp .core b{display:block;font:400 22px/.9 var(--disp)}
+.stamp .core em{font:700 8px var(--cond);font-style:normal;letter-spacing:.2em}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* 4 ticker */
+.frame .tick{position:absolute;left:0;right:0;bottom:0}
+.frame.tkr .ht{bottom:58px}
+
+/* Tickers */
+.tick{overflow:hidden;padding:12px 0;border-block:1px solid rgba(216,178,74,.35);background:rgba(216,178,74,.07)}
+.tick>div{display:flex;width:max-content;animation:marq 26s linear infinite}
+.tick span{display:flex;align-items:center;gap:26px;padding-right:26px;font:400 20px/1 var(--disp);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.tick em{font-style:normal;background:var(--leaf);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rz{display:inline-block;width:1.1em;height:.8em;background:var(--gold);-webkit-mask:url(../images/icon-straight-razor.webp) center/contain no-repeat;mask:url(../images/icon-straight-razor.webp) center/contain no-repeat}
+@keyframes marq{to{transform:translateX(-50%)}}
+.tick.big span{font-size:clamp(38px,6vw,76px);gap:40px;padding-right:40px}
+.tick.outline span{-webkit-text-stroke:1px rgba(242,240,235,.55);color:transparent}
+.tick.outline em{-webkit-text-stroke:0}
+.tick.rev>div{animation-direction:reverse}
+.tick.solid{background:var(--leaf);border:0}
+.tick.solid span{color:var(--night)}
+.tick.solid .rz{background:var(--night)}
+.tick.solid em{background:none;color:var(--night);-webkit-text-fill-color:var(--night)}
+.tickstack{display:grid;gap:14px;margin-top:clamp(28px,4vw,48px)}
+
+/* Buttons */
+.btnboard{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px);margin-top:clamp(28px,4vw,48px)}
+@media (max-width:900px){.btnboard{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.btnboard{grid-template-columns:1fr}}
+.bcell{display:grid;place-items:center;gap:14px;min-height:170px;padding:22px 14px 16px;border:1px solid var(--hair);border-radius:20px;background:rgba(255,255,255,.02);text-align:center}
+.bcell p{margin:0;color:var(--smoke);font-size:13px;max-width:30ch}
+.b-shine{position:relative;overflow:hidden;min-height:52px;padding:0 28px;border-radius:999px;border:0;background:var(--leaf);color:var(--night);font:700 14px var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+.b-shine::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,250,225,.85) 50%,transparent 65%);background-size:300% 100%;background-position:120% 0;transition:background-position .9s ease}
+.b-shine:hover::after{background-position:-40% 0}
+.b-run{position:relative;min-height:52px;padding:0 28px;border-radius:999px;border:0;background:var(--night);color:var(--bone);font:700 14px var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;isolation:isolate}
+.b-run::before{content:"";position:absolute;inset:-1.5px;border-radius:inherit;z-index:-2;background:conic-gradient(from var(--a,0deg),transparent 0 70%,var(--gold-hi) 80%,var(--gold) 88%,transparent 95%);animation:run 3s linear infinite}
+.b-run::after{content:"";position:absolute;inset:1px;border-radius:inherit;z-index:-1;background:var(--night)}
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes run{to{--a:360deg}}
+.b-tkt{display:inline-grid;grid-template-columns:auto auto;align-items:stretch;border-radius:10px;overflow:hidden;border:0;padding:0;cursor:pointer;background:none;box-shadow:0 0 0 1px rgba(216,178,74,.5)}
+.b-tkt span{display:flex;align-items:center;padding:0 18px;min-height:52px;font:700 14px var(--cond);letter-spacing:.14em;text-transform:uppercase;background:#16130f}
+.b-tkt b{display:flex;align-items:center;padding:0 14px;border-left:2px dashed rgba(11,11,12,.6);background:var(--leaf);color:var(--night);font:400 20px var(--disp)}
+.b-tkt:hover span{background:#211c15}
+.b-razor{display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 26px 0 22px;border-radius:999px;border:1px solid rgba(216,178,74,.55);background:none;color:var(--bone);font:700 14px var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;overflow:hidden}
+.b-razor .rz{transition:transform .5s cubic-bezier(.22,.8,.2,1)}
+.b-razor:hover .rz{transform:translateX(6px) rotate(-12deg)}
+.b-glow{min-height:52px;padding:0 28px;border-radius:999px;border:0;background:var(--bone);color:var(--night);font:700 14px var(--cond);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;animation:glow 2.6s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 0 8px rgba(216,178,74,.18),0 0 34px rgba(216,178,74,.5)}}
+.b-seal{width:96px;height:96px;border-radius:50%;border:0;cursor:pointer;background:var(--leaf);color:var(--night);display:grid;place-items:center;text-align:center;box-shadow:inset 0 0 0 4px rgba(0,0,0,.18),0 10px 26px rgba(0,0,0,.6);transition:transform .35s cubic-bezier(.22,.8,.2,1)}
+.b-seal:hover{transform:rotate(-10deg) scale(1.05)}
+.b-seal b{display:block;font:400 26px/.9 var(--disp)}
+.b-seal i{font:700 9px var(--cond);font-style:normal;letter-spacing:.2em;text-transform:uppercase}
+
+/* Posters (A4, 1:1.414) */
+.poster{position:relative;aspect-ratio:1/1.414;border-radius:6px;overflow:hidden;color:var(--bone);background:var(--night);box-shadow:0 30px 60px -30px rgba(0,0,0,.9),0 0 0 1px var(--hair);container-type:inline-size}
+.poster .pp{position:absolute;inset:0;display:flex;flex-direction:column;padding:8cqw}
+.po-a{background:radial-gradient(70% 45% at 50% 30%,rgba(216,178,74,.18),transparent 70%),var(--night)}
+.po-a img{width:46cqw;margin:0 auto}
+.po-a .big{margin:auto 0 0;text-align:center;font:400 44cqw/.8 var(--disp)}
+.po-a .big small{display:block;font-size:13cqw;letter-spacing:.06em;margin-top:2cqw}
+.po-a p{margin:5cqw 0 0;text-align:center;font:700 4.2cqw/1.3 var(--cond);letter-spacing:.24em;text-transform:uppercase;color:var(--smoke)}
+.po-b .ph{position:absolute;inset:0 0 38%;background:url(../images/st-kilda-swept-back-scissor-cut-fade.webp) center 25%/cover;filter:grayscale(1) contrast(1.1)}
+.po-b .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,var(--night))}
+.po-b .pp{justify-content:flex-end}
+.po-b h4{margin:0;font:400 15cqw/.86 var(--disp);text-transform:uppercase}
+.po-b p{margin:4cqw 0 6cqw;color:var(--smoke);font-size:3.6cqw}
+.po-b .bar{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(216,178,74,.5);padding-top:4cqw;font:700 3.4cqw var(--cond);letter-spacing:.2em;text-transform:uppercase}
+.po-b .bar b{font:400 9cqw/1 var(--disp);letter-spacing:0}
+.po-c{background:var(--leaf)}
+.po-c .pp{color:var(--night);justify-content:space-between;text-align:center}
+.po-c .top{font:700 4cqw var(--cond);letter-spacing:.3em;text-transform:uppercase}
+.po-c h4{margin:0;font:400 19cqw/.84 var(--disp);text-transform:uppercase}
+.po-c .scr{font:400 13cqw/1 var(--script);margin-top:2cqw}
+.po-c .cut{border-top:2px dashed rgba(11,11,12,.5);padding-top:4cqw;font:700 3.6cqw/1.4 var(--cond);letter-spacing:.18em;text-transform:uppercase}
+
+/* Social: square posts and a reel storyboard */
+.sq{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;container-type:inline-size;box-shadow:0 0 0 1px var(--hair)}
+.sq .in{position:absolute;inset:0;padding:8cqw;display:flex;flex-direction:column}
+.sq-a{background:radial-gradient(60% 50% at 70% 20%,rgba(216,178,74,.25),transparent 70%),var(--night)}
+.sq-a b{margin-top:auto;font:400 40cqw/.8 var(--disp)}
+.sq-a span{font:400 9cqw/1 var(--disp);text-transform:uppercase;margin-top:3cqw}
+.sq-a small{font:700 3.6cqw var(--cond);letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.sq-b{background:url(../images/edward-scissorhands-barber-shop-st-kilda.webp) center/cover}
+.sq-b::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.85))}
+.sq-b .in{justify-content:flex-end}
+.sq-b h4{margin:0;font:400 13cqw/.9 var(--disp);text-transform:uppercase}
+.sq-b p{margin:3cqw 0 0;font:700 3.8cqw var(--cond);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.sq-c{background:var(--night);display:grid;place-items:center}
+.sq-c .in{align-items:center;justify-content:center;text-align:center;gap:3cqw}
+.sq-c img{width:40cqw}
+.sq-c h4{margin:0;font:400 10cqw/.95 var(--disp);text-transform:uppercase}
+.sq-c p{margin:0;font:400 9cqw/1 var(--script);color:var(--gold)}
+.reel{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:clamp(20px,3vw,32px)}
+@media (max-width:900px){.reel{grid-template-columns:repeat(5,minmax(150px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}}
+.slide{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;container-type:inline-size;scroll-snap-align:start;box-shadow:0 0 0 1px var(--hair);background:var(--night)}
+.slide .in{position:absolute;inset:0;padding:9cqw;display:flex;flex-direction:column;justify-content:flex-end}
+.slide .t{position:absolute;top:7cqw;left:9cqw;font:700 6cqw var(--cond);letter-spacing:.16em;color:var(--smoke)}
+.slide h5{margin:0;font:400 15cqw/.9 var(--disp);text-transform:uppercase}
+.slide p{margin:4cqw 0 0;font-size:6cqw;line-height:1.35;color:var(--smoke)}
+.s1{background:url(../images/st-kilda-swept-back-scissor-cut-fade.webp) center/cover}
+.s1::before,.s3::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.85))}
+.s2{background:radial-gradient(60% 40% at 50% 40%,rgba(216,178,74,.25),transparent),var(--night)}
+.s2 .in{justify-content:center;text-align:center}
+.s2 h5{font-size:42cqw}
+.s3{background:url(../images/edward-scissorhands-barber-shop-st-kilda.webp) center/cover}
+.s4{background:var(--leaf)}
+.s4 h5,.s4 p,.s4 .t{color:var(--night)}
+.s5 .in{justify-content:center;align-items:center;text-align:center}
+.s5 img{width:62cqw;margin-bottom:6cqw}
+.cap{margin-top:16px;padding:16px;border-radius:14px;border:1px solid var(--hair);background:rgba(255,255,255,.02)}
+.cap p{margin:0 0 10px;color:var(--smoke);font-size:14px;white-space:pre-line}
+
+/* Idea bank */
+.ideas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(20px,4vw,60px);margin-top:clamp(24px,3vw,40px);border-top:1px solid var(--hair)}
+@media (max-width:760px){.ideas{grid-template-columns:1fr}}
+.idea{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:18px 0;border-bottom:1px solid var(--hair)}
+.idea h3{margin:0;font:400 24px/1 var(--disp);text-transform:uppercase}
+.idea p{grid-column:1;margin:0;color:var(--smoke);font-size:14px}
+.idea .when{grid-row:1/3;grid-column:2;align-self:center;font:700 12px var(--cond);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);text-align:right}
+.refs{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.foot{padding-block:40px 60px;border-top:1px solid var(--hair);color:var(--ash);font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;z-index:250;padding:10px 18px;border-radius:99px;background:var(--bone);color:var(--night);font:600 14px var(--body);transition:opacity .25s,transform .25s;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:560px){.frame .ht{font-size:22px}.frame.tk .ht{top:54px}.stamp{transform:scale(.8);transform-origin:100% 100%}.v-ribbon>span:nth-child(2){display:none}.v-ribbon{gap:7px;letter-spacing:.12em}}
+@media print{body *{visibility:hidden}.printing,.printing *{visibility:visible}.printing{position:fixed;inset:0;margin:auto;width:190mm;border-radius:0;box-shadow:none}body::after{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateH">
+  <div class="gate-in">
+    <img src="../images/edward-scissorhands-badge-gold.webp" alt="" width="240" height="240">
+    <h1 id="gateH">Promotions</h1>
+    <p>Enter the four-digit code to open the promotions board.</p>
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div class="keys">
+      <button type="button">1</button><button type="button">2</button><button type="button">3</button>
+      <button type="button">4</button><button type="button">5</button><button type="button">6</button>
+      <button type="button">7</button><button type="button">8</button><button type="button">9</button>
+      <span></span><button type="button">0</button><button type="button" class="ghost" data-del>Delete</button>
+    </div>
+    <p class="err" id="gateErr" role="status"></p>
+  </div>
+</div>
+
+<div id="app" hidden>
+<div class="ptop wrap">
+  <a class="pmark" href="#top"><b>Edward Scissorhands</b><span>Promotions</span></a>
+  <nav class="pnav" aria-label="Sections"><a href="#banners">Site banners</a><a href="#buttons">Buttons</a><a href="#tickers">Tickers</a><a href="#posters">Posters</a><a href="#social">Social</a><a href="#ideas">Ideas</a></nav>
+  <div class="r"><a class="pill sm" href="https://claude.ai/artifact/WEvzkVL8iEUTDpna7mReZW" data-site="../brand/" target="_blank" rel="noopener">Brand guide</a><button type="button" class="pill sm" id="lock">Lock</button></div>
+</div>
+
+<header class="hero wrap" id="top">
+  <div>
+    <h1>One offer.<br><span class="gold">Everywhere.</span></h1>
+    <p class="sub">Type the offer once. Every banner, button, poster and post on this page updates to match, ready to copy or print.</p>
+    <form class="editor" id="ed" onsubmit="return false">
+      <label><span>Discount</span><span class="pct"><input type="range" min="5" max="50" step="5" id="fPct" aria-label="Discount percent"><output id="oPct"></output></span></label>
+      <label><span>Headline</span><input id="fHead" maxlength="60"></label>
+      <label><span>Small line</span><input id="fSub" maxlength="90"></label>
+      <label><span>Button</span><input id="fBtn" maxlength="24"></label>
+      <div class="row"><small>Saved on this device. Use {pct} to place the number.</small><button type="button" class="pill sm" id="reset">Reset wording</button></div>
+    </form>
+  </div>
+  <a class="ticket" href="#banners" aria-label="Jump to site banners"><div class="tl"><small data-t="tag"></small><b data-t="head"></b><p data-t="sub"></p><span class="pill fill sm" data-t="btn"></span></div><div class="tr"><span class="gold" data-t="pctoff"></span></div></a>
+</header>
+
+<section class="sec wrap" id="banners" aria-labelledby="bH">
+  <h2 id="bH">Site banners.</h2>
+  <p class="lead">Four ways to show the offer on the website. Each one can be switched on for a while and off again; the ribbon is the quietest, the stamp the most playful.</p>
+  <div class="board b2">
+    <article class="piece"><div class="frame ribbon"><div class="v-ribbon"><span class="rz" style="background:var(--night)"></span><span>New clients</span><b data-t="pctoff"></b><span data-t="short"></span><u data-t="btn"></u></div><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div></div>
+      <h3>Gold ribbon</h3><p class="note">A thin gold-leaf strip above the header with a slow light sweep. Always visible, never in the way, closes with one tap.</p></article>
+    <article class="piece"><div class="frame tk"><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div><div class="ticket"><div class="tl"><small data-t="tag"></small><b data-t="head"></b><span class="pill fill" data-t="btn"></span></div><div class="tr"><span class="gold" data-t="pctoff"></span></div></div></div>
+      <h3>Voucher ticket</h3><p class="note">The gift-voucher card, floating bottom-left after a few seconds. Feels like being handed something. Best for a short campaign.</p></article>
+    <article class="piece"><div class="frame"><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div><div class="stamp"><svg viewBox="0 0 112 112" aria-hidden="true"><defs><path id="sp" d="M56,56 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/></defs><text><textPath href="#sp">First visit · New clients · First visit ·</textPath></text></svg><div class="core"><div><b data-t="pct"></b><em>Off</em></div></div></div></div>
+      <h3>Wax-seal stamp</h3><p class="note">A slowly turning gold seal pinned to the hero photo. Tapping it books. The most eye-catching option.</p></article>
+    <article class="piece"><div class="frame tkr"><div class="hd">Edward Scissorhands<i>Book now</i></div><div class="ht">St Kilda's barber<br>since 1991</div><div class="tick"><div><span><em data-t="pctoff"></em><b data-t="short"></b><i class="rz"></i>New clients welcome<i class="rz"></i></span><span><em data-t="pctoff"></em><b data-t="short"></b><i class="rz"></i>New clients welcome<i class="rz"></i></span></div></div></div>
+      <h3>Gold ticker</h3><p class="note">A scrolling strip under the hero, using the razor icon from the brand marquee. Reads as part of the site rather than an ad.</p></article>
+  </div>
+</section>
+
+<section class="sec wrap" id="buttons" aria-labelledby="btH">
+  <h2 id="btH">Buttons.</h2>
+  <p class="lead">Six booking buttons for offer moments. Hover or tap to see each one move.</p>
+  <div class="btnboard">
+    <div class="bcell"><button class="b-shine" type="button" data-t="btn"></button><p>Gold leaf with a light sweep on hover.</p></div>
+    <div class="bcell"><button class="b-run" type="button" data-t="btn"></button><p>A spark of gold running round the edge.</p></div>
+    <div class="bcell"><button class="b-tkt" type="button"><span data-t="btn"></span><b data-t="pctoff"></b></button><p>A ticket stub with a torn line.</p></div>
+    <div class="bcell"><button class="b-razor" type="button"><i class="rz"></i><span data-t="btn"></span></button><p>The razor leans in as you hover.</p></div>
+    <div class="bcell"><button class="b-glow" type="button" data-t="btn"></button><p>A gentle gold pulse for the one button that matters.</p></div>
+    <div class="bcell"><button class="b-seal" type="button"><span><b data-t="pct"></b><i>Off</i></span></button><p>A round seal that tilts on hover.</p></div>
+  </div>
+</section>
+
+<section class="sec wrap" id="tickers" aria-labelledby="tkH">
+  <h2 id="tkH">Tickers.</h2>
+  <p class="lead">Scrolling strips for the website, a shop screen or a reel background.</p>
+</section>
+<div class="tickstack">
+  <div class="tick big"><div><span><em data-t="pctoff"></em><b data-t="short"></b><i class="rz"></i></span><span><em data-t="pctoff"></em><b data-t="short"></b><i class="rz"></i></span></div></div>
+  <div class="tick outline rev"><div><span>Walk-ins welcome<i class="rz"></i>St Kilda since 1991<i class="rz"></i><em>New clients</em><i class="rz"></i></span><span>Walk-ins welcome<i class="rz"></i>St Kilda since 1991<i class="rz"></i><em>New clients</em><i class="rz"></i></span></div></div>
+  <div class="tick solid"><div><span><b data-t="head"></b><i class="rz"></i>Book online<i class="rz"></i></span><span><b data-t="head"></b><i class="rz"></i>Book online<i class="rz"></i></span></div></div>
+</div>
+
+<section class="sec wrap" id="posters" aria-labelledby="poH" style="margin-top:clamp(40px,6vw,80px)">
+  <h2 id="poH">Posters.</h2>
+  <p class="lead">A4 posters for the window, mirror or counter. Print one on its own with its button.</p>
+  <div class="board b3">
+    <article class="piece"><div class="poster po-a" id="pA"><div class="pp"><img src="../images/edward-scissorhands-badge-gold.webp" alt="" width="240" height="240"><div class="big gold"><span data-t="pct"></span><small>Off your first visit</small></div><p data-t="sub"></p></div></div>
+      <h3>The big number</h3><p class="note">For the front window. Readable from across the street.</p><div class="acts"><button class="pill sm" type="button" data-print="pA">Print poster</button></div></article>
+    <article class="piece"><div class="poster po-b" id="pB"><div class="ph"></div><div class="pp"><h4 data-t="head"></h4><p data-t="sub"></p><div class="bar"><span>Scan or ask at the counter</span><b class="gold" data-t="pctoff"></b></div></div></div>
+      <h3>The cut</h3><p class="note">Photo-led, for inside the shop where people already are.</p><div class="acts"><button class="pill sm" type="button" data-print="pB">Print poster</button></div></article>
+    <article class="piece"><div class="poster po-c" id="pC"><div class="pp"><div class="top">New client offer</div><div><h4><span data-t="pctoff"></span><br>first service</h4><div class="scr">Welcome in</div></div><div class="cut">Edward Scissorhands<br>Barber Shop · Est. 1991</div></div></div>
+      <h3>Gold voucher</h3><p class="note">All gold leaf with a tear-off line. Works as a flyer too.</p><div class="acts"><button class="pill sm" type="button" data-print="pC">Print poster</button></div></article>
+  </div>
+</section>
+
+<section class="sec wrap" id="social" aria-labelledby="soH">
+  <h2 id="soH">Social.</h2>
+  <p class="lead">Three square posts and a five-slide reel. Screenshot a tile, or use it as the brief for Canva or CapCut.</p>
+  <div class="board b3">
+    <article class="piece"><div class="sq sq-a"><div class="in"><small>New client offer</small><b class="gold" data-t="pct"></b><span>Off your first service</span></div></div><h3>Number first</h3><p class="note">Stops the scroll. Caption carries the details.</p></article>
+    <article class="piece"><div class="sq sq-b"><div class="in"><h4 data-t="head"></h4><p>St Kilda · South Melbourne</p></div></div><h3>The shop</h3><p class="note">The real shop front builds trust with people who haven't been in.</p></article>
+    <article class="piece"><div class="sq sq-c"><div class="in"><img src="../images/edward-scissorhands-badge-gold.webp" alt="" width="240" height="240"><h4>Your first chair<br>is on us. Almost.</h4><p data-t="pctoff"></p></div></div><h3>The crest</h3><p class="note">Quiet and premium. Good as a pinned post.</p></article>
+  </div>
+  <h3 style="font:400 clamp(28px,3.6vw,44px)/1 var(--disp);text-transform:uppercase;margin:clamp(40px,6vw,72px) 0 0">Reel: five slides, about 12 seconds</h3>
+  <div class="reel">
+    <div class="slide s1"><span class="t">1 · Hook</span><div class="in" style="position:absolute;z-index:1"><h5>Due for<br>a cut?</h5><p>2 seconds. Clippers sound.</p></div></div>
+    <div class="slide s2"><span class="t">2 · Offer</span><div class="in"><h5 class="gold" data-t="pct"></h5><p data-t="short"></p></div></div>
+    <div class="slide s3"><span class="t">3 · Proof</span><div class="in" style="position:absolute;z-index:1"><h5>Since<br>1991</h5><p>Two shops, 1,380+ Google reviews.</p></div></div>
+    <div class="slide s4"><span class="t">4 · How</span><div class="in"><h5>Book<br>online</h5><p>Pick any barber and choose "New client" at checkout.</p></div></div>
+    <div class="slide s5"><span class="t">5 · Sign-off</span><div class="in"><img src="../images/edward-scissorhands-badge-gold.webp" alt="" width="240" height="240"><p>Link in bio.</p></div></div>
+  </div>
+  <div class="cap"><p id="capText"></p><button class="pill sm" type="button" id="copyCap">Copy caption</button></div>
+</section>
+
+<section class="sec wrap" id="ideas" aria-labelledby="idH">
+  <h2 id="idH">Idea bank.</h2>
+  <p class="lead">Offers worth running through the year. Each one can reuse the pieces above with new wording.</p>
+  <div class="ideas">
+    <div class="idea"><h3>First visit</h3><p>A percentage off the first service for new clients. The everyday offer.</p><span class="when">Any time</span></div>
+    <div class="idea"><h3>Quiet-hour chair</h3><p>A small discount for weekday mornings, to fill the slow hours.</p><span class="when">Mon to Thu</span></div>
+    <div class="idea"><h3>Bring a mate</h3><p>Both people get money off when a regular brings someone new.</p><span class="when">Any time</span></div>
+    <div class="idea"><h3>Father's Day voucher</h3><p>Gift vouchers with a bonus amount added, sold in the shop and online.</p><span class="when">August</span></div>
+    <div class="idea"><h3>Back to school</h3><p>A kids' cut price for the last two weeks of the holidays.</p><span class="when">Late Jan, July</span></div>
+    <div class="idea"><h3>Wedding party</h3><p>A group booking price for the groom and his party, with a shave.</p><span class="when">Spring</span></div>
+    <div class="idea"><h3>Birthday month</h3><p>A free beard tidy or hot towel in the client's birthday month.</p><span class="when">All year</span></div>
+    <div class="idea"><h3>Tenth cut</h3><p>Every tenth visit comes with a free upgrade. Simple to explain at the counter.</p><span class="when">All year</span></div>
+  </div>
+  <p class="lead" style="margin-top:36px">Design references these pieces draw on:</p>
+  <div class="refs"><a class="pill sm" href="https://uiverse.io/" target="_blank" rel="noopener">Uiverse</a><a class="pill sm" href="https://uiverse.io/ui/gradient-ui" target="_blank" rel="noopener">Gradients</a><a class="pill sm" href="https://reactbits.dev/" target="_blank" rel="noopener">React Bits</a><a class="pill sm" href="https://shaders.com/" target="_blank" rel="noopener">Shaders</a><a class="pill sm" href="https://21st.dev/" target="_blank" rel="noopener">21st.dev</a><a class="pill sm" href="https://www.supahero.io/" target="_blank" rel="noopener">Supahero</a></div>
+</section>
+
+<footer class="foot wrap"><span>Edward Scissorhands Barber Shop · Est. 1991</span><span>Private page. Not linked from the public site.</span></footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const store = { get(k){ try { return localStorage.getItem(k); } catch(e) { return null; } }, set(k, v){ try { localStorage.setItem(k, v); } catch(e) {} } };
+  const toast = t => { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("on"), 1800); };
+  /* Links: on the live site, point to the site's own pages */
+  if (location.hostname && !/claude/.test(location.hostname)) $$("[data-site]").forEach(a => { a.href = a.dataset.site; a.removeAttribute("target"); });
+
+  /* Gate */
+  const CODE = "1991", gate = $("#gate"), app = $("#app"); let entry = "";
+  const open = () => { gate.hidden = true; app.hidden = false; try { sessionStorage.setItem("esPromo", "1"); } catch(e) {} };
+  let ok = false; try { ok = sessionStorage.getItem("esPromo") === "1"; } catch(e) {}
+  if (ok) open();
+  const dots = () => $$(".dots i").forEach((d, i) => d.classList.toggle("on", i < entry.length));
+  const press = k => { if (k === "del") entry = entry.slice(0, -1); else if (entry.length < 4) entry += k; dots();
+    if (entry.length === 4) setTimeout(() => { if (entry === CODE) { open(); } else { gate.classList.remove("bad"); void gate.offsetWidth; gate.classList.add("bad"); $("#gateErr").textContent = "That code didn't match. Try again."; entry = ""; dots(); } }, 150); };
+  $$(".keys button").forEach(b => b.addEventListener("click", () => press(b.hasAttribute("data-del") ? "del" : b.textContent)));
+  addEventListener("keydown", e => { if (gate.hidden) return; if (/^\d$/.test(e.key)) press(e.key); else if (e.key === "Backspace") press("del"); });
+  $("#lock").addEventListener("click", () => { try { sessionStorage.removeItem("esPromo"); } catch(e) {} entry = ""; dots(); $("#gateErr").textContent = ""; app.hidden = true; gate.hidden = false; scrollTo(0, 0); });
+
+  /* The offer */
+  const DEF = { pct: 20, head: "Grab {pct}% off your first service", sub: "New clients only. Book online and choose any barber.", btn: "Book now" };
+  let O = { ...DEF }; try { O = { ...DEF, ...JSON.parse(store.get("esPromoOffer") || "{}") }; } catch(e) {}
+  const fill = s => String(s).replace(/\{pct\}/g, O.pct);
+  const render = () => {
+    const T = { pct: O.pct + "%", pctoff: O.pct + "% off", head: fill(O.head), sub: fill(O.sub), btn: fill(O.btn), tag: "New client offer", short: "your first service" };
+    $$("[data-t]").forEach(el => { const v = T[el.dataset.t]; if (v != null) el.textContent = v; });
+    $("#oPct").textContent = O.pct + "%";
+    $("#capText").textContent = `New here? ${fill(O.head)}.\n${fill(O.sub)}\nEdward Scissorhands Barber Shop, St Kilda and South Melbourne. Since 1991.\nTap the link in bio to book.`;
+  };
+  $("#fPct").value = O.pct; $("#fHead").value = O.head; $("#fSub").value = O.sub; $("#fBtn").value = O.btn;
+  const save = () => { O = { pct: +$("#fPct").value, head: $("#fHead").value || DEF.head, sub: $("#fSub").value, btn: $("#fBtn").value || DEF.btn }; store.set("esPromoOffer", JSON.stringify(O)); render(); };
+  ["#fPct", "#fHead", "#fSub", "#fBtn"].forEach(s => $(s).addEventListener("input", save));
+  $("#reset").addEventListener("click", () => { $("#fHead").value = DEF.head; $("#fSub").value = DEF.sub; $("#fBtn").value = DEF.btn; save(); toast("Wording reset"); });
+  render();
+
+  /* Print one poster */
+  $$("[data-print]").forEach(b => b.addEventListener("click", () => { const p = document.getElementById(b.dataset.print); p.classList.add("printing"); setTimeout(() => { print(); p.classList.remove("printing"); }, 50); }));
+  $("#copyCap").addEventListener("click", () => { const t = $("#capText").textContent; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Caption copied"), () => toast("Select the caption to copy it")); });
+})();
+</script>
+</body>
+</html>

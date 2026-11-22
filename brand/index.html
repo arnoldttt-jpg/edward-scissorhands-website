@@ -226,7 +226,7 @@ a{color:inherit}
 .btop .bnav a{font:600 13px/1 var(--cond);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:#a3a09a;transition:color .2s}
 .btop .bnav a:hover,.btop .bnav a.on{color:var(--bone)}
 .btop .pill{min-height:38px;padding:0 16px;font-size:12px}
-.btop .bsec{display:none}.btop .bnav .bnav-back{display:none}
+.btop .bsec{display:none}.btop .bnav .bnav-back{display:none}.btop .bnav .bnav-promo{display:none}
 body{scroll-padding-top:80px}
 html{scroll-padding-top:80px}
 .hero.wrap{padding-top:calc(clamp(40px,6vw,80px) + 64px)}
@@ -237,6 +237,8 @@ html{scroll-padding-top:80px}
  .btop .bnav a:hover{background:rgba(255,255,255,.05)}
  .btop .bsec{display:inline-flex}
  .btop .bback{display:none}
+ .btop .bpromo{display:none}
+ .btop .bnav .bnav-promo{display:block;border-top:1px solid rgba(255,255,255,.08);color:var(--gold)}
  .btop .bnav .bnav-back{display:block;border-top:1px solid rgba(255,255,255,.08);border-radius:0 0 9px 9px;color:var(--gold)}
 }
 
@@ -269,7 +271,8 @@ body.qr-mode .totop,body.sheet-open .totop{opacity:0!important;visibility:hidden
 
 <div class="btop" id="btop">
   <a class="bmark" href="#top" aria-label="Edward Scissorhands brand guide, back to top"><b>Edward Scissorhands</b><span>Brand guide</span></a>
-  <nav class="bnav" aria-label="Brand guide sections"><a href="#marks">Marks</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#motifs">Motifs</a><a href="#voice">Voice</a><a class="bnav-back" href="../">Back to site ↗</a></nav>
+  <nav class="bnav" aria-label="Brand guide sections"><a href="#marks">Marks</a><a href="#colour">Colour</a><a href="#type">Type</a><a href="#motifs">Motifs</a><a href="#voice">Voice</a><a class="bnav-promo" href="../promotions/">Promotions</a><a class="bnav-back" href="../">Back to site ↗</a></nav>
+  <a class="pill bpromo" href="../promotions/">Promotions</a>
   <button type="button" class="pill bsec" aria-expanded="false" aria-controls="btop">Sections</button>
   <a class="pill bback" href="../">Back to site</a>
 </div>
