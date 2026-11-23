@@ -22,8 +22,8 @@
 <script>/* Google Analytics (GA4 G-3MXT0MYSK6): real domain only, so the preview and test copies are never counted */
 (function(){var h=location.hostname;if(!/(^|\.)edwardscissorhandsbarber\.com\.au$/.test(h)&&!/[?&]gatest=1/.test(location.search))return;
 window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config','G-3MXT0MYSK6');
-/* the analytics script itself loads once the page has finished loading, so it never competes with the photos; visits and taps before then are queued and still sent */
-var ld=function(){if(ld.d)return;ld.d=1;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-3MXT0MYSK6';document.head.appendChild(s);};var go=function(){setTimeout(ld,1500);};if(document.readyState==='complete')go();else addEventListener('load',go);addEventListener('pagehide',ld);
+/* the analytics script itself loads on the visitor's first scroll, tap or key press, or 5 seconds after the page has loaded, so it never competes with the photos; visits and taps before then are queued and still sent */
+var ld=function(){if(ld.d)return;ld.d=1;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-3MXT0MYSK6';document.head.appendChild(s);};['scroll','pointerdown','keydown','touchstart'].forEach(function(v){addEventListener(v,ld,{once:true,passive:true});});var go=function(){setTimeout(ld,5000);};if(document.readyState==='complete')go();else addEventListener('load',go);addEventListener('pagehide',ld);
 var shop=function(){var p=location.pathname;return /south-melbourne/.test(p)?'South Melbourne':/st-kilda/.test(p)?'St Kilda':'none';};
 var send=function(n,x){var d={shop:shop(),page_path:location.pathname};for(var k in x)d[k]=x[k];gtag('event',n,d);};
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a,button');if(!a)return;var u=a.getAttribute('href')||'';
