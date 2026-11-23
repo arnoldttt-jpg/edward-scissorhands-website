@@ -59,3 +59,7 @@
 /southmelb/*            /south-melbourne/:splat    301
 
 # every page is its own ready-made file; anything else gets the 404 page
+
+# old preview copies (removed)
+/v2/*          /   301
+/signature/*   /   301
