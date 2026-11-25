@@ -1,9 +1,12 @@
 {
-  // Static site served by Cloudflare Workers (assets only, no Worker code).
+  // Static site served by Cloudflare Workers. worker.js only runs for the QR pages (fast redirects).
   "name": "edward-scissorhands-website",
   "compatibility_date": "2026-11-01",
+  "main": "worker.js",
   "assets": {
     "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/south-melbourne/qr*", "/st-kilda/qr*"],
     "not_found_handling": "404-page"
   },
   // Lets Workers Builds make a preview link for every pull request.

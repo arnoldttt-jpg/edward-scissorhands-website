@@ -3,3 +3,4 @@ wrangler.jsonc
 .github
 .assetsignore
 seo-checklist.md
+worker.js
