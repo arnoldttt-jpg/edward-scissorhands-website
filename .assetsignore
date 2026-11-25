@@ -4,3 +4,5 @@ wrangler.jsonc
 .assetsignore
 seo-checklist.md
 worker.js
+.wrangler
+.gitignore
