@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en-AU"><head>
 <meta charset="utf-8">
-<style>html.qrgo body{opacity:0}</style><script>(function(){var m=location.pathname.match(/^\/(south-melbourne|st-kilda)\/qr\/?$/);if(!m||/[?&]nogo\b/.test(location.search)||document.documentElement.hasAttribute("data-qrc"))return;var s="";try{var r=/[?&]s=([a-z0-9-]{1,30})(?:&|$)/i.exec(location.search);s=r?r[1].toLowerCase():""}catch(e){}var d=document.documentElement,t,done=function(){clearTimeout(t);d.classList.remove("qrgo")};d.classList.add("qrgo");t=setTimeout(done,600);try{fetch("https://hwelzuskhputvtkvciuh.supabase.co/functions/v1/qr-track",{method:"POST",headers:{"content-type":"text/plain"},body:JSON.stringify({shop:m[1],spot:s,check:true})}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&typeof j.go==="string"&&/^https:\/\//i.test(j.go))location.replace(j.go);else done()})["catch"](done)}catch(e){done()}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Book now | Edward Scissorhands St Kilda</title>
 <meta name="description" content="Book your haircut at Edward Scissorhands Barber Shop, 190 Carlisle St, St Kilda, near Balaclava station. Open 7 days.">

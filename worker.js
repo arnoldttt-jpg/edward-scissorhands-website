@@ -1,4 +1,5 @@
-// Fast QR redirects: runs only for the two QR landing pages (see run_worker_first in wrangler.jsonc).
+// Fast QR redirects: runs only for the two switchable QR pages, /<shop>/qr-redirect/ (see run_worker_first in wrangler.jsonc).
+// The plain /<shop>/qr/ pages never redirect.
 // If the scanned code has a "Redirect scans to" link set in the owner QR page, send the visitor
 // there straight away from Cloudflare, before any page loads. Otherwise serve the page as normal.
 const SB = "https://hwelzuskhputvtkvciuh.supabase.co";
@@ -27,7 +28,7 @@ async function lookup(shop, spot, ctx) {
 export default {
   async fetch(req, env, ctx) {
     const url = new URL(req.url);
-    const m = url.pathname.match(/^\/(south-melbourne|st-kilda)\/qr\/?$/);
+    const m = url.pathname.match(/^\/(south-melbourne|st-kilda)\/qr-redirect\/?$/);
     if (!m || req.method !== "GET" || url.searchParams.has("nogo")) return env.ASSETS.fetch(req);
     const spot = (url.searchParams.get("s") || "").toLowerCase();
     if (!/^[a-z0-9-]{0,30}$/.test(spot)) return env.ASSETS.fetch(req);
